@@ -39,10 +39,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   </head>
   <body>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar" id="top-page">
       <div class="layout-container">
         <!-- Menu -->
 
@@ -558,13 +560,11 @@
     <!-- / Layout wrapper -->
 
     <div class="buy-now">
-      <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
+      <a href="#top-page" class="btn btn-danger btn-buy-now">
+        <i class="fa fa-arrow-up"></i>
+      </a>
     </div>
+
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
