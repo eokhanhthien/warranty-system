@@ -41,6 +41,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <!-- Bao gồm tệp tin CSS của Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bao gồm tệp tin JavaScript của Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
     <!-- Layout wrapper -->
@@ -129,13 +134,49 @@
             <li class="{{ Request::is('superadmin/businesses') ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">{{__('lang_v1.businesses')}}</div>
+                <div data-i18n="Layouts">{{__('lang_v1.branch')}}</div>
               </a>
 
               <ul class="menu-sub">
                 <li class="{{ request()->is('superadmin/businesses') ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('superadmin.businesses') }}" class="menu-link">
-                    <div data-i18n="Without menu">Quản lý chi nhánh</div>
+                    <div data-i18n="Without menu">Quản lý doanh nghiệp</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="layouts-without-navbar.html" class="menu-link">
+                    <div data-i18n="Without navbar">Without navbar</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="layouts-container.html" class="menu-link">
+                    <div data-i18n="Container">Container</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="layouts-fluid.html" class="menu-link">
+                    <div data-i18n="Fluid">Fluid</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="layouts-blank.html" class="menu-link">
+                    <div data-i18n="Blank">Blank</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Nhân sự -->
+            <li class="{{ Request::is('superadmin/team') ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div data-i18n="Layouts">Đội</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ request()->is('superadmin/team') ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('superadmin.team') }}" class="menu-link">
+                    <div data-i18n="Without menu">Quản lý thành viên</div>
                   </a>
                 </li>
                 <li class="menu-item">
@@ -559,7 +600,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
+    <div class="buy-now" style="display: none;">
       <a href="#top-page" class="btn btn-danger btn-buy-now">
         <i class="fa fa-arrow-up"></i>
       </a>
@@ -587,5 +628,17 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+ window.addEventListener('scroll', function() {
+    var buyNowDiv = document.querySelector('.buy-now');
+    var scrollY = window.scrollY;
+
+    if (scrollY > 100) {
+      buyNowDiv.style.display = 'block'; // Hiển thị phần tử khi scroll y vượt quá 100
+    } else {
+      buyNowDiv.style.display = 'none'; // Ẩn phần tử khi scroll y nhỏ hơn hoặc bằng 100
+    }
+  });
+</script>
   </body>
 </html>

@@ -10,3 +10,6 @@ a.menu-link:hover {
     font-weight: bold;
     color: red;
 }
+span.error-message {
+    color: red !important;
+}
