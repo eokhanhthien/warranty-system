@@ -24,6 +24,7 @@
                     <tr>
                       <th>STT</th>
                       <th>Name</th>
+                      <th>Image</th>
                       <th>Email</th>
                       <th>Verify email</th>
                       <th>Actions</th>
@@ -34,6 +35,7 @@
                     <tr>
                       <td>{{ $loop->index + 1 }}</td>
                       <td>{{ $user->name }}</td>
+                      <td><iframe src="https://drive.google.com/file/d/{{$user->image}}/preview" alt="" style = "width: 120px; height: 120px"></iframe></td>
                       <td>{{ $user->email }}</td>
                       <td><span class="badge bg-label-primary me-1">{{ $user->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
                       <td>

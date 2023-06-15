@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->date('birthday')->nullable();
             $table->integer('role')->nullable();
-            $table->unsignedInteger('business_id')->nullable()->unique();
+            $table->unsignedInteger('business_id')->nullable();
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->timestamp('verify_email_at')->nullable();

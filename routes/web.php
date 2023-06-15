@@ -53,3 +53,8 @@ Route::get('setLocale/{locale}', function ($locale) {
     }
     return redirect()->back();
 })->name('app.setLocale');
+
+
+// upload anh
+Route::post('/upload_image', 'UploadDriverColtroller@upload_image');
+Route::get('/get_file', 'UploadDriverColtroller@get_file');

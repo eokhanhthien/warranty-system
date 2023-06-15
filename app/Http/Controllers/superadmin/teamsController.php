@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SelectOptionsController;
+use App\Http\Controllers\UploadDriverColtroller;
 
 class teamsController extends Controller
 {
@@ -32,13 +33,16 @@ class teamsController extends Controller
         // echo "<pre>"; print_r($request->all());die;
          // Upload the image
         $data = $request->all();
-        $imagePath = $data['image']->store('user_images', 'public');
+        // upload image
+        $uploadController = new UploadDriverColtroller();
+        $path_image = $uploadController->upload_image($request);
 
         $addressArray = [
             'province' => $data['province'],
             'district' => $data['district'],
             'ward' => $data['ward']
         ];
+        
         $addressJson = json_encode($addressArray);
         // Create the user
         $user = new User();
@@ -52,7 +56,7 @@ class teamsController extends Controller
         $user->role = $data['role'];
         $user->business_id = $data['business_id'];
         $user->address = $addressJson;
-        $user->image = "123123123123";
+        $user->image = $path_image;
         $user->save();
 
         // Redirect or return a response
