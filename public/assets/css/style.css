@@ -13,3 +13,11 @@ a.menu-link:hover {
 span.error-message {
     color: red !important;
 }
+
+.modal-content{
+    overflow-y: scroll !important;
+    max-height: 900px !important;
+}
+.modal-content::-webkit-scrollbar {
+    width: 0px; /* Chiều rộng của thanh cuộn */
+}

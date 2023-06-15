@@ -25,7 +25,15 @@ Route::prefix('superadmin')->group(function () {
         'update' => 'superadmin.businesses.update',
         'destroy' => 'superadmin.businesses.destroy',
     ]);
-    Route::get('/team', 'superadmin\teamsController@index')->name('superadmin.team');
+
+    Route::resource('/team', 'superadmin\teamsController')->names([
+        'index' => 'superadmin.team',
+        'store' => 'superadmin.team.store',
+        'show' => 'superadmin.team.show',
+        'edit' => 'superadmin.team.edit',
+        'update' => 'superadmin.team.update',
+        'destroy' => 'superadmin.team.destroy',
+    ]);
     // Các route khác trong nhóm "superadmin" nếu cần
 });
 
@@ -33,7 +41,10 @@ Route::prefix('superadmin')->group(function () {
 Route::get('/address-options', 'SelectOptionsController@getAddressOptions')->name('address.options');
 Route::get('/get-districts/{provinceId}', 'SelectOptionsController@getDistricts');
 Route::get('/get-wards/{districtId}', 'SelectOptionsController@getWards');
+
+// Validate form data
 Route::post('/validate-business', 'validateData@validateDatabusiness')->name('validate-business');
+Route::post('/validate-team', 'validateData@validateDatateam')->name('validate-team');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

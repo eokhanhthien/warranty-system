@@ -1,5 +1,16 @@
 @extends('layouts.superadmin')
 @section('content')
+@if(session('success'))
+    <script>
+        toastr.success('{!! html_entity_decode(session('success')) !!}');
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        toastr.error('{!! html_entity_decode(session('error')) !!}');
+    </script>
+@endif
 <div class="content-wrapper">
 <div class="container-xxl flex-grow-1 container-p-y">
 <div class="card">
@@ -8,56 +19,46 @@
                 </div>
                 <h5 class="card-header">Tất cả thành viên</h5>
                 <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Project</th>
-                        <th>Client</th>
-                        <th>Users</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      
-
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>Albert Cook</td>
-                        <td>
-                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="Lilian Fuller">
-                              <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle">
-                            </li>
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="Sophia Wilkerson">
-                              <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle">
-                            </li>
-                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="Christina Parker">
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle">
-                            </li>
-                          </ul>
-                        </td>
-                        <td><span class="badge bg-label-primary me-1">Active</span></td>
-                        <td>
-                         <button class="btn btn-primary">
-                         <a style="color: white" class=" d-inline-block" href="javascript:void(0);">
-                            <i class="bx bx-edit-alt me-1"></i> 
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Verify email</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    @foreach($users as $user)
+                    <tr>
+                      <td>{{ $loop->index + 1 }}</td>
+                      <td>{{ $user->name }}</td>
+                      <td>{{ $user->email }}</td>
+                      <td><span class="badge bg-label-primary me-1">{{ $user->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
+                      <td>
+                        <button class="btn btn-primary">
+                          <a style="color: white" class="d-inline-block" href="javascript:void(0);">
+                            <i class="bx bx-edit-alt me-1"></i> Edit
                           </a>
-                         </button> 
-                         <button class="btn btn-warning">
-                          <a style="color: white" class=" d-inline-block" href="javascript:void(0);">
-                            <i class="bx bx-trash me-1"></i> 
+                        </button> 
+                        <button class="btn btn-warning">
+                          <a style="color: white" class="d-inline-block" href="javascript:void(0);">
+                            <i class="bx bx-trash me-1"></i> Delete
                           </a>
-                         </button> 
-                        </td>
+                        </button> 
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+                {{ $users->links() }}
 
-                      </tr>
-
-                    </tbody>
-                  </table>
                 </div>
 
                 <!-- Modal -->
+              <form action="{{ route('superadmin.team.store') }}" method="POST" id="form-team" enctype="multipart/form-data">
+              @csrf
               <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
@@ -72,79 +73,116 @@
                       <div class="row">
                         <div class="form-group col-lg-6">
                           <label for="Name">Họ và tên</label>
-                          <input type="text" class="form-control" id="Name" placeholder="Nhập tên dự án">
+                          <input type="text" class="form-control" id="Name" placeholder="Nhập tên dự án" name="name">
+                          <span class="error-message" id="name-error"></span>
+
                         </div>
                         <div class="form-group col-lg-6">
                           <label for="email">Email</label>
-                          <input type="text" class="form-control" id="email" placeholder="Nhập tên khách hàng">
+                          <input type="text" class="form-control" id="email" placeholder="Nhập tên khách hàng" name="email">
+                          <span class="error-message" id="email-error"></span>
+
                         </div>
                         <div class="form-group col-lg-6">
                           <label for="Password">Mật khẩu</label>
-                          <input type="password" class="form-control" id="Password" placeholder="Nhập người dùng">
+                          <input type="password" class="form-control" id="Password" placeholder="Nhập người dùng" name="password">
+                          <span class="error-message" id="password-error"></span>
+
                         </div>
                         <div class="form-group col-lg-6">
-                          <label for="rePassword">Nhập lại mật khẩu</label>
-                          <input type="password" class="form-control" id="rePassword" placeholder="Nhập người dùng">
+                          <label for="repassword">Nhập lại mật khẩu</label>
+                          <input type="password" class="form-control" id="repassword" placeholder="Nhập người dùng" name="repassword">
+                          <span class="error-message" id="repassword-error"></span>
+
                         </div>
                         <div class="form-group col-lg-6">
-                          <label for="avatar">Ảnh đại diện</label>
-                          <input type="file" class="form-control" id="avatar" placeholder="Nhập người dùng">
+                          <label for="phone_number">Số điện thoại</label>
+                          <input type="text" class="form-control" id="phone_number" placeholder="Nhập tên khách hàng" name="phone_number">
+                          <span class="error-message" id="phone_number-error"></span>
+
                         </div>
                         <div class="form-group col-lg-6">
-                          <label for="status">Trạng thái hoạt động</label>
-                          <select class="form-control" name="" id="status">
-                            <option>Thiết lập trạng thái</option>
-                            <option>Hoạt động</option>
-                            <option>Không hoạt động</option>
-                          </select>          
+                          <label for="image">Ảnh đại diện</label>
+                          <input type="file" class="form-control" id="image" name="image">
+                          <span class="error-message" id="image-error"></span>
                         </div>
 
                         <div class="form-group col-lg-6">
-                          <label for="sex">Giới tính</label>
-                          <select class="form-control" name="" id="sex">
-                            <option>Chọn giới tính</option>
-                            <option>Nam</option>
-                            <option>Nữ</option>
-                            <option>Khác</option>
+                          <label for="status">Trạng thái hoạt động</label>
+                          <select class="form-control" id="status" name="status">
+                            <option value="">Thiết lập trạng thái</option>
+                            <option value="1">Hoạt động</option>
+                            <option value="2">Không hoạt động</option>
                           </select>          
+                          <span class="error-message" id="status-error"></span>
+
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                          <label for="gender">Giới tính</label>
+                          <select class="form-control" id="gender" name="gender">
+                            <option value="">Chọn giới tính</option>
+                            <option value="1">Nam</option>
+                            <option value="2">Nữ</option>
+                            <option value="3">Khác</option>
+                          </select>         
+                          <span class="error-message" id="gender-error"></span>
+
                         </div>
 
                         <div class="form-group col-lg-6">
                           <label for="date">Ngày sinh</label>
-                          <input type="date" class="form-control" id="date" placeholder="Nhập người dùng">
+                          <input type="date" class="form-control" id="date" placeholder="Nhập người dùng" name="birthday">
+                          <span class="error-message" id="birthday-error"></span>
+
                         </div>
                 
                         <div class="form-group col-lg-6">
                           <label for="role">Vai trò</label>
-                          <select class="form-control" name="role" id="role">
-                            <option>Chọn chức vụ</option>
-                            <option>Nam</option>
-                            <option>Nữ</option>
-                            <option>Khác</option>
-                          </select>          
+                          <select class="form-control" name="role" id="role" >
+                            <option value="">Chọn vai trò</option>
+                            <option value="1">Superadmin</option>
+                            <option value="2">Chủ doanh nghiệp</option>
+                            <option value="no">Nhân viên</option>
+                          </select>     
+                          <span class="error-message" id="role-error"></span>
+
                         </div>
 
                         <div class="form-group col-lg-6">
-                          <label for="role">Thuộc doanh nghiệp</label>
-                          <select class="form-control" name="role" id="role">
-                            <option>Chọn doanh nghiệp</option>
-                            <option>Nam</option>
-                            <option>Nữ</option>
-                            <option>Khác</option>
-                          </select>          
+                          <label for="business_id">Thuộc doanh nghiệp</label>
+                          <select class="form-control" name="business_id" id="business_id">
+                            <option value="">Chọn doanh nghiệp</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                          </select>  
+                          <span class="error-message" id="business_id-error"></span>
                         </div>         
                             @include('select-options.address', ['provinces' => $provinces, 'wards' => $wards, 'districts' => $districts])
     
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                      <button type="button" class="btn btn-primary" type="submit">Lưu</button>
+                      <button type="submit" class="btn btn-primary" id="submit-btn">Lưu</button>
                     </div>
                   </div>
                 </div>
               </div>
           
               </div>
+            </form>
 </div>
 </div>
+
+<!-- Gọi hàm validate để xử lý form -->
+<script src="{{ asset('assets/js/validateForm.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        var formId = '#form-team';
+        var validateUrl = '/validate-team';
+
+        setupFormValidation(formId, validateUrl);
+    });
+</script>
 @endsection

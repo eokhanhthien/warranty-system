@@ -23,6 +23,30 @@ function setupFormValidation(formId, validateUrl) {
         });
     });
 
+    // form.change(function(event) {
+    //     event.preventDefault();
+    
+    //     var formData = new FormData(form[0]); // Tạo đối tượng FormData
+    
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: validateUrl,
+    //         data: formData,
+    //         processData: false, // Tắt xử lý dữ liệu
+    //         contentType: false, // Tắt thiết lập kiểu dữ liệu
+    //         success: function(response) {
+    //             if (response.success) {
+    //                 displayErrors({}, form); // Xóa các thông báo lỗi
+    //             } else {
+    //                 displayErrors(response.errors, form);
+    //             }
+    //         },
+    //         error: function(xhr, textStatus, errorThrown) {
+    //             console.log(xhr.responseText);
+    //         }
+    //     });
+    // });
+
     form.submit(function(event) {
         event.preventDefault();
 
