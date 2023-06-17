@@ -1,12 +1,14 @@
 <?php
 
 namespace App;
-
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Model implements Authenticatable
 {
 
+    use \Illuminate\Auth\Authenticatable;
+    
     protected $fillable = [
         'name',
         'email',
@@ -29,4 +31,19 @@ class User extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getAuthIdentifierName()
+    {
+        return 'id';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
 }

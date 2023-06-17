@@ -24,14 +24,14 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-    <script src="../assets/vendor/js/helpers.js"></script>
-    <script src="../assets/js/config.js"></script>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('assets/js/config.js') }}"></script>
 
     <!-- Style.css -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -46,6 +46,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bao gồm tệp tin JavaScript của Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" defer></script>
   </head>
   <body>
     <!-- Layout wrapper -->
@@ -123,22 +126,22 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="{{ request()->is('superadmin/dashboard') ? 'menu-item active' : 'menu-item' }}">
-              <a href="{{ route('superadmin.dashboard') }}" class="menu-link">
+            <li class="{{ str_starts_with(request()->url(), url('/dashboard')) ? 'menu-item active' : 'menu-item' }}">
+              <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">{{__('lang_v1.dashboard')}}</div>
               </a>
             </li>
 
             <!-- Layouts -->
-            <li class="{{ Request::is('superadmin/businesses') ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">{{__('lang_v1.branch')}}</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="{{ request()->is('superadmin/businesses') ? 'menu-item active' : 'menu-item' }}">
+                <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('superadmin.businesses') }}" class="menu-link">
                     <div data-i18n="Without menu">Quản lý doanh nghiệp</div>
                   </a>
@@ -167,14 +170,14 @@
             </li>
 
             <!-- Nhân sự -->
-            <li class="{{ Request::is('superadmin/team') ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/team/')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Đội</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="{{ request()->is('superadmin/team') ? 'menu-item active' : 'menu-item' }}">
+                <li class="{{ str_starts_with(request()->url(), url('superadmin/team/')) ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('superadmin.team') }}" class="menu-link">
                     <div data-i18n="Without menu">Quản lý thành viên</div>
                   </a>
@@ -527,7 +530,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="{{ asset('assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -536,7 +539,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="{{ asset('assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -574,7 +577,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="{{route('logout')}}">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -609,22 +612,22 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/popper/popper.js')}}"></script>
+    <script src="{{ asset('assets/vendor/js/bootstrap.js')}}"></script>
+    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="{{ asset('assets/vendor/js/menu.js')}}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ asset('assets/js/main.js')}}"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
+    <script src="{{ asset('assets/js/dashboards-analytics.js')}}"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

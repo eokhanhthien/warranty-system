@@ -12,6 +12,7 @@ class teamsController extends Controller
 {
     public function index()
     {
+        // Thêm address
         $selectOptionsController = new SelectOptionsController();
         $selectOptions = $selectOptionsController->getAddressOptions();
         $provinces = $selectOptions->getData()['provinces'];
@@ -25,7 +26,7 @@ class teamsController extends Controller
     public function create()
     {
         // Trả về view để hiển thị form tạo doanh nghiệp
-        return view('superadmin.taff.create');
+        // return view('superadmin.taff.create');
     }
 
     public function store(Request $request)
@@ -61,6 +62,30 @@ class teamsController extends Controller
 
         // Redirect or return a response
         return redirect()->back()->with('success', 'User added successfully');
+    }
+
+    public function edit(Request $request, $id)
+    {   
+        // Thêm address
+        $selectOptionsController = new SelectOptionsController();
+        $selectOptions = $selectOptionsController->getAddressOptions();
+        $provinces = $selectOptions->getData()['provinces'];
+        $wards = $selectOptions->getData()['wards'];
+        $districts = $selectOptions->getData()['districts'];
+
+        return view('superadmin.team.edit',compact('provinces', 'wards', 'districts',));
+    }
+
+    public function update(Request $request, Item $item)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $item->update($validatedData);
+
+        return redirect()->route('items.index')->with('success', 'Item updated successfully.');
     }
 
     // Các phương thức khác của controller

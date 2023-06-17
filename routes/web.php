@@ -11,12 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('welcome'); }); 
+Route::get('/dashboard', function ()  { return view('dashboard');})->name('dashboard')->middleware('auth');
+Route::get('/not-found', function () { return view('error.index');});
 
-Route::prefix('superadmin')->group(function () {
-    Route::get('/dashboard', function ()  { return view('superadmin.index');})->name('superadmin.dashboard');
+// Auth
+Route::get('/login', 'Auth\AuthController@index')->name('login')->middleware('no_auth');
+Route::get('/register', 'Auth\AuthController@register')->name('register')->middleware('no_auth');
+Route::post('/auth-login', 'Auth\AuthController@authLogin')->name('auth.login');
+Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
+
+
+Route::prefix('superadmin')->middleware((['auth', 'superadmin']))->group(function () {
+   
     Route::resource('/businesses', 'superadmin\BusinessesController')->names([
         'index' => 'superadmin.businesses',
         'store' => 'superadmin.businesses.store',
@@ -37,7 +44,22 @@ Route::prefix('superadmin')->group(function () {
     // Các route khác trong nhóm "superadmin" nếu cần
 });
 
+Route::prefix('admin')->middleware('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        // Logic xử lý cho trang dashboard của Admin
+    })->name('admin.dashboard');
 
+    // Các Route khác cho Admin
+});
+
+// Route::prefix('user')->middleware('user')->group(function () {
+//     Route::get('/dashboard', function () {
+//         // Logic xử lý cho trang dashboard của User
+//     })->name('user.dashboard');
+//     // Các Route khác cho User
+// });
+
+// Chọn địa chỉ
 Route::get('/address-options', 'SelectOptionsController@getAddressOptions')->name('address.options');
 Route::get('/get-districts/{provinceId}', 'SelectOptionsController@getDistricts');
 Route::get('/get-wards/{districtId}', 'SelectOptionsController@getWards');

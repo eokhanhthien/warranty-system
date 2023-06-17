@@ -12,14 +12,14 @@
     </script>
 @endif
 <div class="content-wrapper">
-<div class="container-xxl flex-grow-1 container-p-y">
-<div class="card">
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
                 <div class="text-right">
                       <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal">Thêm</button>
                 </div>
                 <h5 class="card-header">Tất cả thành viên</h5>
                 <div class="table-responsive text-nowrap">
-                <table class="table">
+                <table class="table" id="table_team">
                   <thead>
                     <tr>
                       <th>STT</th>
@@ -40,7 +40,7 @@
                       <td><span class="badge bg-label-primary me-1">{{ $user->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
                       <td>
                         <button class="btn btn-primary">
-                          <a style="color: white" class="d-inline-block" href="javascript:void(0);">
+                          <a style="color: white" class="d-inline-block" href="{{route('superadmin.team.edit',[$user->id])}}">
                             <i class="bx bx-edit-alt me-1"></i> Edit
                           </a>
                         </button> 
@@ -59,7 +59,7 @@
                 </div>
 
                 <!-- Modal -->
-              <form action="{{ route('superadmin.team.store') }}" method="POST" id="form-team" enctype="multipart/form-data">
+            <form action="{{ route('superadmin.team.store') }}" method="POST" id="form-team" enctype="multipart/form-data">
               @csrf
               <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog modal-lg" role="document">
@@ -103,11 +103,12 @@
                           <span class="error-message" id="phone_number-error"></span>
 
                         </div>
-                        <div class="form-group col-lg-6">
-                          <label for="image">Ảnh đại diện</label>
-                          <input type="file" class="form-control" id="image" name="image">
-                          <span class="error-message" id="image-error"></span>
-                        </div>
+                        <div class="form-group col-lg-4">
+                                <label for="image">Ảnh đại diện</label>
+                                <input type="file" class="form-control" id="image" name="image" onchange="displayThumbnail(event)">
+                                <span class="error-message" id="image-error"></span>
+                          </div>
+                        @include('select-options.show_thumnail')
 
                         <div class="form-group col-lg-6">
                           <label for="status">Trạng thái hoạt động</label>
@@ -174,17 +175,24 @@
           
               </div>
             </form>
-</div>
+    </div>
+  </div>
 </div>
 
 <!-- Gọi hàm validate để xử lý form -->
 <script src="{{ asset('assets/js/validateForm.js') }}"></script>
+<!-- Gọi hàm thêm search table -->
+<script src="{{ asset('assets/js/data-table-js.js') }}"></script>
 <script>
     $(document).ready(function() {
         var formId = '#form-team';
         var validateUrl = '/validate-team';
 
         setupFormValidation(formId, validateUrl);
+
+        var id_table = '#table_team';
+        searchDataTable(id_table,true, false);
+
     });
 </script>
 @endsection

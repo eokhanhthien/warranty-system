@@ -1,6 +1,6 @@
 
 <div class="row ">
-<div class="form-group" style="padding-right: 1.9rem !important;">
+<div class="form-group" style="">
 <label for="address">Địa chỉ</label>
 <select name="province" id="province" class="form-control mt-2">
     <option value="">Chọn Tỉnh/Thành phố</option>

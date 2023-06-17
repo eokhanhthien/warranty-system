@@ -5,13 +5,13 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+class NoAuthenticate
 {
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            return $next($request);
+            return redirect()->route('dashboard');
         }
-        return redirect()->route('login');
+        return $next($request);
     }
 }

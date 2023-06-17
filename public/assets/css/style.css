@@ -21,3 +21,6 @@ span.error-message {
 .modal-content::-webkit-scrollbar {
     width: 0px; /* Chiều rộng của thanh cuộn */
 }
+/* img#thumbnail-img {
+    width: 100%;
+} */
