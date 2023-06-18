@@ -32,6 +32,9 @@ class CreateUsersTable extends Migration
             $table->string('twitter_link')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            // Tạo khóa ngoại và quan hệ với bảng 'businesses'
+            $table->foreign('business_id')->references('id')->on('businesses');
         });
     }
 

@@ -182,9 +182,13 @@
                           <label for="business_id">Thuộc doanh nghiệp</label>
                           <select class="form-control" name="business_id" id="business_id">
                             <option value="">Chọn doanh nghiệp</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            @if(!empty($businesses)){
+                              @foreach($businesses as $business){
+                                <option value="{{$business->id}}">{{$business->name}}</option>
+                              }
+                              @endforeach
+                            }
+                            @endif
                           </select>  
                           <span class="error-message" id="business_id-error"></span>
                         </div>         

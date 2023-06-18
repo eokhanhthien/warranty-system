@@ -97,25 +97,33 @@
                                 <label for="business_id">Thuộc doanh nghiệp</label>
                                 <select class="form-control" name="business_id" id="business_id">
                                     <option value="">Chọn doanh nghiệp</option>
-                                    <option value="1" {{ $user->business_id == 1 ? 'selected' : '' }}>1</option>
-                                    <option value="2" {{ $user->business_id == 2 ? 'selected' : '' }}>2</option>
-                                    <option value="3" {{ $user->business_id == 3 ? 'selected' : '' }}>3</option>
+                                    @if(!empty($businesses)){
+                                    @foreach($businesses as $business){
+                                        <option value="{{$business->id}}" {{ $user->business_id == $business->id ? 'selected' : '' }}>{{$business->name}}</option>
+                                    }
+                                    @endforeach
+                                    }
+                                    @endif
                                 </select>
                                 <span class="error-message" id="business_id-error"></span>
                             </div>
 
                             <div class="form-group col-lg-6">
-                            @php
-                                $decodedAddress = json_decode($user->address);
-                            @endphp
-                            @include('select-options.address', [
-                                'provinces' => $provinces,
-                                'wards' => $wards,
-                                'districts' => $districts,
-                                'selectedProvince' => $decodedAddress->province,
-                                'selectedDistrict' => $decodedAddress->district,
-                                'selectedWard' => $decodedAddress->ward
-                            ])
+                        
+                                 @if(!empty($businesses->address))
+                                    @php
+                                        $decodedAddress = json_decode($businesses->address);
+                                    @endphp
+                                @endif
+                       
+                                @include('select-options.address', [
+                                    'provinces' => $provinces,
+                                    'wards' => $wards,
+                                    'districts' => $districts,
+                                    'selectedProvince' => !empty($decodedAddress->province) ? $decodedAddress->province : null,
+                                    'selectedDistrict' => !empty($decodedAddress->district) ? $decodedAddress->district : null,
+                                    'selectedWard' => !empty($decodedAddress->ward) ? $decodedAddress->ward : null
+                                ])
                             </div>
                                 
                             <div class="form-group text-right">                

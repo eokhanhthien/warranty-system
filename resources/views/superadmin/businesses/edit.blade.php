@@ -46,9 +46,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6">
+                                   
+                                    @if(!empty($businesses->address))
                                     @php
                                         $decodedAddress = json_decode($businesses->address);
-                                    @endphp
+                                        @endphp
+                                    @endif
+                  
                                     @include('select-options.address', [
                                         'provinces' => $provinces,
                                         'wards' => $wards,

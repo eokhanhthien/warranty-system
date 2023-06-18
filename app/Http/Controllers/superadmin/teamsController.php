@@ -4,6 +4,7 @@ namespace App\Http\Controllers\superadmin;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Business;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SelectOptionsController;
 use App\Http\Controllers\UploadDriverColtroller;
@@ -18,9 +19,9 @@ class teamsController extends Controller
         $provinces = $selectOptions->getData()['provinces'];
         $wards = $selectOptions->getData()['wards'];
         $districts = $selectOptions->getData()['districts'];
-
+        $businesses = Business::all();
         $users = User::paginate(10);
-        return view('superadmin.team.index', compact('provinces', 'wards', 'districts', 'users'));
+        return view('superadmin.team.index', compact('provinces', 'wards', 'districts', 'users','businesses'));
     }
 
     public function create()
@@ -76,8 +77,9 @@ class teamsController extends Controller
         $wards = $selectOptions->getData()['wards'];
         $districts = $selectOptions->getData()['districts'];
         $user = User::findOrFail($id);
+        $businesses = Business::all();
 
-        return view('superadmin.team.edit',compact('id','provinces', 'wards', 'districts','user',));
+        return view('superadmin.team.edit',compact('id','provinces', 'wards', 'districts','user','businesses'));
     }
 
     public function update(Request $request, $id)
