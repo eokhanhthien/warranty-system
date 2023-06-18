@@ -100,4 +100,7 @@ return [
         ],
     ],
 
+    'remember' => [
+        'lifetime' => 120, // Đặt thời hạn token remember là 120 phút (2h)
+    ],
 ];

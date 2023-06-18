@@ -26,9 +26,12 @@ class AuthController extends Controller
 
         try {
             $remember_token = true;
-            if (Auth::attempt($credentials, $remember_token)) {
+            // Ghi nhớ tôi $minutes = 120; 
+            if (Auth::attempt($credentials)) {
+                // $lifetimeMinutes = 120; // Thời gian sống là 120 phút (2 giờ)
+                // config(['session.lifetime' => $lifetimeMinutes]);
                 // Đăng nhập thành công, thực hiện các thao tác cần thiết
-                // Ví dụ: Tạo token, lưu thông tin vào session, v.v.
+                // attempt sẽ tạo token, lưu thông tin vào session, v.v.
                 if (Auth::check()) {
                     return redirect()->route('dashboard');
                 }    

@@ -21,6 +21,17 @@ span.error-message {
 .modal-content::-webkit-scrollbar {
     width: 0px; /* Chiều rộng của thanh cuộn */
 }
-/* img#thumbnail-img {
+thead, tbody, tfoot, tr, td, th {
+    border-color: rgb(233, 232, 232)!important;
+    border-style: inherit !important;
+    border-width: 0;
+}
+table.dataTable {
     width: 100%;
-} */
+    margin: 0 auto;
+    clear: both;
+}
+.dataTables_filter{
+    outline: none !important;
+    margin: 10px 10px 0 0;
+}

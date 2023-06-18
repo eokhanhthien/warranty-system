@@ -1,4 +1,4 @@
-function searchDataTable (id , searching = true , paging= null ,  ) {
+function searchDataTable (id , searching = true , paging= null ) {
 
     $(id).DataTable({
         searching: searching, // Hiển thị ô tìm kiếm

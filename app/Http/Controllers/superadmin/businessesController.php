@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\superadmin;
 
 use App\Http\Controllers\Controller;
-// use App\Models\Business;
+use App\Business;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SelectOptionsController;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +17,9 @@ class BusinessesController extends Controller
         $provinces = $selectOptions->getData()['provinces'];
         $wards = $selectOptions->getData()['wards'];
         $districts = $selectOptions->getData()['districts'];
-        return view('superadmin.businesses.index', compact('provinces', 'wards', 'districts'));
+
+        $businesses = Business::paginate(10);
+        return view('superadmin.businesses.index', compact('provinces', 'wards', 'districts','businesses'));
     }
 
     public function create()
@@ -25,38 +27,43 @@ class BusinessesController extends Controller
         // Trả về view để hiển thị form tạo doanh nghiệp
         // return view('superadmin.businesses.create');
     }
-
+    public function show($id)
+    {
+ 
+    }
     public function store(Request $request)
     {
-        // dd($request->all());
-          // Kiểm tra và xử lý dữ liệu nhập vào từ form
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required',
-            'business_category_id' => 'required',
-            'province' => 'required',
-            'district' => 'required',
-            'ward' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Có lỗi xảy ra. Vui lòng kiểm tra lại thông tin.');
-        }
+        $addressArray = [
+            'province' => $request->province,
+            'district' => $request->district,
+            'ward' => $request->ward
+        ];
         
-        // Dữ liệu đã được validate thành công
-        $validatedData = $validator->validated();
+        $addressJson = json_encode($addressArray);
+        // Create the user
+        $business = new Business();
+        $business->name = $request->name;
+        $business->email = $request->email;
+        $business->phone_number = $request->phone_number;
+        $business->business_category_id = $request->business_category_id;   
+        $business->address = $addressJson;
+        $business->save();
 
-        // Tạo mới một doanh nghiệp với dữ liệu đã được validate
-        // $business = Business::create($validatedData);
-
-        // Chuyển hướng người dùng đến trang danh sách doanh nghiệp
-        // return redirect()->route('superadmin.businesses.index')->with('success', 'Đã tạo mới doanh nghiệp thành công');
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'Business added successfully');
     }
 
-    public function edit(Item $item)
+    public function edit($id)
     {
-        return view('items.edit', compact('item'));
+        // Thêm address
+        $selectOptionsController = new SelectOptionsController();
+        $selectOptions = $selectOptionsController->getAddressOptions();
+        $provinces = $selectOptions->getData()['provinces'];
+        $wards = $selectOptions->getData()['wards'];
+        $districts = $selectOptions->getData()['districts'];
+        $business = Business::findOrFail($id);
+
+        return view('superadmin.businesses.edit',compact('id','provinces', 'wards', 'districts','business',));
     }
 
     public function update(Request $request, Item $item)

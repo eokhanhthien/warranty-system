@@ -19,41 +19,67 @@
                 </div>
                 <h5 class="card-header">Tất cả thành viên</h5>
                 <div class="table-responsive text-nowrap">
-                <table class="table" id="table_team">
-                  <thead>
-                    <tr>
-                      <th>STT</th>
-                      <th>Name</th>
-                      <th>Image</th>
-                      <th>Email</th>
-                      <th>Verify email</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-border-bottom-0">
-                    @foreach($users as $user)
-                    <tr>
-                      <td>{{ $loop->index + 1 }}</td>
-                      <td>{{ $user->name }}</td>
-                      <td><iframe src="https://drive.google.com/file/d/{{$user->image}}/preview" alt="" style = "width: 120px; height: 120px"></iframe></td>
-                      <td>{{ $user->email }}</td>
-                      <td><span class="badge bg-label-primary me-1">{{ $user->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
-                      <td>
-                        <button class="btn btn-primary">
-                          <a style="color: white" class="d-inline-block" href="{{route('superadmin.team.edit',[$user->id])}}">
-                            <i class="bx bx-edit-alt me-1"></i> Edit
-                          </a>
-                        </button> 
-                        <button class="btn btn-warning">
-                          <a style="color: white" class="d-inline-block" href="javascript:void(0);">
-                            <i class="bx bx-trash me-1"></i> Delete
-                          </a>
-                        </button> 
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                  <table class="table" id="table_team">
+                    <thead>
+                      <tr>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Email</th>
+                        <th>Verify email</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      @foreach($users as $user)
+                      <tr>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td><iframe src="https://drive.google.com/file/d/{{$user->image}}/preview" alt="" style = "width: 120px; height: 120px"></iframe></td>
+                        <td>{{ $user->email }}</td>
+                        <td><span class="badge bg-label-primary me-1">{{ $user->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
+                        <td>
+                          <button class="btn btn-primary">
+                            <a style="color: white" class="d-inline-block" href="{{route('superadmin.team.edit',[$user->id])}}">
+                              <i class="bx bx-edit-alt me-1"></i> Edit
+                            </a>
+                          </button> 
+            
+                        <form action="{{ route('superadmin.team.destroy', ['id' => $user->id]) }}" method="POST" style="display: inline-block;">
+                          @csrf
+                          @method('DELETE')
+
+                          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                              <i class="bx bx-trash me-1"></i> Delete
+                          </button>
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                          Are you sure you want to delete this item?
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                          <button type="submit" class="btn btn-danger">Delete</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
+
+
+                  
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
                 {{ $users->links() }}
 
                 </div>
@@ -162,7 +188,11 @@
                           </select>  
                           <span class="error-message" id="business_id-error"></span>
                         </div>         
-                            @include('select-options.address', ['provinces' => $provinces, 'wards' => $wards, 'districts' => $districts])
+                            @include('select-options.address', ['provinces' => $provinces, 'wards' => $wards, 'districts' => $districts,
+                            'selectedProvince' => null,
+                            'selectedDistrict' => null,
+                            'selectedWard' => null
+                            ])
     
                     </div>
                     <div class="modal-footer">

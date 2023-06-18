@@ -7,18 +7,20 @@ use File;
 class UploadDriverColtroller extends Controller
 {
     public function upload_image(Request $request){
-        $file = $request->file('image');
-        $fileData = File::get($file);
-        $fileName = time() . '.' . $file->getClientOriginalExtension();
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileData = File::get($file);
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
         
-        $result = Storage::cloud()->put($fileName, $fileData);
+            $result = Storage::cloud()->put($fileName, $fileData);
         
-        if ($result) {
-            $metadata = Storage::cloud()->getMetadata($fileName);
-            $path = $metadata['path'];
-            return $path;
-        } else {
-            // Xử lý khi không thành công
+            if ($result) {
+                $metadata = Storage::cloud()->getMetadata($fileName);
+                $path = $metadata['path'];
+                return $path;
+            } else {
+                // Xử lý khi không thành công
+            }
         }
     }
 
@@ -27,6 +29,17 @@ class UploadDriverColtroller extends Controller
         $recursive = false;
         $contents = collect(Storage::cloud()->listContents($dir, $recursive));
         return $contents;
+    }
+
+    public function delete_image($path){
+        $dir = '/';
+        $recursive = false;
+        $fileinfo = collect(Storage::cloud()->listContents($dir, $recursive))->where('type','file')->where('path' , $path )->first();
+        if (!is_null($fileinfo) && isset($fileinfo['path'])) {
+            return Storage::cloud()->delete($fileinfo['path']);
+        }
+        
+        return false;
     }
 
     public function resizeImage($file, $width, $height)

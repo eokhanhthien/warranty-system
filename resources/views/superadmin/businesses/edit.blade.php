@@ -12,51 +12,8 @@
     </script>
 @endif
 <div class="content-wrapper">
-<div class="container-xxl flex-grow-1 container-p-y">
-<div class="card">
-                <div class="text-right">
-                      <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal">Thêm</button>
-                </div>
-                <h5 class="card-header">Tất cả doanh nghiệp</h5>
-                <div class="table-responsive text-nowrap">
-                <table class="table" id="table_businesses">
-                  <thead>
-                    <tr>
-                      <th>STT</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Verify email</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-border-bottom-0">
-                    @foreach($businesses as $business)
-                    <tr>
-                      <td>{{ $loop->index + 1 }}</td>
-                      <td>{{ $business->name }}</td>
-                      <td>{{ $business->email }}</td>
-                      <td><span class="badge bg-label-primary me-1">{{ $business->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
-                      <td>
-                        <button class="btn btn-primary">
-                          <a style="color: white" class="d-inline-block" href="{{route('superadmin.businesses.edit',[$business->id])}}">
-                            <i class="bx bx-edit-alt me-1"></i> Edit
-                          </a>
-                        </button> 
-           
-
-
-
-                 
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-                {{ $businesses->links() }}
-                </div>
-
-                <!-- Modal -->
-                <form action="{{ route('superadmin.businesses.store') }}" method="POST" id="form-business">
+    <div class="container-xxl flex-grow-1 container-p-y">
+    <form action="{{ route('superadmin.businesses.store') }}" method="POST" id="form-business">
                     @csrf
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog modal-lg" role="document">
@@ -108,24 +65,17 @@
                         </div>
                     </div>
                 </form>
-        </div>
-</div>
+    </div>
 </div>
 <!-- Gọi hàm validate để xử lý form -->
 <script src="{{ asset('assets/js/validateForm.js') }}"></script>
-<!-- Gọi hàm thêm search table -->
-<script src="{{ asset('assets/js/data-table-js.js') }}"></script>
 <script>
     $(document).ready(function() {
-        var formId = '#form-business';
-        var validateUrl = '/validate-business';
+        var formId = '#form-team';
+        var validateUrl = '/validate-team';
 
         setupFormValidation(formId, validateUrl);
-
-        var id_table = '#table_businesses';
-        searchDataTable(id_table,true, false);
     });
-
-
 </script>
+
 @endsection

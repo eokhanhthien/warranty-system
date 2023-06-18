@@ -27,20 +27,17 @@ Route::prefix('superadmin')->middleware((['auth', 'superadmin']))->group(functio
     Route::resource('/businesses', 'superadmin\BusinessesController')->names([
         'index' => 'superadmin.businesses',
         'store' => 'superadmin.businesses.store',
-        'show' => 'superadmin.businesses.show',
         'edit' => 'superadmin.businesses.edit',
-        'update' => 'superadmin.businesses.update',
-        'destroy' => 'superadmin.businesses.destroy',
     ]);
 
     Route::resource('/team', 'superadmin\teamsController')->names([
         'index' => 'superadmin.team',
         'store' => 'superadmin.team.store',
-        'show' => 'superadmin.team.show',
         'edit' => 'superadmin.team.edit',
-        'update' => 'superadmin.team.update',
-        'destroy' => 'superadmin.team.destroy',
     ]);
+    Route::post('/team/{id}/update', 'superadmin\teamsController@update')->name('superadmin.team.update');
+    Route::delete('/team/{id}/delete', 'superadmin\teamsController@destroy')->name('superadmin.team.destroy');
+
     // Các route khác trong nhóm "superadmin" nếu cần
 });
 

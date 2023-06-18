@@ -45,12 +45,11 @@ public function validateDatabusiness(Request $request)
 
 public function validateDatateam(Request $request)
 {
-    $validator = Validator::make($request->all(), [
+    // Tạo một mảng chứa các quy tắc cho Validator
+    $rules = [
         'name' => 'required',
         'email' => 'required|email',
         'phone_number' => 'required|numeric|digits_between:10,11',
-        'password' => 'required',
-        'repassword' => 'required|same:password',
         'status' => 'required',
         'gender' => 'required',
         'birthday' => 'required',
@@ -59,7 +58,26 @@ public function validateDatateam(Request $request)
         'province' => 'required',
         'district' => 'required',
         'ward' => 'required',
-    ], [
+    ];
+
+    // Kiểm tra xem có tồn tại $request->noPass hay không
+    if (!empty($request->has('noPass'))) {
+        // Nếu tồn tại $request->noPass và không có cả password
+        if (!empty($request->has('password'))) {
+            unset($rules['password']);
+            unset($rules['repassword']);
+        } else {
+            // Nếu tồn tại $request->noPass và có cả password, kiểm tra trùng khớp giữa password và repassword
+            $rules['repassword'] = 'required|same:password';
+        }
+    } else {
+        // Nếu không tồn tại $request->noPass, thêm các quy tắc cho password và repassword
+        $rules['password'] = 'required';
+        $rules['repassword'] = 'required|same:password';
+    }
+
+    // Tạo Validator và áp dụng các quy tắc
+    $validator = Validator::make($request->all(), $rules, [
         'name.required' => 'Vui lòng nhập tên doanh nghiệp.',
         'email.required' => 'Vui lòng nhập địa chỉ email.',
         'email.email' => 'Vui lòng nhập đúng định dạng email.',

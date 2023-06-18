@@ -28,7 +28,10 @@ class teamsController extends Controller
         // Trả về view để hiển thị form tạo doanh nghiệp
         // return view('superadmin.taff.create');
     }
-
+    public function show($id)
+    {
+ 
+    }
     public function store(Request $request)
     {
         // echo "<pre>"; print_r($request->all());die;
@@ -72,22 +75,70 @@ class teamsController extends Controller
         $provinces = $selectOptions->getData()['provinces'];
         $wards = $selectOptions->getData()['wards'];
         $districts = $selectOptions->getData()['districts'];
+        $user = User::findOrFail($id);
 
-        return view('superadmin.team.edit',compact('provinces', 'wards', 'districts',));
+        return view('superadmin.team.edit',compact('id','provinces', 'wards', 'districts','user',));
     }
 
-    public function update(Request $request, Item $item)
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-        ]);
+        $data = $request->all();
+    
+        $user = User::findOrFail($id);
+        
+        // Upload the image if it exists
+        if ($request->hasFile('image')) {
+            $uploadimage = new UploadDriverColtroller();
+            $path_image = $uploadimage->upload_image($request);
+            
 
-        $item->update($validatedData);
-
-        return redirect()->route('items.index')->with('success', 'Item updated successfully.');
+            // Delete old image
+            $deleteimage = new UploadDriverColtroller();
+            $deleteimage->delete_image($user->image);
+            
+            $user->image = $path_image;
+        }else{
+            $user->image = $user->image;
+        }
+    
+        $addressArray = [
+            'province' => $data['province'],
+            'district' => $data['district'],
+            'ward' => $data['ward']
+        ];
+        
+        $addressJson = json_encode($addressArray);
+    
+        // Update user data
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->phone_number = $data['phone_number'];
+        $user->status = $data['status'];
+        $user->gender = $data['gender'];
+        $user->birthday = $data['birthday'];
+        $user->role = $data['role'];
+        $user->business_id = $data['business_id'];
+        $user->address = $addressJson;
+    
+        $user->save();
+    
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'User updated successfully');
     }
+    
 
-    // Các phương thức khác của controller
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id); 
+        // Delete the user's image
+        $deleteimage = new UploadDriverColtroller();
+        $deleteimage->delete_image($user->image);
+        // Delete the user record from the database
+        $user->delete();
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'User deleted successfully');
+    }
+    
 
 }
