@@ -61,28 +61,40 @@ class BusinessesController extends Controller
         $provinces = $selectOptions->getData()['provinces'];
         $wards = $selectOptions->getData()['wards'];
         $districts = $selectOptions->getData()['districts'];
+        $businesses = Business::findOrFail($id);
+
+        return view('superadmin.businesses.edit',compact('id','provinces', 'wards', 'districts','businesses',));
+    }
+
+    public function update(Request $request, $id)
+    {
+
         $business = Business::findOrFail($id);
+        $addressArray = [
+            'province' => $request->province,
+            'district' => $request->district,
+            'ward' => $request->ward
+        ];
+        
+        $addressJson = json_encode($addressArray);
+        // Create the user
+        $business->name = $request->name;
+        $business->email = $request->email;
+        $business->phone_number = $request->phone_number;
+        $business->business_category_id = $request->business_category_id;   
+        $business->address = $addressJson;
+        $business->save();
 
-        return view('superadmin.businesses.edit',compact('id','provinces', 'wards', 'districts','business',));
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'Business updated successfully');
     }
 
-    public function update(Request $request, Item $item)
+    public function destroy($id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-        ]);
-
-        $item->update($validatedData);
-
-        return redirect()->route('items.index')->with('success', 'Item updated successfully.');
-    }
-
-    public function destroy(Item $item)
-    {
-        $item->delete();
-
-        return redirect()->route('items.index')->with('success', 'Item deleted successfully.');
+        $business = Business::findOrFail($id);
+        $business->delete();
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'Business deleted successfully');
     }
 
 }

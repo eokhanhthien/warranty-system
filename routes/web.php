@@ -29,6 +29,8 @@ Route::prefix('superadmin')->middleware((['auth', 'superadmin']))->group(functio
         'store' => 'superadmin.businesses.store',
         'edit' => 'superadmin.businesses.edit',
     ]);
+    Route::post('/businesses/{id}/update', 'superadmin\BusinessesController@update')->name('superadmin.businesses.update');
+    Route::delete('/businesses/{id}/delete', 'superadmin\BusinessesController@destroy')->name('superadmin.businesses.destroy');
 
     Route::resource('/team', 'superadmin\teamsController')->names([
         'index' => 'superadmin.team',
