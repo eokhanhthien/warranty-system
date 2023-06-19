@@ -61,7 +61,7 @@ public function validateDatateam(Request $request)
     ];
 
     // Kiểm tra xem có tồn tại $request->noPass hay không
-    if (!empty($request->has('noPass'))) {
+    if ($request->has('noPass')) {
         // Nếu tồn tại $request->noPass và không có cả password
         if (!empty($request->has('password'))) {
             unset($rules['password']);

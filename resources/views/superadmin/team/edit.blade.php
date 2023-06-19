@@ -110,12 +110,12 @@
 
                             <div class="form-group col-lg-6">
                         
-                                 @if(!empty($businesses->address))
+                                 @if(!empty($user->address))
                                     @php
-                                        $decodedAddress = json_decode($businesses->address);
+                                        $decodedAddress = json_decode($user->address);
                                     @endphp
                                 @endif
-                       
+                                
                                 @include('select-options.address', [
                                     'provinces' => $provinces,
                                     'wards' => $wards,

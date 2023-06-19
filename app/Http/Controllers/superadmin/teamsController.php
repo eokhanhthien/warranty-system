@@ -114,7 +114,11 @@ class teamsController extends Controller
         // Update user data
         $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->password = bcrypt($data['password']);
+        if(!empty($data['password'])){
+            $user->password = bcrypt($data['password']);
+        }else{
+            $user->password = $user->password;
+        }
         $user->phone_number = $data['phone_number'];
         $user->status = $data['status'];
         $user->gender = $data['gender'];
