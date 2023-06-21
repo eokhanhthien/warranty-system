@@ -143,6 +143,26 @@
 
         setupFormValidation(formId, validateUrl);
     });
+
+    const roleSelect = document.getElementById('role');
+    const businessSelect = document.getElementById('business_id');
+    roleSelect.addEventListener('change', function() {
+        const selectedRole = roleSelect.value;
+
+        if (selectedRole === '1') {
+            businessSelect.disabled = true;
+            businessSelect.value = ''; // Reset giá trị trường "Thuộc doanh nghiệp" thành rỗng
+        } else {
+            businessSelect.disabled = false;
+        }
+    });
+
+    if (roleSelect.value === '1') {
+    businessSelect.selectedIndex = 0;
+    businessSelect.setAttribute('disabled', 'disabled');
+    } else {
+        businessSelect.removeAttribute('disabled');
+    }
 </script>
 
 @endsection

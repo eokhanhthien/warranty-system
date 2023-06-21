@@ -75,6 +75,9 @@ public function validateDatateam(Request $request)
         $rules['password'] = 'required';
         $rules['repassword'] = 'required|same:password';
     }
+    if($request->role == '1'){
+        unset($rules['business_id']);
+    }
 
     // Tạo Validator và áp dụng các quy tắc
     $validator = Validator::make($request->all(), $rules, [

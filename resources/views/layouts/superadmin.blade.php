@@ -134,36 +134,16 @@
             </li>
 
             <!-- Layouts -->
-            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) && url()->current() === url('superadmin/businesses') ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class='menu-icon bx bx-git-branch'> </i>
                 <div data-i18n="Layouts">{{__('lang_v1.branch')}}</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) ? 'menu-item active' : 'menu-item' }}">
+                <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) && url()->current() === url('superadmin/businesses') ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('superadmin.businesses') }}" class="menu-link">
                     <div data-i18n="Without menu">Quản lý doanh nghiệp</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
-                    <div data-i18n="Without navbar">Without navbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-container.html" class="menu-link">
-                    <div data-i18n="Container">Container</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-fluid.html" class="menu-link">
-                    <div data-i18n="Fluid">Fluid</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Blank</div>
                   </a>
                 </li>
               </ul>
@@ -172,7 +152,7 @@
             <!-- Nhân sự -->
             <li class="{{ str_starts_with(request()->url(), url('superadmin/team/')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class='menu-icon bx bx-user-plus' ></i>
                 <div data-i18n="Layouts">Đội</div>
               </a>
 
@@ -181,56 +161,29 @@
                   <a href="{{ route('superadmin.team') }}" class="menu-link">
                     <div data-i18n="Without menu">Quản lý thành viên</div>
                   </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
-                    <div data-i18n="Without navbar">Without navbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-container.html" class="menu-link">
-                    <div data-i18n="Container">Container</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-fluid.html" class="menu-link">
-                    <div data-i18n="Fluid">Fluid</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Blank</div>
-                  </a>
-                </li>
+                </li>        
               </ul>
             </li>
 
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Pages</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses-categories/')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+                <i class='menu-icon bx bx-user-plus' ></i>
+                <div data-i18n="Layouts">Danh mục</div>
               </a>
+
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">Account</div>
+                <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses-categories/')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('superadmin.businesses.categories') }}" class="menu-link">
+                    <div data-i18n="Without menu">Danh mục doanh nghiệp</div>
                   </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">Notifications</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-account-settings-connections.html" class="menu-link">
-                    <div data-i18n="Connections">Connections</div>
-                  </a>
-                </li>
+                </li>        
               </ul>
             </li>
+
+            <!-- <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Pages</span>
+            </li> -->
+
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>

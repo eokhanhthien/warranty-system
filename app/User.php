@@ -18,7 +18,6 @@ class User extends Model implements Authenticatable
         'gender',
         'birthday',
         'role',
-        'business_id',
         'address',
         'image',
     ];

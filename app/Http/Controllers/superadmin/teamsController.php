@@ -59,7 +59,7 @@ class teamsController extends Controller
         $user->gender = $data['gender'];
         $user->birthday = $data['birthday'];
         $user->role = $data['role'];
-        $user->business_id = $data['business_id'];
+        $user->business_id = !empty($data['business_id'])?$data['business_id']:null;
         $user->address = $addressJson;
         $user->image = $path_image;
         $user->save();
@@ -124,7 +124,7 @@ class teamsController extends Controller
         $user->gender = $data['gender'];
         $user->birthday = $data['birthday'];
         $user->role = $data['role'];
-        $user->business_id = $data['business_id'];
+        $user->business_id = !empty($data['business_id'])?$data['business_id']:null;
         $user->address = $addressJson;
     
         $user->save();

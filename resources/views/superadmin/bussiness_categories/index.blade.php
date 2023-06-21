@@ -18,71 +18,7 @@
                       <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal">Thêm</button>
                 </div>
                 <h5 class="card-header">Tất cả doanh nghiệp</h5>
-                <div class="table-responsive text-nowrap">
-                <table class="table" id="table_businesses">
-                  <thead>
-                    <tr>
-                      <th>STT</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Verify email</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-border-bottom-0">
-                    @foreach($businesses as $business)
-                    <tr>
-                      <td>{{ $loop->index + 1 }}</td>
-                      <td>{{ $business->name }}</td>
-                      <td>{{ $business->email }}</td>
-                      <td><span class="badge bg-label-primary me-1">{{ $business->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
-                      <td>
-                        <button class="btn btn-primary">
-                          <a style="color: white" class="d-inline-block" href="{{route('superadmin.businesses.edit',[$business->id])}}">
-                            <i class="bx bx-edit-alt me-1"></i> Edit
-                          </a>
-                        </button> 
-           
-
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $business->id }}">
-                              <i class="bx bx-trash me-1"></i> Delete
-                          </button>
-
-                          <!-- Confirmation Modal -->
-                          <div class="modal fade" id="confirmationModal{{ $business->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="modal-title" id="confirmationModalLabel">Confirm Delete</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                          </button>
-                                      </div>
-                                      <div class="modal-body">
-                                          Are you sure you want to delete this item?
-                                      </div>
-                                      <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                          <form id="deleteForm{{ $business->id }}" action="{{ route('superadmin.businesses.destroy', ['id' => $business->id]) }}" method="POST">
-                                              @csrf
-                                              @method('DELETE')
-                                              <button type="submit" class="btn btn-danger">Delete</button>
-                                          </form>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-
-
-                 
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-                {{ $businesses->links() }}
-                </div>
+            
 
                 <!-- Modal -->
                 <form action="{{ route('superadmin.businesses.store') }}" method="POST" id="form-business">
@@ -100,7 +36,7 @@
                                         <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="projectName">Tên doanh nghiệp</label>
-                                        <input type="text" class="form-control" id="projectName" placeholder="Nhập tên dự án" name="name" oninput="generateSlug(1)">
+                                        <input type="text" class="form-control" id="projectName" placeholder="Nhập tên dự án" name="name" oninput="generateSlug(0)">
                                         <span class="error-message" id="name-error"></span>
                                     </div>
 
@@ -131,7 +67,7 @@
                                         
                                     </div>
                                     <div class="col-lg-6 p-0">
-                                        @include('select-options.address', ['provinces' => $provinces, 'wards' => $wards, 'districts' => $districts])
+                                       
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -151,17 +87,5 @@
 <script src="{{ asset('assets/js/slug.js') }}"></script>
 <!-- Gọi hàm thêm search table -->
 <script src="{{ asset('assets/js/data-table-js.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        var formId = '#form-business';
-        var validateUrl = '/validate-business';
 
-        setupFormValidation(formId, validateUrl);
-
-        var id_table = '#table_businesses';
-        searchDataTable(id_table,true, false);
-    });
-
-
-</script>
 @endsection

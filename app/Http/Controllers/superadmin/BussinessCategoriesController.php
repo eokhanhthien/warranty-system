@@ -3,23 +3,18 @@
 namespace App\Http\Controllers\superadmin;
 
 use App\Http\Controllers\Controller;
-use App\Business;
+use App\BusinessCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SelectOptionsController;
 use Illuminate\Support\Facades\Validator;
 
-class BusinessesController extends Controller
+class BussinessCategoriesController extends Controller
 {
     public function index()
     {
-        $selectOptionsController = new SelectOptionsController();
-        $selectOptions = $selectOptionsController->getAddressOptions();
-        $provinces = $selectOptions->getData()['provinces'];
-        $wards = $selectOptions->getData()['wards'];
-        $districts = $selectOptions->getData()['districts'];
 
-        $businesses = Business::paginate(10);
-        return view('superadmin.businesses.index', compact('provinces', 'wards', 'districts','businesses'));
+        $bussinessCategories = BusinessCategory::paginate(10);
+        return view('superadmin.bussiness_categories.index', compact('bussinessCategories'));
     }
 
     public function create()

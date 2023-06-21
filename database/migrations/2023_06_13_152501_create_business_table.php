@@ -17,6 +17,7 @@ class CreateBusinessTable extends Migration
             $table->increments('id');
             $table->string('email');
             $table->string('name');
+            $table->string('domain');
             $table->string('phone_number')->nullable();
             $table->unsignedInteger('business_category_id')->nullable();
             $table->string('address')->nullable();

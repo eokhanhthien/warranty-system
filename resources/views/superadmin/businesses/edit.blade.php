@@ -19,8 +19,12 @@
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="projectName">Tên doanh nghiệp</label>
-                                            <input type="text" class="form-control" id="projectName" placeholder="Nhập tên dự án" name="name" value="{{$businesses->name}}">
+                                            <input type="text" class="form-control" id="projectName" placeholder="Nhập tên dự án" name="name" value="{{$businesses->name}}" oninput="generateSlug(1)">
                                             <span class="error-message" id="name-error"></span>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="slug">Domain</label>
+                                            <input type="text" class="form-control" id="slug" placeholder="Slug" name="domain" value="{{$businesses->domain}}"  readonly>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="email">Email doanh nghiệp</label>
@@ -71,6 +75,8 @@
 </div>
 <!-- Gọi hàm validate để xử lý form -->
 <script src="{{ asset('assets/js/validateForm.js') }}"></script>
+<!-- Gọi hàm tạo slug -->
+<script src="{{ asset('assets/js/slug.js') }}"></script>
 <script>
     $(document).ready(function() {
         var formId = '#form-business';
