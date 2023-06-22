@@ -46,8 +46,8 @@ Route::prefix('superadmin')->middleware((['auth', 'superadmin']))->group(functio
         'store' => 'superadmin.businesses.categories.store',
         'edit' => 'superadmin.businesses.categories.edit',
     ]);
-    Route::post('/businesses-categories/{id}/update', 'superadmin\BusinessesController@update')->name('superadmin.businesses.categories.update');
-    Route::delete('/businesses-categories/{id}/delete', 'superadmin\BusinessesController@destroy')->name('superadmin.businesses.categories.destroy');
+    Route::post('/businesses-categories/{id}/update', 'superadmin\BussinessCategoriesController@update')->name('superadmin.businesses.categories.update');
+    Route::delete('/businesses-categories/{id}/delete', 'superadmin\BussinessCategoriesController@destroy')->name('superadmin.businesses.categories.destroy');
     // Các route khác trong nhóm "superadmin" nếu cần
 });
 
@@ -74,6 +74,7 @@ Route::get('/get-wards/{districtId}', 'SelectOptionsController@getWards');
 // Validate form data
 Route::post('/validate-business', 'validateData@validateDatabusiness')->name('validate-business');
 Route::post('/validate-team', 'validateData@validateDatateam')->name('validate-team');
+Route::post('/validate-business-categories', 'validateData@validateDatabusinessCategory')->name('validate.business.categories');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

@@ -28,69 +28,43 @@ class BussinessCategoriesController extends Controller
     }
     public function store(Request $request)
     {
-        $addressArray = [
-            'province' => $request->province,
-            'district' => $request->district,
-            'ward' => $request->ward
-        ];
-        
-        $addressJson = json_encode($addressArray);
-        // Create the user
-        $business = new Business();
-        $business->name = $request->name;
-        $business->domain = $request->domain;
-        $business->email = $request->email;
-        $business->phone_number = $request->phone_number;
-        $business->business_category_id = $request->business_category_id;   
-        $business->address = $addressJson;
-        $business->save();
+        $business_category = new BusinessCategory();
+        $business_category->vi_name = $request->vi_name;
+        $business_category->en_name = $request->en_name;
+        $business_category->slug = $request->slug;
+        $business_category->description = $request->description;
+        $business_category->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business added successfully');
+        return redirect()->back()->with('success', 'Business category added successfully');
     }
 
     public function edit($id)
     {
-        // Thêm address
-        $selectOptionsController = new SelectOptionsController();
-        $selectOptions = $selectOptionsController->getAddressOptions();
-        $provinces = $selectOptions->getData()['provinces'];
-        $wards = $selectOptions->getData()['wards'];
-        $districts = $selectOptions->getData()['districts'];
-        $businesses = Business::findOrFail($id);
+        $business_category = BusinessCategory::findOrFail($id);
 
-        return view('superadmin.businesses.edit',compact('id','provinces', 'wards', 'districts','businesses',));
+        return view('superadmin.bussiness_categories.edit',compact('business_category','id'));
     }
 
     public function update(Request $request, $id)
     {
-
-        $business = Business::findOrFail($id);
-        $addressArray = [
-            'province' => $request->province,
-            'district' => $request->district,
-            'ward' => $request->ward
-        ];
-        
-        $addressJson = json_encode($addressArray);
-        // Create the user
-        $business->name = $request->name;
-        $business->email = $request->email;
-        $business->phone_number = $request->phone_number;
-        $business->business_category_id = $request->business_category_id;   
-        $business->address = $addressJson;
-        $business->save();
+        $business_category = BusinessCategory::findOrFail($id);
+        $business_category->vi_name = $request->vi_name;
+        $business_category->en_name = $request->en_name;
+        $business_category->slug = $request->slug;
+        $business_category->description = $request->description;
+        $business_category->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business updated successfully');
+        return redirect()->back()->with('success', 'Business category updated successfully');
     }
 
     public function destroy($id)
     {
-        $business = Business::findOrFail($id);
-        $business->delete();
+        $business_category = BusinessCategory::findOrFail($id);
+        $business_category->delete();
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business deleted successfully');
+        return redirect()->back()->with('success', 'Business category deleted successfully');
     }
 
 }

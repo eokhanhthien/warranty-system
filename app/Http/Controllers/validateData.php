@@ -112,4 +112,29 @@ public function validateDatateam(Request $request)
         'success' => true,
     ]);
 }
+
+public function validateDatabusinessCategory(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'vi_name' => 'required',
+        'en_name' => 'required',
+        'description' => 'required',
+    ], [
+        'vi_name.required' => 'Vui lòng nhập tên danh mục.',
+        'en_name.required' => 'Vui lòng nnhập tên danh mục.',
+        'description.required' => 'Vui lòng nhập mô tả.',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+    ]);
+}
+
 }
