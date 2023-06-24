@@ -22,39 +22,49 @@ Route::post('/auth-login', 'Auth\AuthController@authLogin')->name('auth.login');
 Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 
 
-Route::prefix('superadmin')->middleware((['auth', 'superadmin']))->group(function () {
-   
-    Route::resource('/businesses', 'superadmin\BusinessesController')->names([
+Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'superadmin']))->group(function () {
+    // Dashboard
+    Route::get('/dashboard', 'DashboardController@index')->name('superadmin.dashboard');
+
+    // Danh nghiệp
+    Route::resource('/businesses', 'businessesController')->names([
         'index' => 'superadmin.businesses',
         'store' => 'superadmin.businesses.store',
         'edit' => 'superadmin.businesses.edit',
     ]);
-    Route::post('/businesses/{id}/update', 'superadmin\BusinessesController@update')->name('superadmin.businesses.update');
-    Route::delete('/businesses/{id}/delete', 'superadmin\BusinessesController@destroy')->name('superadmin.businesses.destroy');
+    Route::post('/businesses/{id}/update', 'businessesController@update')->name('superadmin.businesses.update');
+    Route::delete('/businesses/{id}/delete', 'businessesController@destroy')->name('superadmin.businesses.destroy');
 
-    Route::resource('/team', 'superadmin\teamsController')->names([
+    // Đồng đội
+    Route::resource('/team', 'teamsController')->names([
         'index' => 'superadmin.team',
         'store' => 'superadmin.team.store',
         'edit' => 'superadmin.team.edit',
     ]);
-    Route::post('/team/{id}/update', 'superadmin\teamsController@update')->name('superadmin.team.update');
-    Route::delete('/team/{id}/delete', 'superadmin\teamsController@destroy')->name('superadmin.team.destroy');
+    Route::post('/team/{id}/update', 'teamsController@update')->name('superadmin.team.update');
+    Route::delete('/team/{id}/delete', 'teamsController@destroy')->name('superadmin.team.destroy');
 
-
-    Route::resource('/businesses-categories', 'superadmin\BussinessCategoriesController')->names([
+    // Danh mục doanh nghiệp
+    Route::resource('/businesses-categories', 'BussinessCategoriesController')->names([
         'index' => 'superadmin.businesses.categories',
         'store' => 'superadmin.businesses.categories.store',
         'edit' => 'superadmin.businesses.categories.edit',
     ]);
-    Route::post('/businesses-categories/{id}/update', 'superadmin\BussinessCategoriesController@update')->name('superadmin.businesses.categories.update');
-    Route::delete('/businesses-categories/{id}/delete', 'superadmin\BussinessCategoriesController@destroy')->name('superadmin.businesses.categories.destroy');
-    // Các route khác trong nhóm "superadmin" nếu cần
+    Route::post('/businesses-categories/{id}/update', 'BussinessCategoriesController@update')->name('superadmin.businesses.categories.update');
+    Route::delete('/businesses-categories/{id}/delete', 'BussinessCategoriesController@destroy')->name('superadmin.businesses.categories.destroy');
+
+    // Giao diện doanh nghiệp
+    Route::resource('/businesses-display', 'BussinessDisplayController')->names([
+        'index' => 'superadmin.businesses.display',
+        'store' => 'superadmin.businesses.display.store',
+        'edit' => 'superadmin.businesses.display.edit',
+    ]);
+    Route::post('/businesses-display/{id}/update', 'BussinessDisplayController@update')->name('superadmin.businesses.display.update');
+    Route::delete('/businesses-display/{id}/delete', 'BussinessDisplayController@destroy')->name('superadmin.businesses.display.destroy');
 });
 
-Route::prefix('admin')->middleware('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        // Logic xử lý cho trang dashboard của Admin
-    })->name('admin.dashboard');
+Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin']))->group(function () {
+    Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
 
     // Các Route khác cho Admin
 });
@@ -66,6 +76,17 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 //     // Các Route khác cho User
 // });
 
+
+// Route dành cho khách hàng sỡ hữu doanh nghiệp
+// Trang chủ và Trang quản lý
+Route::prefix('artisq')->namespace('Seller')->group(function () {
+    Route::middleware('CheckDomain')->group(function () {
+        Route::get('{domain}/{category_slug}', 'SellerController@index');
+        Route::get('{domain}/{category_slug}/admin', 'SellerController@admin');
+    });
+});
+
+
 // Chọn địa chỉ
 Route::get('/address-options', 'SelectOptionsController@getAddressOptions')->name('address.options');
 Route::get('/get-districts/{provinceId}', 'SelectOptionsController@getDistricts');
@@ -75,6 +96,7 @@ Route::get('/get-wards/{districtId}', 'SelectOptionsController@getWards');
 Route::post('/validate-business', 'validateData@validateDatabusiness')->name('validate-business');
 Route::post('/validate-team', 'validateData@validateDatateam')->name('validate-team');
 Route::post('/validate-business-categories', 'validateData@validateDatabusinessCategory')->name('validate.business.categories');
+Route::post('/validate-business-display', 'validateData@validateDatabusinessDisplay')->name('validate.business.display');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

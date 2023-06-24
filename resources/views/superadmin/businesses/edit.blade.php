@@ -1,5 +1,6 @@
 @extends('layouts.superadmin')
 @section('content')
+@section('title', 'Doanh nghiệp')
 @if(session('success'))
     <script>
         toastr.success('{!! html_entity_decode(session('success')) !!}');
@@ -41,12 +42,35 @@
                                         <label for="business_category_id">Danh mục doanh nghiệp</label>
                                             <select name="business_category_id" id="business_category_id" style="padding-right: 1.9rem !important;" class="form-control">
                                                     <option value="">Chọn danh mục</option> 
-                                                    <option value="1" {{ $businesses->business_category_id == 1 ? 'selected' : '' }}>Trung tâm bảo hành</option>    
-                                                    <option value="2" {{ $businesses->business_category_id == 2 ? 'selected' : '' }}>Trung tâm đào tạo</option>    
+                                                    @if(!empty($business_category))
+                                                        @foreach($business_category as $category)
+                                                            <option value="{{$category->id}}" {{ $businesses->business_category_id == $category->id ? 'selected' : '' }}>{{$category->vi_name}}</option>    
+                                                        @endforeach
+                                                    @endif  
                                             </select>
                                             <span class="error-message" id="business_category_id-error"></span>
                                         </div>
                                         
+                                        <div class="form-group col-lg-6">
+                                            <label for="owner_id">Chủ sỡ hữu</label>
+                                            <select name="owner_id" id="owner_id" style="padding-right: 1.9rem !important;" class="form-control">
+                                                    <option value="">Chọn chủ sỡ hữu</option> 
+                                                    <!-- @if(!empty($owner))
+                                                        @foreach($owner as $user)
+                                                            <option value="{{$user->id}}" {{ $businesses->owner_id == $user->id ? 'selected' : '' }}>{{$user->name}}</option>    
+                                                        @endforeach
+                                                    @endif    -->
+
+                                                    @foreach($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endforeach
+                                                    @foreach($owners as $owner)
+                                                        <option value="{{ $owner->id }}" {{ $businesses->owner_id == $owner->id ? 'selected' : '' }} style="color: darkgrey;" disabled>{{ $owner->name }}</option>
+                                                    @endforeach 
+                                            </select>
+                                            <span class="error-message" id="owner_id-error"></span>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6">

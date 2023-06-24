@@ -1,5 +1,6 @@
 @extends('layouts.superadmin')
 @section('content')
+@section('title', 'Danh mục doanh nghiệp')
 @if(session('success'))
     <script>
         toastr.success('{!! html_entity_decode(session('success')) !!}');

@@ -32,9 +32,11 @@ class AuthController extends Controller
                 // config(['session.lifetime' => $lifetimeMinutes]);
                 // Đăng nhập thành công, thực hiện các thao tác cần thiết
                 // attempt sẽ tạo token, lưu thông tin vào session, v.v.
-                if (Auth::check()) {
-                    return redirect()->route('dashboard');
-                }    
+                if (Auth::check() && Auth::user()->role == 1) {
+                    return redirect()->route('superadmin.dashboard');
+                }elseif(Auth::check() && Auth::user()->role == 2){
+                    return redirect()->route('admin.dashboard');
+                }   
             }
         } catch (ValidationException $e) {
             // Xử lý ngoại lệ nếu có lỗi xác thực

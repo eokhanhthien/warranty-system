@@ -137,4 +137,29 @@ public function validateDatabusinessCategory(Request $request)
     ]);
 }
 
+
+public function validateDatabusinessDisplay(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'vi_name' => 'required',
+        'en_name' => 'required',
+        'business_category_id' => 'required',
+    ], [
+        'vi_name.required' => 'Vui lòng nhập tên giao diện.',
+        'en_name.required' => 'Vui lòng nnhập tên giao diện.',
+        'business_category_id.required' => 'Vui lòng chọn danh mục.',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+    ]);
+}
+
 }

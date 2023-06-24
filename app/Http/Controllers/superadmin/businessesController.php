@@ -4,6 +4,8 @@ namespace App\Http\Controllers\superadmin;
 
 use App\Http\Controllers\Controller;
 use App\Business;
+use App\BusinessCategory;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SelectOptionsController;
 use Illuminate\Support\Facades\Validator;
@@ -17,9 +19,18 @@ class BusinessesController extends Controller
         $provinces = $selectOptions->getData()['provinces'];
         $wards = $selectOptions->getData()['wards'];
         $districts = $selectOptions->getData()['districts'];
+        $business_category = BusinessCategory::all();
+        $owners = User::join('businesses', 'users.id', '=', 'businesses.owner_id')
+            ->select('users.*')
+            ->get();
 
+        $users = User::whereNotIn('id', $owners->pluck('id'))
+            ->where('users.role', '2')
+            ->where('users.status', '1')
+            ->select('users.*')
+            ->get();
         $businesses = Business::paginate(10);
-        return view('superadmin.businesses.index', compact('provinces', 'wards', 'districts','businesses'));
+        return view('superadmin.businesses.index', compact('provinces', 'wards', 'districts','businesses','business_category','owners','users'));
     }
 
     public function create()
@@ -48,6 +59,7 @@ class BusinessesController extends Controller
         $business->phone_number = $request->phone_number;
         $business->business_category_id = $request->business_category_id;   
         $business->address = $addressJson;
+        $business->owner_id = $request->owner_id;
         $business->save();
 
         // Redirect or return a response
@@ -63,8 +75,18 @@ class BusinessesController extends Controller
         $wards = $selectOptions->getData()['wards'];
         $districts = $selectOptions->getData()['districts'];
         $businesses = Business::findOrFail($id);
+        $business_category = BusinessCategory::all();
+        $owners = User::join('businesses', 'users.id', '=', 'businesses.owner_id')
+            ->select('users.*')
+            ->get();
 
-        return view('superadmin.businesses.edit',compact('id','provinces', 'wards', 'districts','businesses',));
+        $users = User::whereNotIn('id', $owners->pluck('id'))
+            ->where('users.role', '2')
+            ->where('users.status', '1')
+            ->select('users.*')
+            ->get();
+
+        return view('superadmin.businesses.edit',compact('id','provinces', 'wards', 'districts','businesses','business_category','owners','users'));
     }
 
     public function update(Request $request, $id)
@@ -84,6 +106,7 @@ class BusinessesController extends Controller
         $business->phone_number = $request->phone_number;
         $business->business_category_id = $request->business_category_id;   
         $business->address = $addressJson;
+        $business->owner_id = $request->owner_id;
         $business->save();
 
         // Redirect or return a response
