@@ -10,13 +10,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('assets/business_setting/css/style.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body style="height: 100vh; overflow:hidden;">
 
     <div class="main">
 
         <div class="container">
-        <form action="" method="POST" id="form-business-setting" class="appointment-form">
+        <form action="{{route('business.setting.add')}}" method="POST" id="form-business-setting" class="appointment-form">
             @csrf
             <h2 class="text-primary">Thiêt lập doanh nghiệp của bạn</h2>
             <div class="row">
@@ -43,7 +44,7 @@
 
                 <div class="form-group col-lg-6">
                 <label style="color: black; " for="business_category_id">Danh mục doanh nghiệp</label>
-                    <select name="business_category_id" id="business_category_id" style="padding-right: 1.9rem !important;" class="form-control mb-2">
+                    <select name="business_category_id" id="business_category_id" style="padding-right: 1.9rem !important;" class="form-control mb-2" onchange="onCategoryChange()">
                             <option value="">Chọn danh mục</option> 
                             @if(!empty($business_category))
                                 @foreach($business_category as $category)
@@ -57,8 +58,8 @@
                 <div class="form-group col-lg-6">
                     <label style="color: black; " for="business_display_id">Chọn giao diện cho Website</label>
                     <div class="d-flex">
-                    <input type="text" class="form-control mb-2" id="business_display_id"  name="business_display_id" readonly>
-                    <div><span class="btn btn-success" id="choose-display-btn" >Chọn</button></div>
+                    <input type="text" class="form-control mb-2" id="business_display_id"  name="business_display_id"  placeholder="Mặc định"readonly>
+                    <div><button class="btn btn-success" id="choose-display-btn" disabled>Chọn</button></div>
                     </div>
                     <span  style="color: red;" class="error-message" id="business_display_id-error"></span>
                 </div>
@@ -83,24 +84,8 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    @if(!empty($business_display))
-                        <div class="row">
-                        @foreach($business_display as $display)
-                        <div class="col-md-4">
-                            <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title text-dark">{{ $display->vi_name }}</h5>
-                                <td><iframe src="https://drive.google.com/file/d/{{$display->image}}/preview" alt="" style="width: 100%; height: 120px"></iframe></td>
-                                <button class="btn btn-primary select-display-btn" data-display-id="{{ $display->slug }}">Chọn</button>
-                            </div>
-                            </div>
-                        </div>
-                        @endforeach
-                        </div>
-                    @else
-                        <p>Không có giao diện nào.</p>
-                    @endif
+                <div class="modal-body">                   
+                    <div class="row" id="displayContainer"></div>
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -127,6 +112,7 @@
     });
 </script>
 
+<!-- Sự kiện cho model -->
 <script>
   // Lắng nghe sự kiện khi nhấp chuột vào nút "Chọn giao diện"
   document.getElementById('choose-display-btn').addEventListener('click', function(e) {
@@ -135,20 +121,74 @@
     // Hiển thị modal
     $('#displayModal').modal('show');
   });
-</script>
 
-<script>
-  // Lắng nghe sự kiện khi nhấp chuột vào nút "Chọn"
-  const selectButtons = document.getElementsByClassName('select-display-btn');
-  const businessDisplayInput = document.getElementById('business_display_id');
+// Lắng nghe sự kiện khi nhấp chuột vào phần tử cha
+const displayContainer = document.getElementById('displayContainer');
+const businessDisplayInput = document.getElementById('business_display_id');
 
-  for (let i = 0; i < selectButtons.length; i++) {
-    selectButtons[i].addEventListener('click', function() {
-      const displayId = this.getAttribute('data-display-id');
-      businessDisplayInput.value = displayId;
-      $('#displayModal').modal('hide'); // Đóng modal sau khi chọn
-    });
+displayContainer.addEventListener('click', function(event) {
+  const target = event.target;
+  if (target.classList.contains('select-display-btn')) {
+    const displayId = target.getAttribute('data-display-id');
+    businessDisplayInput.value = displayId;
+    $('#displayModal').modal('hide'); // Đóng modal sau khi chọn
   }
+});
+
 </script>
+
+<!-- Sự kiên lấy dât từ danh mục cho giao diện -->
+<script>
+function onCategoryChange() {
+  var selectedCategory = document.getElementById("business_category_id").value;
+  var chooseDisplayBtn = document.getElementById("choose-display-btn");
+  
+  if (selectedCategory !== "") {
+    chooseDisplayBtn.disabled = false;
+  } else {
+    chooseDisplayBtn.disabled = true;
+  }
+
+  var categoryId = $('#business_category_id').val();
+  var token = $('meta[name="csrf-token"]').attr('content'); // Lấy giá trị token CSRF từ thẻ meta
+    // Gửi yêu cầu Ajax đến controller với categoryId và xử lý kết quả nhận được.
+    $.ajax({
+      url: '/admin/business-display-setting',
+      type: 'POST',
+      data: { business_category_id: categoryId},
+      headers: {
+        'X-CSRF-TOKEN': token
+      },
+      success: function(response) {
+        var displayContainer = document.getElementById('displayContainer');
+
+        if (response.length > 0) {
+            var html = '';
+            response.forEach(function(display) {
+            html += '<div class="col-md-4">' +
+                '<div class="card">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title text-dark">' + display.vi_name + '</h5>' +
+                '<td><iframe src="https://drive.google.com/file/d/' + display.image + '/preview" alt="" style="width: 100%; height: 120px"></iframe></td>' +
+                '<button class="btn btn-primary select-display-btn" data-display-id="' + display.slug + '">Chọn</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+            });
+     
+
+            displayContainer.innerHTML = html;
+        } else {
+            displayContainer.innerHTML = '<p>Không có giao diện nào.</p>';
+        }
+      },
+      error: function() {
+        // Xử lý lỗi (nếu có)
+      }
+    });
+
+}
+</script>
+
 </body>
 </html>

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () { return view('welcome'); }); 
-Route::get('/dashboard', function ()  { return view('dashboard');})->name('dashboard')->middleware('auth');
+// Route::get('/dashboard', function ()  { return view('dashboard');})->name('dashboard')->middleware('auth');
 Route::get('/not-found', function () { return view('error.index');});
 
 // Auth
@@ -69,6 +69,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
 });
 Route::prefix('admin')->namespace('Setting')->middleware((['auth', 'admin']))->group(function () {
 Route::get('/business-setting', 'BusinessSettingController@businessSetting')->name('business.setting');
+Route::post('/business-display-setting', 'BusinessSettingController@businessDisplaySetting')->name('business.display.setting');
+Route::post('/business-setting-add', 'BusinessSettingController@businessSettingAdd')->name('business.setting.add');
 });
 // Route::prefix('user')->middleware('user')->group(function () {
 //     Route::get('/dashboard', function () {

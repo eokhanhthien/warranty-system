@@ -168,7 +168,6 @@ public function validateDatabusinessSetting(Request $request){
         'email' => 'required|email',
         'phone_number' => 'required|numeric|digits_between:10,11',
         'business_category_id' => 'required',
-        'business_display_id' => 'required',
     ], [
         'name.required' => 'Vui lòng nhập tên doanh nghiệp.',
         'email.required' => 'Vui lòng nhập địa chỉ email.',
@@ -178,7 +177,6 @@ public function validateDatabusinessSetting(Request $request){
         'phone_number.digits_between' => 'Số điện thoại phải dài hơn 9 và nhỏ hơn 12.',
         'phone_number.between' => 'Vui lòng nhập số hợp lệ.',
         'business_category_id.required' => 'Vui lòng chọn danh mục doanh nghiệp.',
-        'business_display_id.required' => 'Vui lòng chọn giao diện doanh nghiệp.',
     ]);
 
     if ($validator->fails()) {
