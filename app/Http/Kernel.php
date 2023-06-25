@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         // 'user' => \App\Http\Middleware\UserMiddleware::class,
 
         'CheckDomain' => \App\Http\Middleware\CheckDomain::class,
+        'CheckBusinessSetting' => \App\Http\Middleware\CheckBusinessSetting::class,
 
     ];
 

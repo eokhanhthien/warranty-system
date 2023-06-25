@@ -16,7 +16,9 @@ class BussinessDisplayController extends Controller
     {
 
         $business_display = BusinessDisplay::get();
-        return view('superadmin.bussiness_display.index', compact('business_display'));
+        $business_category = BusinessCategory::all();
+
+        return view('superadmin.bussiness_display.index', compact('business_display','business_category'));
     }
 
     public function create()
@@ -50,28 +52,47 @@ class BussinessDisplayController extends Controller
 
     public function edit($id)
     {
-        $business_category = BusinessCategory::findOrFail($id);
+        $business_display = BusinessDisplay::findOrFail($id);
+        $business_category = BusinessCategory::all();
 
-        return view('superadmin.bussiness_display.edit',compact('business_category','id'));
+        return view('superadmin.bussiness_display.edit',compact('business_display','id','business_category'));
     }
 
     public function update(Request $request, $id)
     {
-        $business_category = BusinessCategory::findOrFail($id);
-        $business_category->vi_name = $request->vi_name;
-        $business_category->en_name = $request->en_name;
-        $business_category->slug = $request->slug;
-        $business_category->description = $request->description;
-        $business_category->save();
+        $business_display = BusinessDisplay::findOrFail($id);
+        // Upload the image if it exists
+        if ($request->hasFile('image')) {
+            $uploadimage = new UploadDriverColtroller();
+            $path_image = $uploadimage->upload_image($request);
+            
+
+            // Delete old image
+            $deleteimage = new UploadDriverColtroller();
+            $deleteimage->delete_image($user->image);
+            
+            $business_display->image = $path_image;
+        }else{
+            $business_display->image = $business_display->image;
+        }
+        $business_display->vi_name = $request->vi_name;
+        $business_display->en_name = $request->en_name;
+        $business_display->slug = $request->slug;
+        $business_display->business_category_id = $request->business_category_id;
+        $business_display->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business category updated successfully');
+        return redirect()->back()->with('success', 'Business display updated successfully');
     }
 
     public function destroy($id)
     {
-        $business_category = BusinessCategory::findOrFail($id);
-        $business_category->delete();
+        $business_display = BusinessDisplay::findOrFail($id);
+        // Delete the user's image
+        $deleteimage = new UploadDriverColtroller();
+        $deleteimage->delete_image($business_display->image);
+
+        $business_display->delete();
         // Redirect or return a response
         return redirect()->back()->with('success', 'Business category deleted successfully');
     }

@@ -187,7 +187,7 @@
 
             <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses-display/')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
-                <i class='menu-icon bx bxs-category'></i>
+                <i class='menu-icon bx bx-desktop'></i>
                 <div data-i18n="Layouts">Giao diện</div>
               </a>
 

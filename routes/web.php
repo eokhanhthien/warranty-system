@@ -63,12 +63,13 @@ Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'supe
     Route::delete('/businesses-display/{id}/delete', 'BussinessDisplayController@destroy')->name('superadmin.businesses.display.destroy');
 });
 
-Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin']))->group(function () {
+Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'CheckBusinessSetting']))->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
-
     // Các Route khác cho Admin
 });
-
+Route::prefix('admin')->namespace('Setting')->middleware((['auth', 'admin']))->group(function () {
+Route::get('/business-setting', 'BusinessSettingController@businessSetting')->name('business.setting');
+});
 // Route::prefix('user')->middleware('user')->group(function () {
 //     Route::get('/dashboard', function () {
 //         // Logic xử lý cho trang dashboard của User
@@ -97,6 +98,7 @@ Route::post('/validate-business', 'validateData@validateDatabusiness')->name('va
 Route::post('/validate-team', 'validateData@validateDatateam')->name('validate-team');
 Route::post('/validate-business-categories', 'validateData@validateDatabusinessCategory')->name('validate.business.categories');
 Route::post('/validate-business-display', 'validateData@validateDatabusinessDisplay')->name('validate.business.display');
+Route::post('/validate-business-setting', 'validateData@validateDatabusinessSetting')->name('validate.business.setting');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

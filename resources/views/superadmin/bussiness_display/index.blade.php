@@ -18,7 +18,7 @@
                 <div class="text-right">
                       <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal">Thêm</button>
                 </div>
-                <h5 class="card-header">Tất cả danh mục</h5>
+                <h5 class="card-header">Tất cả giao diện</h5>
                 <div class="table-responsive text-nowrap">
                 <table class="table" id="table_businesses">
                   <thead>
@@ -39,7 +39,7 @@
                       <td>{{ $category->slug }}</td>
                       <td>
                         <button class="btn btn-primary">
-                          <a style="color: white" class="d-inline-block" href="{{route('superadmin.businesses.categories.edit',[$category->id])}}">
+                          <a style="color: white" class="d-inline-block" href="{{route('superadmin.businesses.display.edit',[$category->id])}}">
                             <i class="bx bx-edit-alt me-1"></i> Edit
                           </a>
                         </button> 
@@ -64,7 +64,7 @@
                                       </div>
                                       <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                          <form id="deleteForm{{ $category->id }}" action="{{ route('superadmin.businesses.categories.destroy', ['id' => $category->id]) }}" method="POST">
+                                          <form id="deleteForm{{ $category->id }}" action="{{ route('superadmin.businesses.display.destroy', ['id' => $category->id]) }}" method="POST">
                                               @csrf
                                               @method('DELETE')
                                               <button type="submit" class="btn btn-danger">Delete</button>
@@ -94,7 +94,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="row">
+                                <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="projectName">Tên giao diện (Tiếng Việt)</label>
                                         <input type="text" class="form-control" id="" placeholder="Nhập tên giao diện" name="vi_name" >
