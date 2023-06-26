@@ -35,3 +35,9 @@ table.dataTable {
     outline: none !important;
     margin: 10px 10px 0 0;
 }
+img.logo-img {
+    width: 52px ;
+}
+div#table_businesses_length {
+    margin: 8px !important;
+}

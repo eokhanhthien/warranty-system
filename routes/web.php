@@ -18,6 +18,7 @@ Route::get('/not-found', function () { return view('error.index');});
 // Auth
 Route::get('/login', 'Auth\AuthController@index')->name('login')->middleware('no_auth');
 Route::get('/register', 'Auth\AuthController@register')->name('register')->middleware('no_auth');
+Route::post('/get-register', 'Auth\AuthController@getRegister')->name('post.register');
 Route::post('/auth-login', 'Auth\AuthController@authLogin')->name('auth.login');
 Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 
@@ -67,7 +68,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
     // Các Route khác cho Admin
 });
-Route::prefix('admin')->namespace('Setting')->middleware((['auth', 'admin', 'no_auth']))->group(function () {
+Route::prefix('admin')->namespace('Setting')->middleware((['auth', 'admin']))->group(function () {
 Route::get('/business-setting', 'BusinessSettingController@businessSetting')->name('business.setting');
 Route::post('/business-display-setting', 'BusinessSettingController@businessDisplaySetting')->name('business.display.setting');
 Route::post('/business-setting-add', 'BusinessSettingController@businessSettingAdd')->name('business.setting.add');
@@ -101,6 +102,7 @@ Route::post('/validate-team', 'validateData@validateDatateam')->name('validate-t
 Route::post('/validate-business-categories', 'validateData@validateDatabusinessCategory')->name('validate.business.categories');
 Route::post('/validate-business-display', 'validateData@validateDatabusinessDisplay')->name('validate.business.display');
 Route::post('/validate-business-setting', 'validateData@validateDatabusinessSetting')->name('validate.business.setting');
+Route::post('/validate-register', 'validateData@validateDataRegister')->name('validate.register');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

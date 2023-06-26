@@ -190,4 +190,39 @@ public function validateDatabusinessSetting(Request $request){
         'success' => true,
     ]);
 }
+
+public function validateDataRegister(Request $request)
+{
+    // Tạo một mảng chứa các quy tắc cho Validator
+    $rules = [
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required',
+        'repassword' => 'required|same:password',
+        
+    ];
+
+    // Tạo Validator và áp dụng các quy tắc
+    $validator = Validator::make($request->all(), $rules, [
+        'name.required' => 'Vui lòng nhập họ và tên của bạn.',
+        'email.required' => 'Vui lòng nhập địa chỉ email.',
+        'email.email' => 'Vui lòng nhập đúng định dạng email.',
+        'email.unique' => 'Địa chỉ email đã tồn tại.',
+        'password.required' => 'Vui lòng nhập mật khẩu.',
+        'repassword.required' => 'Vui lòng nhập mật khẩu.',
+        'repassword.same' => 'Mật khẩu chưa khớp.',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+    ]);
+}
+
 }

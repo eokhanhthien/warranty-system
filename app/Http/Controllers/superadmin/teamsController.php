@@ -20,7 +20,7 @@ class teamsController extends Controller
         $wards = $selectOptions->getData()['wards'];
         $districts = $selectOptions->getData()['districts'];
         $businesses = Business::all();
-        $users = User::paginate(10);
+        $users = User::all();
         return view('superadmin.team.index', compact('provinces', 'wards', 'districts', 'users','businesses'));
     }
 

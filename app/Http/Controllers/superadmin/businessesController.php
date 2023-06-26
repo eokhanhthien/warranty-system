@@ -29,7 +29,7 @@ class BusinessesController extends Controller
             ->where('users.status', '1')
             ->select('users.*')
             ->get();
-        $businesses = Business::paginate(10);
+        $businesses = Business::all();
         return view('superadmin.businesses.index', compact('provinces', 'wards', 'districts','businesses','business_category','owners','users'));
     }
 

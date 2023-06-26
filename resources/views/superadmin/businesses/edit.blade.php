@@ -85,9 +85,9 @@
                                         'provinces' => $provinces,
                                         'wards' => $wards,
                                         'districts' => $districts,
-                                        'selectedProvince' => $decodedAddress->province,
-                                        'selectedDistrict' => $decodedAddress->district,
-                                        'selectedWard' => $decodedAddress->ward
+                                        'selectedProvince' => !empty($decodedAddress->province) ? $decodedAddress->province: null,
+                                        'selectedDistrict' => !empty($decodedAddress->district) ? $decodedAddress->district: null,
+                                        'selectedWard' => !empty($decodedAddress->ward) ? $decodedAddress->ward : null
                                     ])
                                 </div>
 

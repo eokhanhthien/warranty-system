@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -54,5 +55,17 @@ class AuthController extends Controller
             Auth::logout();
             // Chuyển hướng người dùng về trang đăng nhập hoặc trang khác
             return redirect()->route('login');
+        }
+
+        public function getRegister(Request $request){
+            // print_r($request->all());die;
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->status = 1;
+            $user->role = 2;
+            $user->save();
+            return redirect()->back()->with('success', 'Đăng ký thành công');
         }
 }

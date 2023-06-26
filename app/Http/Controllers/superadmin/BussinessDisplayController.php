@@ -15,7 +15,7 @@ class BussinessDisplayController extends Controller
     public function index()
     {
 
-        $business_display = BusinessDisplay::get();
+        $business_display = BusinessDisplay::all();
         $business_category = BusinessCategory::all();
 
         return view('superadmin.bussiness_display.index', compact('business_display','business_category'));

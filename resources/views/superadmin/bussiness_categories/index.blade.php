@@ -38,13 +38,13 @@
                       <td>
                         <button class="btn btn-primary">
                           <a style="color: white" class="d-inline-block" href="{{route('superadmin.businesses.categories.edit',[$category->id])}}">
-                            <i class="bx bx-edit-alt me-1"></i> Edit
+                            <i class="bx bx-edit-alt me-1"></i> Sửa
                           </a>
                         </button> 
            
 
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $category->id }}">
-                              <i class="bx bx-trash me-1"></i> Delete
+                              <i class="bx bx-trash me-1"></i> Xóa
                           </button>
 
                           <!-- Confirmation Modal -->
@@ -52,21 +52,18 @@
                               <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="confirmationModalLabel">Confirm Delete</h5>
+                                          <h5 class="modal-title" id="confirmationModalLabel">Xác nhận xóa</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                           </button>
                                       </div>
-                                      <div class="modal-body">
-                                          Are you sure you want to delete this item?
-                                      </div>
+                                        <div class="modal-body">Bạn có chắc muốn xóa ?  </div>
                                       <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                          <form id="deleteForm{{ $category->id }}" action="{{ route('superadmin.businesses.categories.destroy', ['id' => $category->id]) }}" method="POST">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>                                          <form id="deleteForm{{ $category->id }}" action="{{ route('superadmin.businesses.categories.destroy', ['id' => $category->id]) }}" method="POST">
                                               @csrf
                                               @method('DELETE')
-                                              <button type="submit" class="btn btn-danger">Delete</button>
-                                          </form>
+                                              <button type="submit" class="btn btn-danger">Xóa</button>                                          
+                                            </form>
                                       </div>
                                   </div>
                               </div>
@@ -76,7 +73,7 @@
                     @endforeach
                   </tbody>
                 </table>
-                {{ $bussinessCategories->links() }}
+
                 </div>
 
                 <!-- Modal -->
@@ -140,7 +137,7 @@
         setupFormValidation(formId, validateUrl);
 
         var id_table = '#table_businesses';
-        searchDataTable(id_table,true, false);
+        searchDataTable(id_table,true, true,10);
     });
 </script>
 @endsection

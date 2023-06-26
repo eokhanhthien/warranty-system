@@ -58,7 +58,7 @@
                 <div class="form-group col-lg-6">
                     <label style="color: black; " for="business_display_id">Chọn giao diện cho Website</label>
                     <div class="d-flex">
-                    <input type="text" class="form-control mb-2" id="business_display_id"  name="business_display_id"  placeholder="Mặc định"readonly>
+                    <input type="text" class="form-control mb-2" id="business_display_id"  name="business_display_id"  placeholder="Mặc định (nếu không chọn)"readonly>
                     <div><button class="btn btn-success" id="choose-display-btn" disabled>Chọn</button></div>
                     </div>
                     <p class="font-weight-light text-dark">Chọn danh mục trước khi chọn giao diện</p>
@@ -71,6 +71,8 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="submit-btn">Lưu</button>
                 </div>
+                <p class="font-weight-light text-dark text-left"><a  href="{{route('logout')}}">Quay lại </a> </p>
+
                     </div>
                 </div>
             </div>

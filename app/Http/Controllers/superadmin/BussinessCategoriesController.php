@@ -13,7 +13,7 @@ class BussinessCategoriesController extends Controller
     public function index()
     {
 
-        $bussinessCategories = BusinessCategory::paginate(10);
+        $bussinessCategories = BusinessCategory::all();
         return view('superadmin.bussiness_categories.index', compact('bussinessCategories'));
     }
 

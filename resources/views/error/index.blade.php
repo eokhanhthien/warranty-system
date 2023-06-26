@@ -58,9 +58,9 @@
     <!-- Error -->
     <div class="container-xxl container-p-y">
       <div class="misc-wrapper">
-        <h2 class="mb-2 mx-2">Page Not Found :(</h2>
-        <p class="mb-4 mx-2">Oops! 😖 The requested URL was not found on this server.</p>
-        <a href="{{route('dashboard')}}" class="btn btn-primary">Back to home</a>
+        <h2 class="mb-2 mx-2">Không tìm thấy trang :(</h2>
+        <p class="mb-4 mx-2">Đáng tiêc, chúng tôi không tìm thấy trang bạn truy cập</p>
+        <a href="{{route('login')}}" class="btn btn-primary">Quay trở lại</a>
         <div class="mt-3">
           <img
             src="{{ asset('assets/img/illustrations/page-misc-error-light.png') }}"
