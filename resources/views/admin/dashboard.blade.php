@@ -1,5 +1,16 @@
 @extends('layouts.superadmin')
 @section('content')
+@if(session('success'))
+    <script>
+        toastr.success('{!! html_entity_decode(session('success')) !!}');
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        toastr.error('{!! html_entity_decode(session('error')) !!}');
+    </script>
+@endif
 <div class="content-wrapper">
             <!-- Content -->
 

@@ -61,6 +61,7 @@
                     <input type="text" class="form-control mb-2" id="business_display_id"  name="business_display_id"  placeholder="Mặc định"readonly>
                     <div><button class="btn btn-success" id="choose-display-btn" disabled>Chọn</button></div>
                     </div>
+                    <p class="font-weight-light text-dark">Chọn danh mục trước khi chọn giao diện</p>
                     <span  style="color: red;" class="error-message" id="business_display_id-error"></span>
                 </div>
                 
@@ -170,7 +171,7 @@ function onCategoryChange() {
                 '<div class="card-body">' +
                 '<h5 class="card-title text-dark">' + display.vi_name + '</h5>' +
                 '<td><iframe src="https://drive.google.com/file/d/' + display.image + '/preview" alt="" style="width: 100%; height: 120px"></iframe></td>' +
-                '<button class="btn btn-primary select-display-btn" data-display-id="' + display.slug + '">Chọn</button>' +
+                '<button class="btn btn-primary select-display-btn" data-display-id="' + display.id + '">Chọn</button>' +
                 '</div>' +
                 '</div>' +
                 '</div>';

@@ -67,7 +67,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
     // Các Route khác cho Admin
 });
-Route::prefix('admin')->namespace('Setting')->middleware((['auth', 'admin']))->group(function () {
+Route::prefix('admin')->namespace('Setting')->middleware((['auth', 'admin', 'no_auth']))->group(function () {
 Route::get('/business-setting', 'BusinessSettingController@businessSetting')->name('business.setting');
 Route::post('/business-display-setting', 'BusinessSettingController@businessDisplaySetting')->name('business.display.setting');
 Route::post('/business-setting-add', 'BusinessSettingController@businessSettingAdd')->name('business.setting.add');
