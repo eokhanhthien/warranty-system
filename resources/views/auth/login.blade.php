@@ -1,5 +1,28 @@
 @extends('auth.auth_layout')
 @section('content')
+@if(session('success'))
+    <script>
+        toastr.success('{!! html_entity_decode(session('success')) !!}');
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        toastr.error('{!! html_entity_decode(session('error')) !!}');
+    </script>
+@endif
+<style>
+        /* Quy tắc CSS của toastr */
+        .toast-success {
+            background-color: #28a745;
+            /* Các quy tắc khác */
+        }
+        
+        .toast-error {
+            background-color: #dc3545;
+            /* Các quy tắc khác */
+        }
+</style>
     <!-- Content -->
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">

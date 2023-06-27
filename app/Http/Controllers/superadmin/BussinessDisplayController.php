@@ -47,7 +47,7 @@ class BussinessDisplayController extends Controller
         $business_display->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business display added successfully');
+        return redirect()->back()->with('success', 'Thêm giao diện thành công');
     }
 
     public function edit($id)
@@ -82,7 +82,7 @@ class BussinessDisplayController extends Controller
         $business_display->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business display updated successfully');
+        return redirect()->back()->with('success', 'Cập nhật giao diện thành công');
     }
 
     public function destroy($id)
@@ -94,7 +94,7 @@ class BussinessDisplayController extends Controller
 
         $business_display->delete();
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business category deleted successfully');
+        return redirect()->back()->with('success', 'Xóa giao diện thành công');
     }
 
 }

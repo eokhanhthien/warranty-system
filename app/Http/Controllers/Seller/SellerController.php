@@ -11,14 +11,14 @@ class SellerController extends Controller
 {
 public function index(Request $request, $domain, $category){
     // echo"<pre>";
-    // print_r($request->display_slug);die;
-    return view('view-seller.' .$category. '/' .$request->display_slug.  '.index');
+    // print_r($request->business);die;
+  
+    return view('view-seller.' .$category. '/' .$request->display_slug.  '.index' );
 }
 
-public function admin(Request $request, $domain, $category){
+public function about(Request $request, $domain, $category){
 
-
-    return view('view-seller.' .$category. '.admin');
+    return view('view-seller.' .$category. '/' .$request->display_slug.  '.about');
 }
 
 

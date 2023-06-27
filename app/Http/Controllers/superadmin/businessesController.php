@@ -63,7 +63,7 @@ class BusinessesController extends Controller
         $business->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business added successfully');
+        return redirect()->back()->with('success', 'Thêm doanh nghiệp thành công');
     }
 
     public function edit($id)
@@ -110,7 +110,7 @@ class BusinessesController extends Controller
         $business->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business updated successfully');
+        return redirect()->back()->with('success', 'Cập nhật doanh nghiệp thành công');
     }
 
     public function destroy($id)
@@ -118,7 +118,7 @@ class BusinessesController extends Controller
         $business = Business::findOrFail($id);
         $business->delete();
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business deleted successfully');
+        return redirect()->back()->with('success', 'Xóa doanh nghiệp thành công');
     }
 
 }

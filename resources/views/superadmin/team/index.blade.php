@@ -16,7 +16,7 @@
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
                 <div class="text-right">
-                      <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal">Thêm</button>
+                      <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Thêm</button>
                 </div>
                 <h5 class="card-header">Tất cả thành viên</h5>
                 <div class="table-responsive text-nowrap">
@@ -227,7 +227,7 @@
         setupFormValidation(formId, validateUrl);
 
         var id_table = '#table_team';
-        searchDataTable(id_table,true, true, 4);
+        searchDataTable(id_table,true, true, 10);
 
     });
 

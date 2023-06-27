@@ -38,6 +38,8 @@ class AuthController extends Controller
                 }elseif(Auth::check() && Auth::user()->role == 2){
                     return redirect()->route('admin.dashboard');
                 }   
+            }else{
+                return redirect()->back()->with('error', 'Sai thông tin đăng nhập');
             }
         } catch (ValidationException $e) {
             // Xử lý ngoại lệ nếu có lỗi xác thực

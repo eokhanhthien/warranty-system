@@ -68,6 +68,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
     // Các Route khác cho Admin
 });
+// Check cài đặt doanh ngiệp lần đầu
 Route::prefix('admin')->namespace('Setting')->middleware((['auth', 'admin']))->group(function () {
 Route::get('/business-setting', 'BusinessSettingController@businessSetting')->name('business.setting');
 Route::post('/business-display-setting', 'BusinessSettingController@businessDisplaySetting')->name('business.display.setting');
@@ -85,8 +86,8 @@ Route::post('/business-setting-add', 'BusinessSettingController@businessSettingA
 // Trang chủ và Trang quản lý
 Route::prefix('artisq')->namespace('Seller')->group(function () {
     Route::middleware('CheckDomain')->group(function () {
-        Route::get('{domain}/{category_slug}', 'SellerController@index');
-        Route::get('{domain}/{category_slug}/admin', 'SellerController@admin');
+        Route::get('{domain}/{category_slug}', 'SellerController@index')->name('seller.business');
+        Route::get('{domain}/{category_slug}/about', 'SellerController@about')->name('seller.business.about');
     });
 });
 

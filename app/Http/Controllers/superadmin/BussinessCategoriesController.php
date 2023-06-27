@@ -36,7 +36,7 @@ class BussinessCategoriesController extends Controller
         $business_category->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business category added successfully');
+        return redirect()->back()->with('success', 'Thêm danh mục doanh nghiệp thành công');
     }
 
     public function edit($id)
@@ -56,7 +56,7 @@ class BussinessCategoriesController extends Controller
         $business_category->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business category updated successfully');
+        return redirect()->back()->with('success', 'Cập nhật danh mục doanh nghiệp thành công');
     }
 
     public function destroy($id)
@@ -64,7 +64,7 @@ class BussinessCategoriesController extends Controller
         $business_category = BusinessCategory::findOrFail($id);
         $business_category->delete();
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Business category deleted successfully');
+        return redirect()->back()->with('success', 'Xóa danh mục doanh nghiệp thành công');
     }
 
 }

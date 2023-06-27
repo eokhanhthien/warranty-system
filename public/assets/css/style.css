@@ -38,6 +38,11 @@ table.dataTable {
 img.logo-img {
     width: 52px ;
 }
-div#table_businesses_length {
+
+.dataTables_info,
+.dataTables_length{
     margin: 8px !important;
+}
+a.d-inline-block {
+    text-decoration: none !important;
 }

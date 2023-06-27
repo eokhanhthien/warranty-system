@@ -16,7 +16,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 <div class="card">
                 <div class="text-right">
-                      <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal">Thêm</button>
+                      <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Thêm</button>
                 </div>
                 <h5 class="card-header">Tất cả danh mục</h5>
                 <div class="table-responsive text-nowrap">

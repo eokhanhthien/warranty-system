@@ -7,7 +7,7 @@ use App\Business;
 use App\BusinessCategory;
 use App\BusinessDisplay;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\View;
 class CheckDomain
 {
     public function handle($request, Closure $next)
@@ -43,6 +43,10 @@ class CheckDomain
             'display_slug' => $businesses->display_slug
         ]);
 
+        // Truyền data cho view layout và các view sử dụng layout này cũng có data này
+        View::composer("view-seller.{$businessCategory->slug}.{$businesses->display_slug}.layout.layout", function ($view) use ($business) {
+            $view->with('business_info', $business);
+        });
         return $next($request);
     }
 }

@@ -65,7 +65,7 @@ class teamsController extends Controller
         $user->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'User added successfully');
+        return redirect()->back()->with('success', 'Thêm người dùng thành công');
     }
 
     public function edit(Request $request, $id)
@@ -130,7 +130,7 @@ class teamsController extends Controller
         $user->save();
     
         // Redirect or return a response
-        return redirect()->back()->with('success', 'User updated successfully');
+        return redirect()->back()->with('success', 'Cập nhật người dùng thành công');
     }
     
 
@@ -143,7 +143,7 @@ class teamsController extends Controller
         // Delete the user record from the database
         $user->delete();
         // Redirect or return a response
-        return redirect()->back()->with('success', 'User deleted successfully');
+        return redirect()->back()->with('success', 'Xóa người dùng thành công');
     }
     
 
