@@ -18,17 +18,17 @@ class CheckDomain
         $business = Business::where('domain', $domain)->first();
 
         if (!$business) {
-            return response('Lỗi: Không tìm thấy doanh nghiệp với tên miền này.', 404);
+            return response()->view('error.index');
         }
 
         $businessCategory = BusinessCategory::find($business->business_category_id);
 
         if (!$businessCategory) {
-            return response('Lỗi: Không tìm thấy danh mục doanh nghiệp.', 404);
+            return response()->view('error.index');
         }
 
         if ($businessCategory->slug != $category) {
-            return response('Lỗi: Tên danh mục doanh nghiệp không khớp.', 404);
+            return response()->view('error.index');
         }
 
         $businesses = Business::where('owner_id', $business->owner_id )

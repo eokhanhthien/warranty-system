@@ -46,3 +46,8 @@ img.logo-img {
 a.d-inline-block {
     text-decoration: none !important;
 }
+button.dt-button.buttons-pdf.buttons-html5,
+button.dt-button.buttons-excel.buttons-html5 {
+    padding: 5px;
+    margin: 8px;
+}

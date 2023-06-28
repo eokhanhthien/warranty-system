@@ -26,6 +26,7 @@
                       <th>STT</th>
                       <th>Name</th>
                       <th>Email</th>
+                      <th>Chủ sỡ hữu</th>
                       <th>Verify email</th>
                       <th>Actions</th>
                     </tr>
@@ -36,6 +37,17 @@
                       <td>{{ $loop->index + 1 }}</td>
                       <td>{{ $business->name }}</td>
                       <td>{{ $business->email }}</td>
+                      <td>
+                        @php
+                            $owner = App\User::find($business->owner_id);
+                        @endphp
+
+                        @if($owner)
+                            {{ $owner->name }}
+                        @else
+                            N/A
+                        @endif
+                      </td>
                       <td><span class="badge bg-label-primary me-1">{{ $business->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
                       <td>
                         <button class="btn btn-primary">

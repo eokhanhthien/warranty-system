@@ -50,8 +50,19 @@
     <!-- Bao gồm tệp tin JavaScript của Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
+    <!-- Phần này là data table js -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" defer></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" defer></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js" defer></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js" defer></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js" defer></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPDF/1.5.3/jspdf.debug.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
   </head>
   <body>
     <!-- Layout wrapper -->
@@ -78,7 +89,7 @@
           <ul class="menu-inner py-1">
             @if (auth()->check() && auth()->user()->role == 1) 
             <!-- Dashboard -->
-            <li class="{{ str_starts_with(request()->url(), url('/dashboard')) ? 'menu-item active' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/dashboard')) ? 'menu-item active' : 'menu-item' }}">
               <a href="{{ route('superadmin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">{{__('lang_v1.dashboard')}}</div>
@@ -150,12 +161,32 @@
             @endif
 
             @if (auth()->check() && auth()->user()->role == 2) 
-                 <!-- Dashboard -->
-                 <li class="{{ str_starts_with(request()->url(), url('admin/dashboard')) ? 'menu-item active' : 'menu-item' }}">
+            <!-- Dashboard -->
+            <li class="{{ str_starts_with(request()->url(), url('admin/dashboard')) ? 'menu-item active' : 'menu-item' }}">
               <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">{{__('lang_v1.dashboard')}}</div>
               </a>
+            </li>
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Doanh nghiệp</span>
+            </li>
+            <!-- Thông tin doanh nghiệp -->
+
+            <li class="{{ str_starts_with(request()->url(), url('admin/business-info')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+              <i class='menu-icon bx bxs-business'></i>
+                <div data-i18n="Layouts">Cài đặt doanh nghiệp</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/business-info')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('admin.business.info') }}" class="menu-link">
+                    <div data-i18n="Without menu">Thông tin</div>
+                  </a>
+                </li>        
+              </ul>
             </li>
             @endif
             <!-- <li class="menu-header small text-uppercase">
@@ -214,7 +245,17 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="{{ asset('assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                    @php
+                        $name = auth()->user()->name;
+                        $lastSpacePosition = mb_strrpos($name, ' ');
+                        $lastName = mb_substr($name, $lastSpacePosition + 1);
+                        $initial = mb_strtoupper(mb_substr($lastName, 0, 1));
+                    @endphp
+
+                    <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;">
+                        <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
+                    </div>
+
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -223,7 +264,17 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="{{ asset('assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                            @php
+                                $name = auth()->user()->name;
+                                $lastSpacePosition = mb_strrpos($name, ' ');
+                                $lastName = mb_substr($name, $lastSpacePosition + 1);
+                                $initial = mb_strtoupper(mb_substr($lastName, 0, 1));
+                            @endphp
+
+                            <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;">
+                                <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
+                            </div>
+
                             </div>
                           </div>
                           <div class="flex-grow-1">

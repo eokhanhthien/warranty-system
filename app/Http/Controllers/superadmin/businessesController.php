@@ -62,6 +62,12 @@ class BusinessesController extends Controller
         $business->owner_id = $request->owner_id;
         $business->save();
 
+        iF(!empty($request->owner_id)){
+            $user = User::find($request->owner_id);
+            $user->business_id = $business->id;
+            $user->save();
+        }
+
         // Redirect or return a response
         return redirect()->back()->with('success', 'Thêm doanh nghiệp thành công');
     }
@@ -103,12 +109,18 @@ class BusinessesController extends Controller
         // Create the user
         $business->name = $request->name;
         $business->email = $request->email;
+        $business->domain = $request->domain;
         $business->phone_number = $request->phone_number;
         $business->business_category_id = $request->business_category_id;   
         $business->address = $addressJson;
         $business->owner_id = $request->owner_id;
         $business->save();
 
+        iF(!empty($request->owner_id)){
+            $user = User::find($request->owner_id);
+            $user->business_id = $business->id;
+            $user->save();
+        }
         // Redirect or return a response
         return redirect()->back()->with('success', 'Cập nhật doanh nghiệp thành công');
     }

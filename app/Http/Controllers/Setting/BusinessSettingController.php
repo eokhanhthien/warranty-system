@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\BusinessCategory;
 use App\BusinessDisplay;
 use App\Business;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class BusinessSettingController extends Controller
@@ -34,7 +35,10 @@ class BusinessSettingController extends Controller
       $business->business_display_id = !empty($request->business_display_id)?$request->business_display_id : $business_display_default->id;   
       $business->owner_id = Auth::user()->id;
       $business->save();
-
+      $business_id = $business->id;
+      $user =  User::find(Auth::user()->id);
+      $user->business_id = $business_id;
+      $user->save();
       // Redirect or return a response
       return redirect()->route('admin.dashboard')->with('success', 'Thiết lập danh nghiệp thành công');
       }
