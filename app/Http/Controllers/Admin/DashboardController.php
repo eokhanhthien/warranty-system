@@ -15,7 +15,15 @@ class DashboardController extends Controller
         ->join('business_categories', 'businesses.business_category_id', '=', 'business_categories.id')
         ->select('businesses.domain', 'business_categories.slug')
         ->first();
+        
+        $display = Business::where('owner_id', Auth::user()->id )
+        ->join('business_displays', 'businesses.business_display_id', '=', 'business_displays.id')
+        ->select('business_displays.slug as display_slug')
+        ->first();
+        $businesses->display = $display->display_slug;
 
+        $request->session()->put('businesses', $businesses);
+        
         $domain =  $baseUrl . '/artisq/' . $businesses->domain . '/' . $businesses->slug;
         return view('admin.dashboard', compact('domain'));
     }

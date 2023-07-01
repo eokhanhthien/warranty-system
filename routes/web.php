@@ -68,6 +68,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
     Route::get('/business-info', 'BusinessInfoController@index')->name('admin.business.info');
     Route::post('/business-update-info', 'BusinessInfoController@update')->name('admin.business.info.update');
+    Route::get('/business-display', 'BusinessInfoController@businessDisplay')->name('admin.business.display');
+
     // Các Route khác cho Admin
 });
 // Check cài đặt doanh ngiệp lần đầu

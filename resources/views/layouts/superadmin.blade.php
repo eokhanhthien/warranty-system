@@ -174,7 +174,8 @@
             </li>
             <!-- Thông tin doanh nghiệp -->
 
-            <li class="{{ str_starts_with(request()->url(), url('admin/business-info')) ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('admin/business-info')) || str_starts_with(request()->url(), url('admin/business-display')) ? 'menu-item open' : 'menu-item' }}">
+
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
               <i class='menu-icon bx bxs-business'></i>
                 <div data-i18n="Layouts">Cài đặt doanh nghiệp</div>
@@ -183,7 +184,15 @@
               <ul class="menu-sub">
                 <li class="{{ str_starts_with(request()->url(), url('admin/business-info')) ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('admin.business.info') }}" class="menu-link">
-                    <div data-i18n="Without menu">Thông tin</div>
+                    <div data-i18n="Without menu">Thông tin chung</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/business-display')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('admin.business.display') }}" class="menu-link">
+                    <div data-i18n="Without menu">Giao diện</div>
                   </a>
                 </li>        
               </ul>

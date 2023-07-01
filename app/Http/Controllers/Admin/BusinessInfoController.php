@@ -23,7 +23,7 @@ class BusinessInfoController extends Controller
         ->select('business_categories.vi_name')
         ->where('businesses.id', $businesses->id)
         ->first();
-        return view('admin.business_info', compact('provinces', 'wards', 'districts','businesses','category'));
+        return view('admin.setting_business.business_info', compact('provinces', 'wards', 'districts','businesses','category'));
     }
 
     public function update(Request $request){
@@ -42,6 +42,10 @@ class BusinessInfoController extends Controller
         $business->address = $addressJson;
         $business->save();
         return redirect()->back()->with('success', 'Cập nhật doanh nghiệp thành công');
+    }
+
+    public function businessDisplay(){
+        return view('admin.setting_business.business_display');
     }
 
 }

@@ -1,4 +1,4 @@
-@extends('view-seller.repair-system.display-one.layout.layout')
+@extends('view-seller.repair-system.repair-system.layout.layout')
 @section('content')
  <!-- Page Header Start -->
  <div class="container-fluid page-header mb-5 py-5">

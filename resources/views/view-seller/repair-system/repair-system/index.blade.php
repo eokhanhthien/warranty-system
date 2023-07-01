@@ -1,4 +1,4 @@
-@extends('view-seller.repair-system.display-one.layout.layout')
+@extends('view-seller.repair-system.repair-system.layout.layout')
 @section('content')
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
