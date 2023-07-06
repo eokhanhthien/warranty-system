@@ -47,17 +47,26 @@
         <div class="row align-items-center top-bar">
             <div class="col-lg-3 col-md-12 text-center text-lg-start">
                 <a href="" class="navbar-brand m-0 p-0">
-                    <h1 class="text-primary m-0">{{$business_info->name}}</h1>
+                    <h1 class="text-primary m-0">{{$business->name}}</h1>
                 </a>
             </div>
             <div class="col-lg-9 col-md-12 text-end">
+                @if(!empty($business->address))
+                    @php
+                        $decodedAddress = json_decode($business->address);
+                        $provinceName = App\Province::where('id', $decodedAddress->province)->first();
+                        $districtName = App\District::where('id', $decodedAddress->district)->first();
+                        $wardName = App\Ward::where('id', $decodedAddress->ward)->first();
+                    
+                    @endphp
+                @endif
                 <div class="h-100 d-inline-flex align-items-center me-4">
                     <i class="fa fa-map-marker-alt text-primary me-2"></i>
-                    <p class="m-0">123 Street, New York, USA</p>
+                    <p class="m-0">{{!empty($provinceName->city_name) ? $provinceName->city_name : 'USA'}}, {{!empty($districtName->districts_name) ? $districtName->districts_name : 'New York'}}, {{!empty($wardName->wards_name) ? $wardName->wards_name : '123 Street'}} </p>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center me-4">
                     <i class="far fa-envelope-open text-primary me-2"></i>
-                    <p class="m-0">{{$business_info->email}}</p>
+                    <p class="m-0">{{$business->email}}</p>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center">
                     <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -75,7 +84,7 @@
     <div class="container-fluid nav-bar bg-light">
         <nav class="navbar navbar-expand-lg navbar-light bg-white p-3 py-lg-0 px-lg-4">
             <a href="" class="navbar-brand d-flex align-items-center m-0 p-0 d-lg-none">
-                <h1 class="text-primary m-0">{{$business_info->name}}</h1>
+                <h1 class="text-primary m-0">{{$business->name}}</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
@@ -102,7 +111,7 @@
                     </div>
                     <div class="ms-3">
                         <p class="mb-1 text-white">Emergency 24/7</p>
-                        <h5 class="m-0 text-secondary">{{$business_info->phone_number}}</h5>
+                        <h5 class="m-0 text-secondary">{{$business->phone_number}}</h5>
                     </div>
                 </div>
             </div>

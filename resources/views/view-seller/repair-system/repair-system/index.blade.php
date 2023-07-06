@@ -1,40 +1,70 @@
 @extends('view-seller.repair-system.repair-system.layout.layout')
 @section('content')
     <!-- Carousel Start -->
+    <style>
+.iframe-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.6);
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+</style>
     <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="{{ asset('assets/manager_web/img/carousel-1.jpg')}}" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Plumbing & Repairing Services</h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Efficient Residential Plumbing Services</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Free Quote</a>
+        @if(!empty($display_information->images))
+            @foreach($display_information->images as $image)
+                <div class="owl-carousel-item position-relative" style="height: 600px;">
+                    <div class="iframe-container">
+                        <iframe src="https://drive.google.com/file/d/{{$image}}/preview?width=800&height=600" class= "img-fluid w-100 h-100"></iframe>
+                    </div>
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
+                        <div class="container">
+                            <div class="row justify-content-start">
+                                <div class="col-10 col-lg-8">
+                                    <h5 class="text-white text-uppercase mb-3 animated slideInDown">{{ !empty($display_information->title_banner) ? $display_information->title_banner[1] : "Plumbing & Repairing Services" }}</h5>
+                                    <h1 class="display-3 text-white animated slideInDown mb-4">{{ !empty($display_information->title_banner) ? $display_information->title_banner[0] : "Efficient Residential Plumbing Services" }}</h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">{{ !empty($display_information->title_banner) ? $display_information->title_banner[2] : "Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr." }}</p>
+                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Free Quote</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="{{ asset('assets/manager_web/img/carousel-2.jpg')}}" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Plumbing & Repairing Services</h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Efficient Commercial Plumbing Services</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Free Quote</a>
+            @endforeach
+                @else
+                <div class="owl-carousel-item position-relative" style="height: 600px;">
+                    <img class="img-fluid" src="{{ asset('assets/manager_web/img/carousel-2.jpg')}}" alt="">
+                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
+                        <div class="container">
+                            <div class="row justify-content-start">
+                                <div class="col-10 col-lg-8">
+                                    <h5 class="text-white text-uppercase mb-3 animated slideInDown">Plumbing & Repairing Services</h5>
+                                    <h1 class="display-3 text-white animated slideInDown mb-4">Efficient Residential Plumbing Services</h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Free Quote</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        @endif
+
+   
         </div>
     </div>
     <!-- Carousel End -->
@@ -44,9 +74,12 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s" >
                     <div class="overflow-hidden">
-                        <img class="img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/service-1.jpg')}}" alt="">
+                        <!-- <img class="img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/service-1.jpg')}}" alt=""> -->
+                        <!-- <div class="iframe-container"> -->
+                            <iframe src="https://drive.google.com/file/d/{{$image}}/preview?width=800&height=600" class= "img-fluid w-100 h-100"></iframe>
+                        <!-- </div> -->
                     </div>
                     <div class="d-flex align-items-center justify-content-between bg-light p-4">
                         <h5 class="text-truncate me-3 mb-0">Residential Plumbing</h5>
@@ -82,19 +115,25 @@
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase">About Us</h6>
-                    <h1 class="mb-4">We Are Trusted Plumbing Company Since 1990</h1>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                    <h6 class="text-secondary text-uppercase">Về chúng tôi</h6>
+                    <h1 class="mb-4">Bảo hành, bảo trì</h1>
+                    <p class="mb-4">{{ !empty($display_information->service_title) ? $display_information->service_title : "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet" }}</p>
+                    @if(!empty($display_information->service))
+                         @foreach($display_information->service as $service)
+                         <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>{{$service}}</p>
+                         @endforeach
+                    @else
                     <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Residential & commercial plumbing</p>
                     <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Quality services at affordable prices</p>
                     <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Immediate 24/ 7 emergency services</p>
+                    @endif 
                     <div class="bg-primary d-flex align-items-center p-4 mt-5">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 60px; height: 60px;">
                             <i class="fa fa-phone-alt fa-2x text-primary"></i>
                         </div>
                         <div class="ms-3">
                             <p class="fs-5 fw-medium mb-2 text-white">Emergency 24/7</p>
-                            <h3 class="m-0 text-secondary">+012 345 6789</h3>
+                            <h3 class="m-0 text-secondary">{{$business->phone_number}}</h3>
                         </div>
                     </div>
                 </div>
@@ -151,8 +190,8 @@
             <div class="col-md-12 col-lg-9">
                 <div class="ms-lg-5 ps-lg-5">
                     <div class="text-center text-lg-start wow fadeInUp" data-wow-delay="0.1s">
-                        <h6 class="text-secondary text-uppercase">Our Services</h6>
-                        <h1 class="mb-5">Explore Our Services</h1>
+                        <h6 class="text-secondary text-uppercase">DỊCH VỤ CỦA CHÚNG TÔI</h6>
+                        <h1 class="mb-5">Khám phá dịch vụ của chúng tôi</h1>
                     </div>
                     <div class="owl-carousel service-carousel position-relative wow fadeInUp" data-wow-delay="0.1s">
                         <div class="bg-light p-4">
@@ -232,14 +271,14 @@
                 </div>
             </div>
 
-            <h1 class="text-white mb-4">Emergency Plumbing Service</h1>
-            <h3 class="text-white mb-0">24 Hours 7 Days a Week</h3>
+            <h1 class="text-white mb-4">Sửa chữa khẩn cấp</h1>
+            <h3 class="text-white mb-0">24 giờ 7 ngày một tuần</h3>
         </div>
         <div class="container position-relative wow fadeInUp" data-wow-delay="0.1s" style="margin-top: -6rem;">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="bg-light text-center p-5">
-                        <h1 class="mb-4">Book For A Service</h1>
+                        <h1 class="mb-4">Đặt dịch vụ</h1>
                         <form>
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">

@@ -69,6 +69,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::get('/business-info', 'BusinessInfoController@index')->name('admin.business.info');
     Route::post('/business-update-info', 'BusinessInfoController@update')->name('admin.business.info.update');
     Route::get('/business-display', 'BusinessInfoController@businessDisplay')->name('admin.business.display');
+    Route::post('/set-business-display', 'BusinessInfoController@setBusinessDisplay')->name('admin.set.business.display');
 
     // Các Route khác cho Admin
 });

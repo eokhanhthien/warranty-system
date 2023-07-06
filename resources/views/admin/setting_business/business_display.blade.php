@@ -22,7 +22,7 @@
       @include('admin.setting_business.display_custom.' . session()->get('businesses.slug') . '.' . session()->get('businesses.display'))
       @else
       <p>Chưa  cấu hình, hãy liên hệ tổng đài 0946144333 được hướng dẫn</p>
-  @endif
+    @endif
     </div>
 
     </div>
@@ -57,37 +57,46 @@
 </script>
 
 <script>
-    let inputCount = 1;
+  let inputCount = document.querySelectorAll('.input-group').length + 1;
 
-    function addInput() {
-      const inputContainer = document.getElementById("input-container");
-      
-      const newInput = document.createElement("div");
-      newInput.classList.add("input-group");
-      
-      const input = document.createElement("input");
-      input.setAttribute("type", "text");
-      input.setAttribute("name", "service[" + inputCount + "]");
-      input.classList.add("form-control");
-      
-      const btnRemove = document.createElement("div");
-      btnRemove.classList.add("btn", "btn-danger");
-      btnRemove.textContent = "Xóa";
-      btnRemove.addEventListener("click", function() {
-        removeInput(this);
-      });
-      
-      newInput.appendChild(input);
-      newInput.appendChild(btnRemove);
-      inputContainer.appendChild(newInput);
-      
-      inputCount++;
-    }
+  function addInput() {
+    const inputContainer = document.getElementById("input-container");
 
-    function removeInput(btn) {
-      const inputGroup = btn.parentNode;
-      const inputContainer = inputGroup.parentNode;
-      inputContainer.removeChild(inputGroup);
-    }
-  </script>
+    const newInput = document.createElement("div");
+    newInput.classList.add("input-group");
+
+    const input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("name", "service[" + inputCount + "]");
+    input.classList.add("form-control");
+
+    const btnRemove = document.createElement("div");
+    btnRemove.classList.add("btn", "btn-danger");
+    btnRemove.textContent = "Xóa";
+    btnRemove.addEventListener("click", function() {
+      removeInput(this);
+    });
+
+    newInput.appendChild(input);
+    newInput.appendChild(btnRemove);
+    inputContainer.appendChild(newInput);
+
+    inputCount++;
+  }
+
+  function removeInput(btn) {
+    const inputGroup = btn.parentNode;
+    const inputContainer = inputGroup.parentNode;
+    inputContainer.removeChild(inputGroup);
+
+    // Cập nhật lại thứ tự của các input
+    const inputs = inputContainer.querySelectorAll('.input-group input');
+    inputs.forEach(function(input, index) {
+      input.setAttribute("name", "service[" + (index + 1) + "]");
+    });
+
+    inputCount--; // Giảm số lượng input
+  }
+</script>
+
 @endsection

@@ -2,7 +2,7 @@
                     <ul class="nav nav-tabs nav-fill" role="tablist">
                       <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-home" aria-controls="navs-justified-home" aria-selected="true">
-                          <i class="tf-icons bx bx-home"></i> Home
+                          <i class="tf-icons bx bx-home"></i> Trang chủ
                         </button>
                       </li>
                       <li class="nav-item">
@@ -17,6 +17,7 @@
                       </li>
                     </ul>
                     <div class="tab-content">
+                      <!-- Tab 1 -->
                       <div class="tab-pane fade active show" id="navs-justified-home" role="tabpanel">
                       <h6 class="card-title text-primary">Banner  
                         <span class="demo-inline-spacing cursor-pointer">
@@ -35,30 +36,56 @@
                           </span>
                         </div>
                      </div>   
-                     <form id="imageUploadForm" class="mt-4">
+                     <form id="imageUploadForm" class="mt-4" action="{{route('admin.set.business.display')}}" enctype="multipart/form-data" method="POST">
+                    @csrf
                         <div class="form-group">
                           <label for="imageUpload" class="control-label">Chọn hình ảnh (tối đa 4 ảnh)</label>
                           <label class="custom-file-upload">
                             <input type="file" id="imageUpload" name="images[]" multiple accept="image/*" class="file-upload">
                             Chọn tệp
                           </label>
+                          <div for="imageUpload" class="control-div"><strong>Ảnh Banner nên có kích thước > 1200x600</strong> </div>
                           <small id="imageUploadMessage" class="form-text text-muted"></small>
                         </div>
+                        <input type="hidden" id="" name="image_width" value="1200" >
+                        <input type="hidden" id="" name="image_height" value="600" >
+
+                        <div id="thumbnailContainer" class="row"></div>
+                        @if(!empty($display_information->images))
+                            @foreach($display_information->images as $image)
+                                <iframe src="https://drive.google.com/file/d/{{$image}}/preview" alt="" style="width: 120px; height: 120px"></iframe>
+                            @endforeach
+                        @endif
+
 
                         <div class="form-group">
-                            <label for="input1">Tiêu đề 1:</label>
-                            <input type="text" class="form-control" id="input1" name="input1">
+                            <label for="title_banner_1">Tiêu đề banner chính:</label>
+                            <input type="text" class="form-control" id="title_banner_1" name="title_banner[0]" value ="{{ data_get($display_information, 'title_banner.0') }}">
                         </div>
 
                         <div class="form-group">
-                            <label for="input2">Tiêu đề 2:</label>
-                            <input type="text" class="form-control" id="input2" name="input2">
+                            <label for="title_banner_2">Tiêu đề banner phụ:</label>
+                            <input type="text" class="form-control" id="title_banner_2" name="title_banner[1]" value ="{{ data_get($display_information, 'title_banner.1') }}">
                         </div>
 
                         <div class="form-group">
-                            <label for="input3">Tiêu đề 3:</label>
-                            <input type="text" class="form-control" id="input3" name="input3">
+                            <label for="title_banner_3">Tiêu đề banner phụ:</label>
+                            <input type="text" class="form-control" id="title_banner_3" name="title_banner[2]" value ="{{ data_get($display_information, 'title_banner.2') }}">
                         </div>
+
+
+                        <h6 class="card-title text-primary">Thời gian làm việc</h6>
+
+                        <div class="form-group">
+                          <label for="opening-time">Giờ mở cửa:</label>
+                          <input type="time" class="form-control" id="opening-time" name="opening-time">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="closing-time">Giờ kết thúc:</label>
+                          <input type="time" class="form-control" id="closing-time" name="closing-time">
+                        </div>
+
 
                         <h6 class="card-title text-primary">Các dịch vụ của bạn  
                             <span class="demo-inline-spacing cursor-pointer">
@@ -77,19 +104,36 @@
                             </span>
                             </div>
                         </div> 
-              
+                        <div class="form-group">
+                          <label for="title_banner_3">Mô tả chung về dịch vụ:</label>
+                          <textarea class="form-control mt-3 mb-3" style="height: 100px" placeholder="Mô tả chung về dịch vụ của bạn" name="service_title">{{!empty($display_information->service_title) ? $display_information->service_title : '' }}</textarea>    
+                        </div>     
                         <div id="input-container">
                         <!-- Input ban đầu -->
+                        @if (!empty($display_information->service) )
+                            @foreach ($display_information->service as $index => $value)
+                                <div class="input-group">
+                                    <input type="text" name="service[{{ $index }}]" class="form-control" value="{{ $value }}">
+                                    <div class="btn btn-danger" onclick="removeInput(this)">Xóa</div>
+                                </div>
+                            @endforeach
+                        @else
                         <div class="input-group">
                             <input type="text" name="service[0]" class="form-control">
                             <div class="btn btn-danger" onclick="removeInput(this)">Xóa</div>
                         </div>
+                        @endif
                         </div>
-                        <div class="btn btn-primary mt-4" onclick="addInput()">Thêm</div>
+                        <div class="btn btn-success mt-4" onclick="addInput()">Thêm dịch vụ</div>
+
+                        <div class="text-right">
+                          <button style="submit" class="btn btn-primary ">Lưu</button>
+                        </div>
                       </form>
 
-                      <div id="thumbnailContainer" class="row"></div>
+
                       </div>
+                      <!-- Tab 2 -->
                       <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
                         <p>
                           Donut dragée jelly pie halvah. Danish gingerbread bonbon cookie wafer candy oat cake ice
@@ -101,6 +145,8 @@
                           cotton candy liquorice caramels.
                         </p>
                       </div>
+
+                      <!-- Tab 3 -->
                       <div class="tab-pane fade" id="navs-justified-messages" role="tabpanel">
                         <p>
                           Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans macaroon gummies

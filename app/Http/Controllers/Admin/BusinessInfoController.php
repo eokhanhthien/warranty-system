@@ -7,6 +7,7 @@ use App\Business;
 use App\BusinessCategory;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SelectOptionsController;
+use App\Http\Controllers\UploadDriverColtroller;
 
 class BusinessInfoController extends Controller
 {
@@ -45,7 +46,44 @@ class BusinessInfoController extends Controller
     }
 
     public function businessDisplay(){
-        return view('admin.setting_business.business_display');
+        $business = Business::findOrFail(Auth::user()->business_id);
+        $display_information = json_decode($business->display_information);
+        // dd($display_information->service);
+        return view('admin.setting_business.business_display', compact('display_information'));
+    }
+
+    public function setBusinessDisplay(Request $request){
+
+        $business = Business::findOrFail(Auth::user()->business_id);
+        $display_information_old = json_decode($business->display_information);
+
+        // echo"<pre>";
+        // print_r(json_decode($business->display_information)->images);die;
+        if ($request->hasFile('images')) {
+            $uploadImage = new UploadDriverColtroller();
+            $pathImage = $uploadImage->upload_image($request);
+
+            $displayInformation['images'] = $pathImage;
+
+            // Xóa ảnh cũ
+            if(!empty(json_decode($business->display_information)->images)){
+                foreach (json_decode($business->display_information)->images as $key => $image) {
+                        $deleteImage = new UploadDriverColtroller();
+                        $deleteImage->delete_image($image);
+                }
+            }
+
+        }else{
+            $displayInformation['images'] = $display_information_old->images;
+        }
+        $displayInformation['title_banner'] = $request->title_banner;
+        $displayInformation['service'] = $request->service;
+        $displayInformation['service_title'] = $request->service_title;
+        $jsonData = json_encode($displayInformation);
+        $business->display_information = $jsonData;
+        $business->save();
+        return redirect()->back()->with('success', 'Cập nhật giao diện thành công');
+
     }
 
 }
