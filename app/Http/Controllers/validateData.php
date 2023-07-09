@@ -225,4 +225,33 @@ public function validateDataRegister(Request $request)
     ]);
 }
 
+// Phần ADMIN
+public function validateDataAdminService(Request $request)
+{
+    // Tạo một mảng chứa các quy tắc cho Validator
+    $rules = [
+        'name' => 'required',
+        'short_description' => 'required',
+      
+        
+    ];
+
+    // Tạo Validator và áp dụng các quy tắc
+    $validator = Validator::make($request->all(), $rules, [
+        'name.required' => 'Vui lòng nhập tên dịch vụ.',
+        'short_description.required' => 'Vui lòng nhập mô tả cho dịch vụ',
+        
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+    ]);
+}
 }

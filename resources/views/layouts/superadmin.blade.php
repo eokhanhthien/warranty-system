@@ -87,6 +87,7 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
+            <!-- SUPER ADMIN -->
             @if (auth()->check() && auth()->user()->role == 1) 
             <!-- Dashboard -->
             <li class="{{ str_starts_with(request()->url(), url('superadmin/dashboard')) ? 'menu-item active' : 'menu-item' }}">
@@ -160,6 +161,7 @@
             </li>
             @endif
 
+            <!--  ADMIN  -->
             @if (auth()->check() && auth()->user()->role == 2) 
             <!-- Dashboard -->
             <li class="{{ str_starts_with(request()->url(), url('admin/dashboard')) ? 'menu-item active' : 'menu-item' }}">
@@ -193,6 +195,29 @@
                 <li class="{{ str_starts_with(request()->url(), url('admin/business-display')) ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('admin.business.display') }}" class="menu-link">
                     <div data-i18n="Without menu">Giao diện</div>
+                  </a>
+                </li>        
+              </ul>
+            </li>
+
+            <li class="{{ str_starts_with(request()->url(), url('admin/business-service')) || str_starts_with(request()->url(), url('admin/business-products')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+              <i class='menu-icon bx bxs-component'></i>
+                <div data-i18n="Layouts">Dịch vụ và sản phẩm</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/business-service')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="/admin/business-service" class="menu-link">
+                    <div data-i18n="Without menu">Dịch vụ</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/business-products')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('admin.business.display') }}" class="menu-link">
+                    <div data-i18n="Without menu">Sản phẩm</div>
                   </a>
                 </li>        
               </ul>

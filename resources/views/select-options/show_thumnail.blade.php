@@ -4,7 +4,7 @@
     @if (!empty($image))
             <iframe src="https://drive.google.com/file/d/{{ $image }}/preview" alt="" style="width: 100%; height: 100%; object-fit: cover;"></iframe>
         @else
-            <img id="thumbnail-img" style="width: 100%; object-fit: cover;" src="https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" style="max-width: 100%; max-height: 100%; object-fit: cover;" loading="lazy">
+            <img id="thumbnail-img" style="width: 100%; object-fit: cover;" src="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg" style="max-width: 100%; max-height: 100%; object-fit: cover;" loading="lazy">
         @endif
     </div>
 </div>

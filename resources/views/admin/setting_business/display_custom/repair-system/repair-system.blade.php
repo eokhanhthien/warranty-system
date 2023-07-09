@@ -47,7 +47,7 @@
                           <div for="imageUpload" class="control-div"><strong>Ảnh Banner nên có kích thước > 1200x600</strong> </div>
                           <small id="imageUploadMessage" class="form-text text-muted"></small>
                         </div>
-                        <input type="hidden" id="" name="image_width" value="1200" >
+                        <input type="hidden" id="" name="image_width" value="1905" >
                         <input type="hidden" id="" name="image_height" value="600" >
 
                         <div id="thumbnailContainer" class="row"></div>
@@ -74,7 +74,7 @@
                         </div>
 
 
-                        <h6 class="card-title text-primary">Thời gian làm việc</h6>
+                        <!-- <h6 class="card-title text-primary">Thời gian làm việc</h6>
 
                         <div class="form-group">
                           <label for="opening-time">Giờ mở cửa:</label>
@@ -82,9 +82,9 @@
                         </div>
 
                         <div class="form-group">
-                          <label for="closing-time">Giờ kết thúc:</label>
+                          <label for="closing-time">Giờ đóng cửa:</label>
                           <input type="time" class="form-control" id="closing-time" name="closing-time">
-                        </div>
+                        </div> -->
 
 
                         <h6 class="card-title text-primary">Các dịch vụ của bạn  

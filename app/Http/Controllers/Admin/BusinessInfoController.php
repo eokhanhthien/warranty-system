@@ -86,4 +86,11 @@ class BusinessInfoController extends Controller
 
     }
 
+    public function businessService(){
+        $business = Business::findOrFail(Auth::user()->business_id);
+        $display_information = json_decode($business->display_information);
+        // dd($display_information->service);
+        return view('admin.services_business.business_services', compact('display_information'));
+    }
+
 }

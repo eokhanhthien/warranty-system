@@ -13,12 +13,31 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1.6);
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   border: 0;
 }
+.iframe-img {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+}
+.iframe-img:hover iframe{
+    transform: translate(-50%, -50%) scale(1.1);
+}
 
+.iframe-img iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) ;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  transition: .3s;
+}
 
 </style>
     <div class="container-fluid p-0 mb-5">
@@ -27,16 +46,16 @@
             @foreach($display_information->images as $image)
                 <div class="owl-carousel-item position-relative" style="height: 600px;">
                     <div class="iframe-container">
-                        <iframe src="https://drive.google.com/file/d/{{$image}}/preview?width=800&height=600" class= "img-fluid w-100 h-100"></iframe>
+                        <iframe src="https://drive.google.com/file/d/{{$image}}/preview" class= "img-fluid w-100 h-100"></iframe>
                     </div>
 
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
                         <div class="container">
                             <div class="row justify-content-start">
                                 <div class="col-10 col-lg-8">
-                                    <h5 class="text-white text-uppercase mb-3 animated slideInDown">{{ !empty($display_information->title_banner) ? $display_information->title_banner[1] : "Plumbing & Repairing Services" }}</h5>
-                                    <h1 class="display-3 text-white animated slideInDown mb-4">{{ !empty($display_information->title_banner) ? $display_information->title_banner[0] : "Efficient Residential Plumbing Services" }}</h1>
-                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">{{ !empty($display_information->title_banner) ? $display_information->title_banner[2] : "Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr." }}</p>
+                                    <h5 class="text-white text-uppercase mb-3 animated slideInDown">{{ !empty($display_information->title_banner[1]) ? $display_information->title_banner[1] : "Plumbing & Repairing Services" }}</h5>
+                                    <h1 class="display-3 text-white animated slideInDown mb-4">{{ !empty($display_information->title_banner[0]) ? $display_information->title_banner[0] : "Efficient Residential Plumbing Services" }}</h1>
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">{{ !empty($display_information->title_banner[2]) ? $display_information->title_banner[2] : "Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr." }}</p>
                                     <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
                                     <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Free Quote</a>
                                 </div>
@@ -74,11 +93,29 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-4">
+                @if(!empty($service_business))
+                @foreach($service_business as $service)
                 <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s" >
-                    <div class="overflow-hidden">
+                    <div class="overflow-hidden iframe-img">
                         <!-- <img class="img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/service-1.jpg')}}" alt=""> -->
+                        <iframe src="https://drive.google.com/file/d/{{$service->image}}/preview?width=800&height=600" class= "img-fluid w-100 h-100"></iframe>
+
                         <!-- <div class="iframe-container"> -->
-                            <iframe src="https://drive.google.com/file/d/{{$image}}/preview?width=800&height=600" class= "img-fluid w-100 h-100"></iframe>
+                           
+                        <!-- </div> -->
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between bg-light p-4">
+                        <h5 class="text-truncate me-3 mb-0">{{$service->name}}</h5>
+                        <a class="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" href=""><i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                @endforeach
+                @else                
+                <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s" >
+                    <div class="overflow-hidden ">
+                        <img class="img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/service-1.jpg')}}" alt="">
+                        <!-- <div class="iframe-container"> -->
+                           
                         <!-- </div> -->
                     </div>
                     <div class="d-flex align-items-center justify-content-between bg-light p-4">
@@ -104,6 +141,8 @@
                         <a class="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" href=""><i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
+                @endif
+
             </div>
         </div>
     </div>
@@ -120,12 +159,14 @@
                     <p class="mb-4">{{ !empty($display_information->service_title) ? $display_information->service_title : "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet" }}</p>
                     @if(!empty($display_information->service))
                          @foreach($display_information->service as $service)
+                         @if(!empty($service))
                          <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>{{$service}}</p>
+                         @else
+                        <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Residential & commercial plumbing</p>
+                        <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Quality services at affordable prices</p>
+                        <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Immediate 24/ 7 emergency services</p>
+                         @endif
                          @endforeach
-                    @else
-                    <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Residential & commercial plumbing</p>
-                    <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Quality services at affordable prices</p>
-                    <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Immediate 24/ 7 emergency services</p>
                     @endif 
                     <div class="bg-primary d-flex align-items-center p-4 mt-5">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 60px; height: 60px;">

@@ -70,6 +70,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::post('/business-update-info', 'BusinessInfoController@update')->name('admin.business.info.update');
     Route::get('/business-display', 'BusinessInfoController@businessDisplay')->name('admin.business.display');
     Route::post('/set-business-display', 'BusinessInfoController@setBusinessDisplay')->name('admin.set.business.display');
+    Route::resource('/business-service', 'BusinessServiceController');
+    
 
     // Các Route khác cho Admin
 });
@@ -109,6 +111,8 @@ Route::post('/validate-business-categories', 'validateData@validateDatabusinessC
 Route::post('/validate-business-display', 'validateData@validateDatabusinessDisplay')->name('validate.business.display');
 Route::post('/validate-business-setting', 'validateData@validateDatabusinessSetting')->name('validate.business.setting');
 Route::post('/validate-register', 'validateData@validateDataRegister')->name('validate.register');
+Route::post('/validate-admin-service', 'validateData@validateDataAdminService')->name('validate-admin-service');
+Route::put('/validate-admin-service', 'validateData@validateDataAdminService')->name('validate-admin-service');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {
