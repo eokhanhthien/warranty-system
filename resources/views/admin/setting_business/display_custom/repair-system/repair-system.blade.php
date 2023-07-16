@@ -48,7 +48,7 @@
                           <small id="imageUploadMessage" class="form-text text-muted"></small>
                         </div>
                         <input type="hidden" id="" name="image_width" value="1905" >
-                        <input type="hidden" id="" name="image_height" value="600" >
+                        <input type="hidden" id="" name="image_height" value="800" >
 
                         <div id="thumbnailContainer" class="row"></div>
                         @if(!empty($display_information->images))

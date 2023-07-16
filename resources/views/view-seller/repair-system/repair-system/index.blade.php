@@ -1,12 +1,12 @@
 @extends('view-seller.repair-system.repair-system.layout.layout')
 @section('content')
     <!-- Carousel Start -->
-    <style>
+ <style>
 .iframe-container {
   position: relative;
   width: 100%;
-  height: 600px;
   overflow: hidden;
+  padding-bottom: 56.25%;
 }
 
 .iframe-container iframe {
@@ -16,37 +16,15 @@
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  border: 0;
 }
-.iframe-img {
-  position: relative;
-  width: 100%;
-  height: 230px;
-  overflow: hidden;
-}
-.iframe-img:hover iframe{
-    transform: translate(-50%, -50%) scale(1.1);
-}
-
-.iframe-img iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) ;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  transition: .3s;
-}
-
 </style>
     <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">
         @if(!empty($display_information->images))
             @foreach($display_information->images as $image)
-                <div class="owl-carousel-item position-relative" style="height: 600px;">
-                    <div class="iframe-container">
-                        <iframe src="https://drive.google.com/file/d/{{$image}}/preview" class= "img-fluid w-100 h-100"></iframe>
+                <div class="owl-carousel-item position-relative" style="height: 800px;">
+                    <div class="overflow-hidden iframe-container iframe-container-resize"  style="height: 800px;">
+                        <iframe src="https://drive.google.com/file/d/{{$image}}/preview" class= "img-fluid w-100 h-100" style="margin-top: -7%;" ></iframe>
                     </div>
 
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
@@ -65,7 +43,7 @@
                 </div>
             @endforeach
                 @else
-                <div class="owl-carousel-item position-relative" style="height: 600px;">
+                <div class="owl-carousel-item position-relative" style="height: 800px;">
                     <img class="img-fluid" src="{{ asset('assets/manager_web/img/carousel-2.jpg')}}" alt="">
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
                         <div class="container">
@@ -92,11 +70,11 @@
     <!-- Service Start -->
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="row g-4">
-                @if(!empty($service_business))
-                @foreach($service_business as $service)
+            <div class="row g-4" >
+                @if(!empty($service_business) && count($service_business)>0)
+                @foreach($service_business->take(3) as $service)
                 <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s" >
-                    <div class="overflow-hidden iframe-img">
+                    <div class="overflow-hidden iframe-container iframe-service " style="height: 230px;" >
                         <!-- <img class="img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/service-1.jpg')}}" alt=""> -->
                         <iframe src="https://drive.google.com/file/d/{{$service->image}}/preview?width=800&height=600" class= "img-fluid w-100 h-100"></iframe>
 
@@ -235,6 +213,21 @@
                         <h1 class="mb-5">Khám phá dịch vụ của chúng tôi</h1>
                     </div>
                     <div class="owl-carousel service-carousel position-relative wow fadeInUp" data-wow-delay="0.1s">
+                    @if(!empty($service_business) && count($service_business)>0)
+                        @foreach($service_business as $service)
+                                <div class="bg-light p-4">
+                                    <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4" style="width: 75px; height: 75px;">
+                                        <i class="fa fa-water fa-2x text-primary"></i>
+                                    </div>
+                                    <h4 class="mb-3">{{$service->name}}</h4>
+                                    <p>{{$service->short_description}}</p>
+                                    <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Quality Service</p>
+                                    <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Customer Satisfaction</p>
+                                    <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Support 24/7</p>
+                                    <a href="" class="btn bg-white text-primary w-100 mt-2">Read More<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
+                                </div>
+                        @endforeach
+                    @else 
                         <div class="bg-light p-4">
                             <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4" style="width: 75px; height: 75px;">
                                 <i class="fa fa-water fa-2x text-primary"></i>
@@ -279,6 +272,7 @@
                             <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Support 24/7</p>
                             <a href="" class="btn bg-white text-primary w-100 mt-2">Read More<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
                         </div>
+                    @endif
                     </div>
                 </div>
             </div>
