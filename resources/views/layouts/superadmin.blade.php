@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" /> -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
@@ -118,13 +118,13 @@
             <li class="{{ str_starts_with(request()->url(), url('superadmin/team/')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
                 <i class='menu-icon bx bx-user-plus' ></i>
-                <div data-i18n="Layouts">Đội</div>
+                <div data-i18n="Layouts">Khách hàng</div>
               </a>
 
               <ul class="menu-sub">
                 <li class="{{ str_starts_with(request()->url(), url('superadmin/team/')) ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('superadmin.team') }}" class="menu-link">
-                    <div data-i18n="Without menu">Quản lý thành viên</div>
+                    <div data-i18n="Without menu">Quản lý khách hàng</div>
                   </a>
                 </li>        
               </ul>
@@ -159,6 +159,26 @@
                 </li>        
               </ul>
             </li>
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Gói doanh nghiệp</span>
+            </li>
+
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses-package/')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+                <i class='menu-icon bx bx-package'></i>
+                <div data-i18n="Layouts">Gói</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses-package/')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('businesses-package.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Gói đăng ký</div>
+                  </a>
+                </li>        
+              </ul>
+            </li>
+
             @endif
 
             <!--  ADMIN  -->

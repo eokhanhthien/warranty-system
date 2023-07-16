@@ -62,6 +62,9 @@ Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'supe
     ]);
     Route::post('/businesses-display/{id}/update', 'BussinessDisplayController@update')->name('superadmin.businesses.display.update');
     Route::delete('/businesses-display/{id}/delete', 'BussinessDisplayController@destroy')->name('superadmin.businesses.display.destroy');
+
+    // Gói
+    Route::resource('/businesses-package', 'BussinessPackageController');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'CheckBusinessSetting']))->group(function () {
@@ -113,6 +116,8 @@ Route::post('/validate-business-setting', 'validateData@validateDatabusinessSett
 Route::post('/validate-register', 'validateData@validateDataRegister')->name('validate.register');
 Route::post('/validate-admin-service', 'validateData@validateDataAdminService')->name('validate-admin-service');
 Route::put('/validate-admin-service', 'validateData@validateDataAdminService')->name('validate-admin-service');
+Route::post('/validate-business-package', 'validateData@validateDatabusinessPackage')->name('validate.business.package');
+Route::put('/validate-business-package', 'validateData@validateDatabusinessPackage')->name('validate.business.package');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

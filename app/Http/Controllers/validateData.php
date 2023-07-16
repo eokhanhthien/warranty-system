@@ -224,7 +224,37 @@ public function validateDataRegister(Request $request)
         'success' => true,
     ]);
 }
+public function validateDatabusinessPackage(Request $request)
+{
+    // Tạo một mảng chứa các quy tắc cho Validator
+    $rules = [
+        'name' => 'required',
+        'price' => 'required|numeric', 
+        'business_category_id' => 'required', 
+        'time' => 'required', 
+    ];
 
+    // Tạo Validator và áp dụng các quy tắc
+    $validator = Validator::make($request->all(), $rules, [
+        'name.required' => 'Vui lòng nhập tên gói.',
+        'price.required' => 'Vui lòng nhập giá',
+        'price.numeric' => 'Vui lòng nhập số',
+        'business_category_id.required' => 'Vui lòng chọn danh mục',
+        'time.required' => 'Vui lòng nhập thời gian',
+        
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+    ]);
+}
 // Phần ADMIN
 public function validateDataAdminService(Request $request)
 {
