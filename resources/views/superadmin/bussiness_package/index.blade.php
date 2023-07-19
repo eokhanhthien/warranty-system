@@ -46,7 +46,15 @@
                         </td>
 
                       <td>{{ number_format($package->price)  }} đ</td>
-                      <td>{{ $package->time }}</td>
+                      <td>
+                        {{ number_format($package->time) }}
+                            @if($package->type == "month")
+                                tháng
+                            @elseif($package->type == "year")
+                                năm
+                            @else
+                                ngày
+                            @endif</td>
                       <td>
                         <button class="btn btn-primary">
                           <a style="color: white" class="d-inline-block" href="{{route('businesses-package.edit',[$package->id])}}">
@@ -136,6 +144,7 @@
                                     <div class="form-group col-lg-6">                 
                                     <label for="type">Kiểu:</label>
                                         <select id="type" name="type" class="form-control">
+                                        <option value="day">Ngày</option>
                                         <option value="month">Tháng</option>
                                         <option value="year">Năm</option>
                                         </select>

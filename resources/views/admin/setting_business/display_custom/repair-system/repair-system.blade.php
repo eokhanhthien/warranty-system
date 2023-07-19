@@ -47,16 +47,20 @@
                           <div for="imageUpload" class="control-div"><strong>Ảnh Banner nên có kích thước > 1200x600</strong> </div>
                           <small id="imageUploadMessage" class="form-text text-muted"></small>
                         </div>
-                        <input type="hidden" id="" name="image_width" value="1905" >
-                        <input type="hidden" id="" name="image_height" value="800" >
+                        <input type="hidden" id="" name="image_width" value="2000" >
+                        <input type="hidden" id="" name="image_height" value="1000" >
 
                         <div id="thumbnailContainer" class="row"></div>
+                        <div class="row">
                         @if(!empty($display_information->images))
                             @foreach($display_information->images as $image)
-                                <iframe src="https://drive.google.com/file/d/{{$image}}/preview" alt="" style="width: 120px; height: 120px"></iframe>
+                                <!-- <iframe src="https://drive.google.com/file/d/{{$image}}/preview" alt="" style="width: 120px; height: 120px"></iframe> -->
+                                  <div class="img-size col-3">
+                                    <img src="https://drive.google.com/uc?export=view&id={{$image}}" alt="">
+                                  </div>
                             @endforeach
                         @endif
-
+                        </div>
 
                         <div class="form-group">
                             <label for="title_banner_1">Tiêu đề banner chính:</label>

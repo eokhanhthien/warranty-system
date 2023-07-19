@@ -63,6 +63,7 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPDF/1.5.3/jspdf.debug.js" defer></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
   <body>
     <!-- Layout wrapper -->
@@ -192,12 +193,39 @@
             </li>
 
             <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Gói</span>
+            </li>
+
+            <li class="{{ str_starts_with(request()->url(), url('admin/subscription-package')) || str_starts_with(request()->url(), url('admin/show-packages')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+              <i class='menu-icon bx bx-package' ></i>
+                <div data-i18n="Layouts">Gói doanh nghiệp</div>
+              </a>
+             
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/show-packages')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{route('package.show.packages')}}" class="menu-link">
+                    <div data-i18n="Without menu">Gói của bạn</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/subscription-package')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="/admin/subscription-package" class="menu-link">
+                    <div data-i18n="Without menu">Đăng ký gói</div>
+                  </a>
+                </li>        
+              </ul>
+
+            </li>
+
+            <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Doanh nghiệp</span>
             </li>
             <!-- Thông tin doanh nghiệp -->
 
             <li class="{{ str_starts_with(request()->url(), url('admin/business-info')) || str_starts_with(request()->url(), url('admin/business-display')) ? 'menu-item open' : 'menu-item' }}">
-
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
               <i class='menu-icon bx bxs-business'></i>
                 <div data-i18n="Layouts">Cài đặt doanh nghiệp</div>

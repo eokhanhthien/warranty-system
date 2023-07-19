@@ -74,7 +74,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::get('/business-display', 'BusinessInfoController@businessDisplay')->name('admin.business.display');
     Route::post('/set-business-display', 'BusinessInfoController@setBusinessDisplay')->name('admin.set.business.display');
     Route::resource('/business-service', 'BusinessServiceController');
-    
+    Route::resource('/subscription-package', 'BusinessSubscriptionController');
+    Route::get('/show-packages', "BusinessSubscriptionController@showPackages")->name('package.show.packages');
 
     // Các Route khác cho Admin
 });
@@ -93,9 +94,9 @@ Route::post('/business-setting-add', 'BusinessSettingController@businessSettingA
 
 
 // Route dành cho khách hàng sỡ hữu doanh nghiệp
-// Trang chủ và Trang quản lý
+// Trang chủ website
 Route::prefix('artisq')->namespace('Seller')->group(function () {
-    Route::middleware('CheckDomain')->group(function () {
+    Route::middleware(['CheckDomain','CheckSubscription'])->group(function () {
         Route::get('{domain}/{category_slug}', 'SellerController@index')->name('seller.business');
         Route::get('{domain}/{category_slug}/about', 'SellerController@about')->name('seller.business.about');
     });

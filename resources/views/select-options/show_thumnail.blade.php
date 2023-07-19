@@ -2,7 +2,10 @@
     <label>Ảnh nhỏ:</label>
     <div id="thumbnail" style="border: 1px solid #ddd; padding: 5px; height: 100px; overflow: hidden;width: 100px">
     @if (!empty($image))
-            <iframe src="https://drive.google.com/file/d/{{ $image }}/preview" alt="" style="width: 100%; height: 100%; object-fit: cover;"></iframe>
+            <!-- <iframe src="https://drive.google.com/file/d/{{ $image }}/preview" alt="" style="width: 100%; height: 100%; object-fit: cover;"></iframe> -->
+            <img  class="img-fluid w-90 h-90" src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="">
+
+
         @else
             <img id="thumbnail-img" style="width: 100%; object-fit: cover;" src="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg" style="max-width: 100%; max-height: 100%; object-fit: cover;" loading="lazy">
         @endif

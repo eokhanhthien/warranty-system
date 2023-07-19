@@ -90,4 +90,10 @@ button.dt-button.buttons-excel.buttons-html5 {
   .custom-file-upload:active {
     background-color: #dee2e6;
   }
-  
+
+.img-size {
+    /* width: 40%; */
+}
+.img-size img{
+    width: 100%;
+}

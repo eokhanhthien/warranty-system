@@ -69,7 +69,7 @@ class Kernel extends HttpKernel
 
         'CheckDomain' => \App\Http\Middleware\CheckDomain::class,
         'CheckBusinessSetting' => \App\Http\Middleware\CheckBusinessSetting::class,
-
+        'CheckSubscription' => \App\Http\Middleware\CheckSubscription::class,
     ];
 
     /**

@@ -23,9 +23,7 @@
         @if(!empty($display_information->images))
             @foreach($display_information->images as $image)
                 <div class="owl-carousel-item position-relative" style="height: 800px;">
-                    <div class="overflow-hidden iframe-container iframe-container-resize"  style="height: 800px;">
-                        <iframe src="https://drive.google.com/file/d/{{$image}}/preview" class= "img-fluid w-100 h-100" style="margin-top: -7%;" ></iframe>
-                    </div>
+                    <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$image}}" alt="">
 
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .4);">
                         <div class="container">
@@ -74,13 +72,8 @@
                 @if(!empty($service_business) && count($service_business)>0)
                 @foreach($service_business->take(3) as $service)
                 <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s" >
-                    <div class="overflow-hidden iframe-container iframe-service " style="height: 230px;" >
-                        <!-- <img class="img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/service-1.jpg')}}" alt=""> -->
-                        <iframe src="https://drive.google.com/file/d/{{$service->image}}/preview?width=800&height=600" class= "img-fluid w-100 h-100"></iframe>
-
-                        <!-- <div class="iframe-container"> -->
-                           
-                        <!-- </div> -->
+                    <div class="overflow-hidden ">
+                        <img  class="img-fluid w-100 h-100" src="https://drive.google.com/uc?export=view&id={{$service->image}}" alt="">
                     </div>
                     <div class="d-flex align-items-center justify-content-between bg-light p-4">
                         <h5 class="text-truncate me-3 mb-0">{{$service->name}}</h5>
@@ -92,9 +85,6 @@
                 <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s" >
                     <div class="overflow-hidden ">
                         <img class="img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/service-1.jpg')}}" alt="">
-                        <!-- <div class="iframe-container"> -->
-                           
-                        <!-- </div> -->
                     </div>
                     <div class="d-flex align-items-center justify-content-between bg-light p-4">
                         <h5 class="text-truncate me-3 mb-0">Residential Plumbing</h5>
