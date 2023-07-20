@@ -32,8 +32,7 @@ class Subscription extends Model
         $today = Carbon::now();
         $startDate = $today;
         // Kiểm tra xem đã có gói trước đó hay chưa
-        $previousSubscription = $this->where('start_date', '<=', $today)
-        ->where('end_date', '>=', $today)
+        $previousSubscription = $this->where('end_date', '>=', $today)
         ->where('status', 'accept')
         ->where('business_id', $businessId)
         ->latest('end_date')->first();
@@ -95,6 +94,11 @@ class Subscription extends Model
     public function package()
     {
         return $this->belongsTo(Package::class, 'package_id');
+    }
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class, 'business_id');
     }
 
 }

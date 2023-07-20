@@ -65,6 +65,9 @@ Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'supe
 
     // Gói
     Route::resource('/businesses-package', 'BussinessPackageController');
+    Route::get('/check-package', 'BussinessPackageController@checkpackage')->name('check.package');
+    Route::post('/check-package', 'BussinessPackageController@postCheckpackage')->name('check.package');
+    Route::post('/edit-date-package', 'BussinessPackageController@editDatepackage')->name('edit.date.package');
     Route::resource('/gateway', 'GatewayController');
 });
 

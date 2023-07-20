@@ -86,7 +86,7 @@ class BusinessSubscriptionController extends Controller
                 if(!empty($isSubscriptionTranfer) && $isSubscriptionTranfer != null){
                     $isSubscriptionTranfer->order_date = $today;
                     $isSubscriptionTranfer->save();
-                    return response()->json(['orderCode' => $isSubscriptionTranfer->order_code]);
+                    return response()->json(['orderCode' => $isSubscriptionTranfer->order_code, 'price' => $subscription->package->price]);
                 }else{
                     $subscription->order_date = $today;
                     $subscription->paid_via = "tranfer";
@@ -94,7 +94,7 @@ class BusinessSubscriptionController extends Controller
                     $randomString = Str::random(5);
                     $subscription->order_code = $randomString . Auth::user()->id;
                     $subscription->save();
-                    return response()->json(['orderCode' => $subscription->order_code]);
+                    return response()->json(['orderCode' => $subscription->order_code, 'price' => $subscription->package->price]);
                 }
             }
         } catch (\Throwable $th) {
@@ -154,14 +154,6 @@ class BusinessSubscriptionController extends Controller
       $upcomingPackages = $subscriptionModel->getPackageUpcoming();
       $PackageNotAccepted = $subscriptionModel->getPackageNotAccepted();
         
-        // Nếu có currentPackage thì join với bảng Packages để lấy thông tin gói
-        // if ($currentPackage) {
-        //     $currentPackage = $currentPackage->join('packages', 'subscriptions.package_id', '=', 'packages.id')
-        //                                     ->select('subscriptions.*', 'packages.name', 'packages.time', 'packages.type')
-        //                                     ->first();
-        // }
-        // dd($currentPackage);
-
       return view('admin.subscription_package.show_packages', compact('currentPackage', 'PackageNotAccepted','upcomingPackages'));
     }
 }

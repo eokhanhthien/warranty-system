@@ -4,6 +4,8 @@ namespace App\Http\Controllers\superadmin;
 use App\Http\Controllers\Controller;
 use App\BusinessCategory;
 use App\Package;
+use App\Subscription;
+use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 
@@ -109,5 +111,50 @@ class BussinessPackageController extends Controller
         $package->delete();
 
         return redirect()->back()->with('success', 'Xóa dịch vụ thành công..');
+    }
+
+    public function checkpackage(){
+        $subscriptions = Subscription::all();
+        return view('superadmin.bussiness_package.check', compact('subscriptions'));
+    }
+
+    public function postCheckpackage(Request $request){ 
+        try{
+            $subscription = Subscription::find($request->subscription_id);
+
+            if($request->status == 'accept' &&  empty($subscription->start_date) && empty($subscription->end_date)){   
+                $dates = $subscription->calculateDates($request->business_id,  $subscription->package->time, $subscription->package->type);
+                $subscription->start_date = $dates['start_date'];
+                $subscription->end_date = $dates['end_date'];
+                $subscription->paid_via = "tranfer";
+                $subscription->status = "accept";
+                $randomString = Str::random(5);
+                $subscription->order_code = $randomString . $request->business_id;
+            }else{
+                $subscription->status = $request->status;
+            }
+
+            $subscription->save();
+
+            return redirect()->back()->with('success', 'Cập nhật gói thành công');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Có lỗi xáy ra');
+        }
+    }
+
+    public function editDatepackage(Request $request){
+        try{
+        $subscription = Subscription::find($request->subscription_id);
+        if(!empty($subscription->start_date) && !empty($subscription->end_date)){   
+            $subscription->start_date = $request->start_date;
+            $subscription->end_date = $request->end_date;
+            $subscription->save();
+            return redirect()->back()->with('success', 'Cập nhật ngày thành công');
+        }else{
+            return redirect()->back()->with('error', 'Gói chưa được kích hoạt');
+        }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Có lỗi xáy ra');
+        }
     }
 }

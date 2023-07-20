@@ -165,7 +165,7 @@
               <span class="menu-header-text">Gói doanh nghiệp</span>
             </li>
 
-            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses-package/')) ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses-package/')) || str_starts_with(request()->url(), url('superadmin/check-package/')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
                 <i class='menu-icon bx bx-package'></i>
                 <div data-i18n="Layouts">Gói</div>
@@ -174,7 +174,15 @@
               <ul class="menu-sub">
                 <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses-package/')) ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('businesses-package.index') }}" class="menu-link">
-                    <div data-i18n="Without menu">Gói đăng ký</div>
+                    <div data-i18n="Without menu">Quản lý gói</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('superadmin/check-package/')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('check.package') }}" class="menu-link">
+                    <div data-i18n="Without menu">Kích hoạt gói</div>
                   </a>
                 </li>        
               </ul>

@@ -98,7 +98,7 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 success: function (response) {  
-                    var newImageUrl = "https://img.vietqr.io/image/{{$gateway->bank_id}}-{{$gateway->account_no}}-{{$gateway->template}}.png?amount={{$package->price}}&addInfo=" + response.orderCode + "&accountName={{$gateway->account_name}}";
+                    var newImageUrl = "https://img.vietqr.io/image/{{$gateway->bank_id}}-{{$gateway->account_no}}-{{$gateway->template}}.png?amount="+ response.price +"&addInfo=" + response.orderCode + "&accountName={{$gateway->account_name}}";
 
                     // Cập nhật lại thuộc tính src của thẻ <img>
                     $("#qrImage img").attr("src", newImageUrl);
