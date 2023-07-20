@@ -50,7 +50,7 @@
                 </div>
             
             <div class="card-header" style="font-size: 20px; font-weight: 500; color: blue;">
-                {{$currentPackage->name}}
+                {{$currentPackage->package->name}}
             </div>
             <div class="card-body mt-4">
                 <p>Ngày bắt đầu : <span class="text-primary">{{ \Carbon\Carbon::parse($currentPackage->start_date)->format('d/m/Y') }}</span> </p>

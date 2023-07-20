@@ -65,6 +65,7 @@ Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'supe
 
     // Gói
     Route::resource('/businesses-package', 'BussinessPackageController');
+    Route::resource('/gateway', 'GatewayController');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'CheckBusinessSetting']))->group(function () {

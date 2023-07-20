@@ -30,11 +30,15 @@ class Subscription extends Model
     public function calculateDates($businessId, $time, $type)
     {
         $today = Carbon::now();
-
+        $startDate = $today;
         // Kiểm tra xem đã có gói trước đó hay chưa
-        $previousSubscription = $this->where('business_id', $businessId)->latest('end_date')->first();
+        $previousSubscription = $this->where('start_date', '<=', $today)
+        ->where('end_date', '>=', $today)
+        ->where('status', 'accept')
+        ->where('business_id', $businessId)
+        ->latest('end_date')->first();
 
-        if ($previousSubscription) {
+        if (!empty($previousSubscription)) {
             $startDate = Carbon::parse($previousSubscription->end_date)->addDay();
         } else {
             $startDate = $today;

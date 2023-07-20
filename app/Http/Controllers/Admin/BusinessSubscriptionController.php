@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\TransferGateway;
 
 class BusinessSubscriptionController extends Controller
 {
@@ -25,7 +26,9 @@ class BusinessSubscriptionController extends Controller
         ->select('packages.*')
         ->get();
         
-        return view('admin.subscription_package.index', compact('packages'));
+        $gateway = TransferGateway::where('business_id', null)->first();
+
+        return view('admin.subscription_package.index', compact('packages','gateway'));
     }
 
     /**
@@ -73,22 +76,27 @@ class BusinessSubscriptionController extends Controller
                 $subscription->status = "accept";
                 $randomString = Str::random(5);
                 $subscription->order_code = $randomString . Auth::user()->id;
+                $subscription->save();
+                return redirect()->back()->with('success', 'Đăng ký gói thành công.');
+
             }else{
                 $today = Carbon::now();
                 $isSubscriptionTranfer = Subscription::where('business_id', Auth::user()->business_id)->where('status',"pending")->where('paid_via',"tranfer")->where('package_id',$request->package_id)->first();
 
                 if(!empty($isSubscriptionTranfer) && $isSubscriptionTranfer != null){
-                    $isSubscriptionTranfe->order_date = $today;
+                    $isSubscriptionTranfer->order_date = $today;
+                    $isSubscriptionTranfer->save();
+                    return response()->json(['orderCode' => $isSubscriptionTranfer->order_code]);
                 }else{
                     $subscription->order_date = $today;
                     $subscription->paid_via = "tranfer";
                     $subscription->status = "pending";
                     $randomString = Str::random(5);
                     $subscription->order_code = $randomString . Auth::user()->id;
+                    $subscription->save();
+                    return response()->json(['orderCode' => $subscription->order_code]);
                 }
             }
-            $subscription->save();
-            return redirect()->back()->with('success', 'Đăng ký gói thành công.');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Đăng ký gói thất bại.');
         }
@@ -147,11 +155,12 @@ class BusinessSubscriptionController extends Controller
       $PackageNotAccepted = $subscriptionModel->getPackageNotAccepted();
         
         // Nếu có currentPackage thì join với bảng Packages để lấy thông tin gói
-        if ($currentPackage) {
-            $currentPackage = $currentPackage->join('packages', 'subscriptions.package_id', '=', 'packages.id')
-                                            ->select('subscriptions.*', 'packages.name', 'packages.time', 'packages.type')
-                                            ->first();
-        }
+        // if ($currentPackage) {
+        //     $currentPackage = $currentPackage->join('packages', 'subscriptions.package_id', '=', 'packages.id')
+        //                                     ->select('subscriptions.*', 'packages.name', 'packages.time', 'packages.type')
+        //                                     ->first();
+        // }
+        // dd($currentPackage);
 
       return view('admin.subscription_package.show_packages', compact('currentPackage', 'PackageNotAccepted','upcomingPackages'));
     }

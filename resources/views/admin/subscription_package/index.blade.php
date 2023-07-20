@@ -62,7 +62,11 @@
                     </div>
                     <div class="modal-body">
                         <!-- Nội dung của modal -->
+
                         <p>Mua gói {{$package->name}} với giá {{number_format($package->price)}} VNĐ?</p>
+                        <div id="qrImage" style="display: flex; justify-content: center;">
+                            <img style="width: 70%;" src="https://img.vietqr.io/image/{{$gateway->bank_id}}-{{$gateway->account_no}}-{{$gateway->template}}.png?amount={{$package->price}}&addInfo=123&accountName={{$gateway->account_name}}" alt="">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -93,8 +97,12 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                success: function (response) {
-                    
+                success: function (response) {  
+                    var newImageUrl = "https://img.vietqr.io/image/{{$gateway->bank_id}}-{{$gateway->account_no}}-{{$gateway->template}}.png?amount={{$package->price}}&addInfo=" + response.orderCode + "&accountName={{$gateway->account_name}}";
+
+                    // Cập nhật lại thuộc tính src của thẻ <img>
+                    $("#qrImage img").attr("src", newImageUrl);
+
                 },
                 error: function (xhr, status, error) {
                   
