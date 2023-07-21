@@ -21,6 +21,10 @@
     <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">
         @if(!empty($display_information->images))
+        @php
+            $image_about_1 = $display_information->images[0];
+            $image_about_2 = $display_information->images[1];
+        @endphp
             @foreach($display_information->images as $image)
                 <div class="owl-carousel-item position-relative" style="height: 800px;">
                     <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$image}}" alt="">
@@ -77,9 +81,43 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between bg-light p-4">
                         <h5 class="text-truncate me-3 mb-0">{{$service->name}}</h5>
-                        <a class="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" href=""><i class="fa fa-arrow-right"></i></a>
+                        <div class="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" data-bs-toggle="modal" data-bs-target="#modal{{$service->id}}"><i class="fa fa-arrow-right"></i></div>
                     </div>
                 </div>
+               
+                <!-- Modal for this service item -->
+                <div class="modal fade" id="modal{{$service->id}}" tabindex="-1" role="dialog" aria-labelledby="modal{{$service->id}}Label" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <!-- Modal content here -->
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modal{{$service->id}}Label">{{$service->name}}</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{$service->short_description}}</p>
+                                @if(!empty($service->service))
+                                        @php
+                                            $services = json_decode($service->service);
+                                            $counter = 0;
+                                        @endphp
+                                        @foreach($services as $service)
+                                            @if($counter < 4)
+                                                <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>{{$service}}</p>
+                                                @php $counter++; @endphp
+                                            @endif
+                                        @endforeach
+                                    @endif
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 @endforeach
                 @else                
                 <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s" >
@@ -105,7 +143,7 @@
                         <img class="img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/service-3.jpg')}}" alt="">
                     </div>
                     <div class="d-flex align-items-center justify-content-between bg-light p-4">
-                        <h5 class="text-truncate me-3 mb-0">Emergency Servicing</h5>
+                        <h5 class="text-truncate me-3 mb-0">Hỗ trợ Servicing</h5>
                         <a class="btn btn-square btn-outline-primary border-2 border-white flex-shrink-0" href=""><i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -127,29 +165,35 @@
                     <p class="mb-4">{{ !empty($display_information->service_title) ? $display_information->service_title : "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet" }}</p>
                     @if(!empty($display_information->service))
                          @foreach($display_information->service as $service)
-                         @if(!empty($service))
-                         <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>{{$service}}</p>
-                         @else
+                            @if(!empty($service))
+                            <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>{{$service}}</p>
+                            @endif
+                         @endforeach
+                     @else
                         <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Residential & commercial plumbing</p>
                         <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Quality services at affordable prices</p>
-                        <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Immediate 24/ 7 emergency services</p>
-                         @endif
-                         @endforeach
+                        <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Immediate 24/ 7 Hỗ trợ services</p>
                     @endif 
+                    
                     <div class="bg-primary d-flex align-items-center p-4 mt-5">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 60px; height: 60px;">
                             <i class="fa fa-phone-alt fa-2x text-primary"></i>
                         </div>
                         <div class="ms-3">
-                            <p class="fs-5 fw-medium mb-2 text-white">Emergency 24/7</p>
+                            <p class="fs-5 fw-medium mb-2 text-white">Hỗ trợ 24/7</p>
                             <h3 class="m-0 text-secondary">{{$business->phone_number}}</h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 pt-4" style="min-height: 500px;">
                     <div class="position-relative h-100 wow fadeInUp" data-wow-delay="0.5s">
-                        <img class="position-absolute img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/about-1.jpg')}}" style="object-fit: cover; padding: 0 0 50px 100px;" alt="">
-                        <img class="position-absolute start-0 bottom-0 img-fluid bg-white pt-2 pe-2 w-50 h-50" src="{{ asset('assets/manager_web/img/about-2.jpg')}}" style="object-fit: cover;" alt="">
+                        @if(!empty($image_about_1) && !empty($image_about_2))
+                            <img class="position-absolute img-fluid w-100 h-100" src="https://drive.google.com/uc?export=view&id={{$image_about_1}}" style="object-fit: cover; padding: 0 0 50px 100px;" alt="">
+                            <img class="position-absolute start-0 bottom-0 img-fluid bg-white pt-2 pe-2 w-50 h-50" src="https://drive.google.com/uc?export=view&id={{$image_about_2}}" style="object-fit: cover;" alt="">
+                        @else
+                            <img class="position-absolute img-fluid w-100 h-100" src="{{ asset('assets/manager_web/img/about-1.jpg')}}" style="object-fit: cover; padding: 0 0 50px 100px;" alt="">
+                            <img class="position-absolute start-0 bottom-0 img-fluid bg-white pt-2 pe-2 w-50 h-50" src="{{ asset('assets/manager_web/img/about-2.jpg')}}" style="object-fit: cover;" alt="">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -211,10 +255,20 @@
                                     </div>
                                     <h4 class="mb-3">{{$service->name}}</h4>
                                     <p>{{$service->short_description}}</p>
-                                    <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Quality Service</p>
-                                    <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Customer Satisfaction</p>
-                                    <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>Support 24/7</p>
-                                    <a href="" class="btn bg-white text-primary w-100 mt-2">Read More<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
+
+                                    @if(!empty($service->service))
+                                        @php
+                                            $services = json_decode($service->service);
+                                            $counter = 0;
+                                        @endphp
+                                        @foreach($services as $service)
+                                            @if($counter < 4)
+                                                <p class="text-primary fw-medium"><i class="fa fa-check text-success me-2"></i>{{$service}}</p>
+                                                @php $counter++; @endphp
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    <a href="" class="btn bg-white text-primary w-100 mt-2">Xem chi tiết<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
                                 </div>
                         @endforeach
                     @else 

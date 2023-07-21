@@ -110,7 +110,7 @@
                         <i class="fa fa-phone-alt text-primary"></i>
                     </div>
                     <div class="ms-3">
-                        <p class="mb-1 text-white">Emergency 24/7</p>
+                        <p class="mb-1 text-white">Hỗ trợ 24/7</p>
                         <h5 class="m-0 text-secondary">{{$business->phone_number}}</h5>
                     </div>
                 </div>

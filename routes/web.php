@@ -80,6 +80,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::resource('/business-service', 'BusinessServiceController');
     Route::resource('/subscription-package', 'BusinessSubscriptionController');
     Route::get('/show-packages', "BusinessSubscriptionController@showPackages")->name('package.show.packages');
+    Route::resource('/categories', 'BusinessCategoryController');
 
     // Các Route khác cho Admin
 });

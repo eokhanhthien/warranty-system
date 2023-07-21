@@ -28,6 +28,7 @@
                       <th>Trạng thái</th>
                       <th>Ngày bắt đầu</th>
                       <th>Ngày kết thúc</th>
+                      <th>Ngày xem</th>
                       <th>action</th>
                     </tr>
                   </thead>
@@ -42,16 +43,16 @@
                       <td>{{ $subscription->status }}</td>
                       <td>{{ $subscription->start_date }}</td>
                       <td>{{ $subscription->end_date }}</td>
-
+                      <td>{{ $subscription->order_date }}</td>
 
                       <td>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{ $loop->index + 1 }}">              
-                            <i class="bx bx-edit-alt me-1"></i> Xử lý
+                            <i class='bx bx-check'></i> Xử lý
                         </button>
            
 
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $subscription->id }}">
-                              <i class="bx bx-trash me-1"></i> Sửa
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal{{ $subscription->id }}">
+                            <i class="bx bx-edit-alt me-1"></i> Sửa
                           </button>
 
                           <!-- Confirmation Modal -->
