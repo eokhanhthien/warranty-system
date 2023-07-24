@@ -87,20 +87,20 @@
                 </div>
 
             <!-- Modal -->
-            <form action="{{ route('business-service.store') }}" method="POST" id="form-admin-service" enctype="multipart/form-data">
+            <form action="{{ route('products.store') }}" method="POST" id="form-admin-product" enctype="multipart/form-data">
               @csrf
               <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title" id="myModalLabel">Thêm dịch vụ</h4>
+                      <h4 class="modal-title" id="myModalLabel">Thêm sản phẩm</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                      @if(View::exists('admin.services_business.services_custom.' . session()->get('businesses.slug') . '.' . session()->get('businesses.display')))
-                        @include('admin.services_business.services_custom.' . session()->get('businesses.slug') . '.' . session()->get('businesses.display')) 
+                      @if(View::exists('admin.product_business.product_custom.' . session()->get('businesses.slug') . '.' . session()->get('businesses.display')))
+                        @include('admin.product_business.product_custom.' . session()->get('businesses.slug') . '.' . session()->get('businesses.display')) 
                       @else
                         <p>Chưa  cấu hình, hãy liên hệ tổng đài 0946144333 được hướng dẫn</p>
                       @endif
@@ -119,48 +119,6 @@
 
 
 
-<script>
-  let inputCount = document.querySelectorAll('.input-group').length + 1;
-
-  function addInput() {
-    const inputContainer = document.getElementById("input-container");
-
-    const newInput = document.createElement("div");
-    newInput.classList.add("input-group");
-
-    const input = document.createElement("input");
-    input.setAttribute("type", "text");
-    input.setAttribute("name", "service[" + inputCount + "]");
-    input.classList.add("form-control");
-
-    const btnRemove = document.createElement("div");
-    btnRemove.classList.add("btn", "btn-danger");
-    btnRemove.textContent = "Xóa";
-    btnRemove.addEventListener("click", function() {
-      removeInput(this);
-    });
-
-    newInput.appendChild(input);
-    newInput.appendChild(btnRemove);
-    inputContainer.appendChild(newInput);
-
-    inputCount++;
-  }
-
-  function removeInput(btn) {
-    const inputGroup = btn.parentNode;
-    const inputContainer = inputGroup.parentNode;
-    inputContainer.removeChild(inputGroup);
-
-    // Cập nhật lại thứ tự của các input
-    const inputs = inputContainer.querySelectorAll('.input-group input');
-    inputs.forEach(function(input, index) {
-      input.setAttribute("name", "service[" + (index + 1) + "]");
-    });
-
-    inputCount--; // Giảm số lượng input
-  }
-</script>
 
 <!-- Gọi hàm validate để xử lý form -->
 <script src="{{ asset('assets/js/validateForm.js') }}"></script>
@@ -168,8 +126,8 @@
 <script src="{{ asset('assets/js/data-table-js.js') }}"></script>
 <script>
     $(document).ready(function() {
-        var formId = '#form-admin-service';
-        var validateUrl = '/validate-admin-service';
+        var formId = '#form-admin-product';
+        var validateUrl = '/validate-admin-product';
 
         setupFormValidation(formId, validateUrl);
 
@@ -177,8 +135,37 @@
         searchDataTable(id_table,true, true, 10);
 
     });
+</script>
 
+<script>
+    // Sử dụng jQuery (yêu cầu thư viện jQuery đã được bao gồm trong trang)
+    $(document).ready(function() {
+        // Gán sự kiện "change" cho select category
+        $('#category').on('change', function() {
+            var category_id = $(this).val(); // Lấy giá trị category_id được chọn
 
+            // Gọi Ajax để lấy danh sách sub_category dựa vào category_id
+            $.ajax({
+                url: '{{ route('getSubcategories', ['category_id' => ':category_id']) }}'.replace(':category_id', category_id),
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    // Xóa tất cả các option hiện tại trong select sub_category
+                    $('#subcategory').empty();
+
+                    // Thêm các option mới từ response
+                    $('#subcategory').append('<option value="">Chọn một danh mục con</option>');
+                    $.each(response, function(index, subcategory) {
+                        $('#subcategory').append('<option value="' + subcategory.id + '">' + subcategory.name + '</option>');
+                    });
+                },
+                error: function(xhr) {
+                    // Xử lý lỗi nếu cần
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
 </script>
 
 @endsection

@@ -161,6 +161,21 @@
               </ul>
             </li>
 
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/product-type/')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+                <i class='menu-icon bx bx-desktop'></i>
+                <div data-i18n="Layouts">Loại sản phẩm</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('superadmin/product-type/')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('product-type.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Thuộc tính sản phẩm</div>
+                  </a>
+                </li>        
+              </ul>
+            </li>
+
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Gói doanh nghiệp</span>
             </li>
@@ -291,7 +306,7 @@
 
             </li>
 
-            <li class="{{ str_starts_with(request()->url(), url('admin/business-service')) || str_starts_with(request()->url(), url('admin/categories')) ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('admin/products')) || str_starts_with(request()->url(), url('admin/categories')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
               <i class='menu-icon bx bxs-component'></i>
                 <div data-i18n="Layouts">Sản phẩm</div>
@@ -305,8 +320,8 @@
               </ul>
 
               <ul class="menu-sub">
-                <li class="{{ str_starts_with(request()->url(), url('admin/business-products')) ? 'menu-item active' : 'menu-item' }}">
-                  <a href="{{ route('admin.business.display') }}" class="menu-link">
+                <li class="{{ str_starts_with(request()->url(), url('admin/products')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('products.index') }}" class="menu-link">
                     <div data-i18n="Without menu">Sản phẩm</div>
                   </a>
                 </li>        

@@ -18,7 +18,7 @@ class CheckSubscription
     public function handle($request, Closure $next)
     {
 
-        $now = Carbon::now();
+        $now = Carbon::now()->toDateString();
         $subscription = new Subscription();
         $currentPackage = $subscription->where('start_date', '<=', $now)
         ->where('end_date', '>=', $now)

@@ -284,4 +284,31 @@ public function validateDataAdminService(Request $request)
         'success' => true,
     ]);
 }
+
+public function validateDataAdminProduct(Request $request){
+    // Tạo một mảng chứa các quy tắc cho Validator
+    $rules = [
+        'name' => 'required',
+        'price' => 'required',
+       
+    ];
+
+    // Tạo Validator và áp dụng các quy tắc
+    $validator = Validator::make($request->all(), $rules, [
+        'name.required' => 'Vui lòng nhập tên sản phẩm.',
+        'price.required' => 'Vui lòng nhập giá sản phẩm.',
+        
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+    ]);
+}
 }

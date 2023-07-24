@@ -82,4 +82,9 @@ class BusinessCategoryController extends Controller
     }
 
 
+    public function getSubcategories($category_id)
+    {
+        $subcategories = ProductSubcategory::where(['category_id'=> $category_id, 'business_id' => Auth::user()->business_id])->get();
+        return response()->json($subcategories);
+    }
 }

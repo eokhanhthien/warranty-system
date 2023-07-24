@@ -69,6 +69,7 @@ Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'supe
     Route::post('/check-package', 'BussinessPackageController@postCheckpackage')->name('check.package');
     Route::post('/edit-date-package', 'BussinessPackageController@editDatepackage')->name('edit.date.package');
     Route::resource('/gateway', 'GatewayController');
+    Route::resource('/product-type', 'TypeProductController');
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'CheckBusinessSetting']))->group(function () {
@@ -81,6 +82,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::resource('/subscription-package', 'BusinessSubscriptionController');
     Route::get('/show-packages', "BusinessSubscriptionController@showPackages")->name('package.show.packages');
     Route::resource('/categories', 'BusinessCategoryController');
+    Route::get('/getSubcategories/{category_id}', 'BusinessCategoryController@getSubcategories')->name('getSubcategories');
+    Route::resource('/products', 'BusinessProductController');
 
     // Các Route khác cho Admin
 });
@@ -124,6 +127,7 @@ Route::post('/validate-admin-service', 'validateData@validateDataAdminService')-
 Route::put('/validate-admin-service', 'validateData@validateDataAdminService')->name('validate-admin-service');
 Route::post('/validate-business-package', 'validateData@validateDatabusinessPackage')->name('validate.business.package');
 Route::put('/validate-business-package', 'validateData@validateDatabusinessPackage')->name('validate.business.package');
+Route::post('/validate-admin-product', 'validateData@validateDataAdminProduct')->name('validate-admin-product');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

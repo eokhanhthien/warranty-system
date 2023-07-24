@@ -62,8 +62,8 @@ class Subscription extends Model
 
     public function getPackageCurrent()
     {
-        $now = Carbon::now();
-
+        $now = Carbon::now()->toDateString();
+        // dd($now);
         return $this->where('start_date', '<=', $now)
                     ->where('end_date', '>=', $now)
                     ->where('status', 'accept')
