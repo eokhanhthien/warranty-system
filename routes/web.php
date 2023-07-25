@@ -84,7 +84,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::resource('/categories', 'BusinessCategoryController');
     Route::get('/getSubcategories/{category_id}', 'BusinessCategoryController@getSubcategories')->name('getSubcategories');
     Route::resource('/products', 'BusinessProductController');
-
+    Route::get('/get-product-type-attributes/{id}', 'BusinessProductController@getAttributes');
     // Các Route khác cho Admin
 });
 // Check cài đặt doanh ngiệp lần đầu

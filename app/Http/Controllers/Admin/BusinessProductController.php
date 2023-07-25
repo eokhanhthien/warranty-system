@@ -7,6 +7,7 @@ use App\Business;
 use App\BusinessService;
 use App\ProductCategory;
 use App\ProductSubcategory;
+use App\ProductType;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UploadDriverColtroller;
 
@@ -15,10 +16,12 @@ class BusinessProductController extends Controller
     public function index(Request $request){
   
         $business_service =  BusinessService::where('business_id', auth()->user()->business_id)->get();
+
         $categories = ProductCategory::where('business_id', Auth::user()->business_id)->get();
         $sub_categories = ProductSubcategory::where('business_id', Auth::user()->business_id)->get();
-
-        return view('admin.product_business.index',compact('business_service','categories','sub_categories'));
+        $product_types = ProductType::get();
+        // dd($product_types[0]);
+        return view('admin.product_business.index',compact('business_service','categories','sub_categories','product_types'));
     }
 
     public function create()
@@ -97,4 +100,10 @@ class BusinessProductController extends Controller
     }
 
 
+    public function getAttributes($id)
+    {
+        $productType = ProductType::findOrFail($id);
+        $attributes = json_decode($productType->attributes, true);
+        return response()->json($attributes);
+    }
 }
