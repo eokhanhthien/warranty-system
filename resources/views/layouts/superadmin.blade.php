@@ -163,7 +163,7 @@
 
             <li class="{{ str_starts_with(request()->url(), url('superadmin/product-type/')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
-                <i class='menu-icon bx bx-desktop'></i>
+                <i class='menu-icon bx bxs-duplicate'></i>
                 <div data-i18n="Layouts">Loại sản phẩm</div>
               </a>
 

@@ -57,7 +57,7 @@
             <input type="hidden" name="attributes[{{ $index }}][req_name]" value="{{ $attribute['req_name'] }}">
         </div>
         <div class="form-group col-lg-2">
-            <button class="btn btn-danger btn-block delete-attribute-btn" data-index="{{ $index }}">Xóa</button>
+            <div class="btn btn-danger btn-block delete-attribute-btn" data-index="{{ $index }}">Xóa</div>
         </div>
     </div>
     @endforeach
@@ -124,20 +124,33 @@
             }
         });
 
-        // Xử lý khi nhấn nút "Xóa thuộc tính"
-        $(document).on("click", ".delete-attribute-btn", function () {
+      // Xử lý khi nhấn nút "Xóa thuộc tính"
+      $(document).on("click", ".delete-attribute-btn", function () {
             const index = $(this).data("index");
 
             // Xóa thuộc tính khỏi mảng attributes
             // Các thuộc tính mới được lưu trong mảng newAttributesCount
             if (index >= existingAttributesCount) {
-                const newAttributesIndex = index - existingAttributesCount;
+                // Remove the corresponding HTML element for new attribute
+                $(this).closest(".row").remove();
                 newAttributesCount--;
-                attributes.splice(newAttributesIndex, 1);
+            } else {
+                // Remove the corresponding HTML element for existing attribute
+                $(this).closest(".row").remove();
+
+                // Update the index for existing attributes after deletion
+                for (let i = index + 1; i < existingAttributesCount; i++) {
+                    const newIndex = i - 1;
+                    $(`[data-index="${i}"]`).attr("data-index", newIndex);
+                    $(`[name="attributes[${i}][title]"]`).attr("name", `attributes[${newIndex}][title]`);
+                    $(`[name="attributes[${i}][req_name]"]`).attr("name", `attributes[${newIndex}][req_name]`);
+                }
+
+                existingAttributesCount--;
             }
 
-            // Xóa div chứa thuộc tính
-            $(this).closest(".row").remove();
+            // Remove the deleted attribute from the `attributes` array
+            attributes.splice(index, 1);
         });
     });
 </script>
