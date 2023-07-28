@@ -5,9 +5,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Business;
 use App\BusinessService;
+
+
 use App\ProductCategory;
 use App\ProductSubcategory;
 use App\ProductType;
+use App\Product;
+use App\ProductDetail;
+use App\Variant;
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UploadDriverColtroller;
 
@@ -15,13 +21,12 @@ class BusinessProductController extends Controller
 {
     public function index(Request $request){
   
-        $business_service =  BusinessService::where('business_id', auth()->user()->business_id)->get();
-
+        $products =  Product::where('business_id', auth()->user()->business_id)->get();
         $categories = ProductCategory::where('business_id', Auth::user()->business_id)->get();
         $sub_categories = ProductSubcategory::where('business_id', Auth::user()->business_id)->get();
         $product_types = ProductType::get();
         // dd($product_types[0]);
-        return view('admin.product_business.index',compact('business_service','categories','sub_categories','product_types'));
+        return view('admin.product_business.index',compact('products','categories','sub_categories','product_types'));
     }
 
     public function create()
@@ -31,23 +36,97 @@ class BusinessProductController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        $data = $request->all();
+        $variantData = $request->variant;
+
         // upload image
         $uploadController = new UploadDriverColtroller();
-        $path_image = $uploadController->upload_image($request);
+        $path_image = $uploadController->upload_singer_image($request);
 
-        $business_service = new BusinessService;
-        $business_service->name = $request->name;
-        $business_service->short_description = $request->short_description;
-        $service = json_encode($request->service);
-        $business_service->service = $service;
-        $business_service->detail_description = $request->content;
-        $business_service->business_id = auth()->user()->business_id;
-        $business_service->image = $path_image;
+        $product = new Product;
+        $product->name = $request->name;
+        $product->category_id = $request->category;
+        $product->subcategory_id = $request->subcategory;
+        $product->price = $request->price;
+        $product->business_id = auth()->user()->business_id;
+        $product->image = !empty($path_image) ? $path_image : '';
+        $product->stock = $request->stock;
+        $product->save();
 
-        $business_service->save();
+        $product_detail = new ProductDetail;
+        $product_detail->product_id = $product->id;
+        $uploadImages = new UploadDriverColtroller();
+        $pathImages = $uploadImages->upload_singer_images($request);
+        $product_detail->images = json_encode($pathImages);
+        $product_detail->content = $request->content; 
+        $product_detail['attributes'] = json_encode($request['attributes'] );
+        $product_detail->save();
 
-        return redirect()->route('business-service.index')->with('success', 'Tạo dịch vụ thành công.');
+        $variants = [];
+
+        // Kiểm tra nếu tồn tại $variantData và $variantData[1]['values']
+        if (isset($variantData) && isset($variantData[1]['values'])) {
+            // Kiểm tra nếu tồn tại $variantData[2]['values']
+            if (isset($variantData[2]['values'])) {
+                // Lặp qua các giá trị của thuộc tính "Màu"
+                foreach ($variantData[1]['values'] as $Index_1 => $value_1) {
+                    // Lặp qua các giá trị của thuộc tính "Ram"
+                    foreach ($variantData[2]['values'] as $Index_2 => $value_2) {
+                        $variantKey = "{$Index_1}_{$Index_2}";
+                        $priceKey = "price_{$variantKey}";
+                        $stockKey = "stock_{$variantKey}";
+        
+                        // Kiểm tra nếu tồn tại giá và số lượng tồn kho tương ứng
+                        if (isset($data[$priceKey]) && isset($data[$stockKey])) {
+                            $variants[] = [
+                                'product_id' => 1,
+                                'title_1' => $variantData[1]['name'],
+                                'title_2' => $variantData[2]['name'],
+                                'value_1' => $value_1['value'],
+                                'value_2' => $value_2['value'],
+                                'price' => $data[$priceKey],
+                                'stock' => $data[$stockKey],
+                            ];
+                        }
+                    }
+                }
+            } else {
+                // Trường hợp chỉ có $variantData[1] và không có $variantData[2]
+                foreach ($variantData[1]['values'] as $Index_1 => $value_1) {
+                    $variantKey = "{$Index_1}";
+                    $priceKey = "price_{$variantKey}_0";
+                    $stockKey = "stock_{$variantKey}_0";
+        
+                    // Kiểm tra nếu tồn tại giá và số lượng tồn kho tương ứng
+                    if (isset($data[$priceKey]) && isset($data[$stockKey])) {
+                        $variants[] = [
+                            'product_id' => $product->id,
+                            'title_1' => $variantData[1]['name'],
+                            'title_2' => null,
+                            'value_1' => $value_1['value'],
+                            'value_2' => null,
+                            'price' => $data[$priceKey],
+                            'stock' => $data[$stockKey],
+                        ];
+                    }
+                }
+            }
+        }
+        if(!empty($variants)){
+            foreach ($variants as $variantData) {
+                $variant = new Variant();
+                $variant->product_id = $variantData['product_id'];
+                $variant->title_1 = $variantData['title_1'];
+                $variant->title_2 = $variantData['title_2'];
+                $variant->value_1 = $variantData['value_1'];
+                $variant->value_2 = $variantData['value_2'];
+                $variant->price = $variantData['price'];
+                $variant->stock = $variantData['stock'];
+                $variant->save();
+            }
+        }
+        
+        return redirect()->back()->with('success', 'Tạo sản phẩm thành công.');
     }
 
     public function show(BusinessService $businessService)

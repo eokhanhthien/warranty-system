@@ -30,34 +30,33 @@
                         <th>STT</th>
                         <th>Name</th>
                         <th>Image</th>
-                        <th>description</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
-                    @if(!empty($business_service))
+                    @if(!empty($products))
                     <tbody class="table-border-bottom-0">
-                      @foreach($business_service as $service)
+                      @foreach($products as $product)
                       <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ $service->name }}</td>
-                        @if(!empty($service->image))
-                        <td><img  class="img-fluid w-50 h-50" src="https://drive.google.com/uc?export=view&id={{$service->image}}" alt=""></td>
+                        <td>{{ $product->name }}</td>
+                        @if(!empty($product->image))
+                        <td><img  class="img-fluid w-50 h-50" src="https://drive.google.com/uc?export=view&id={{$product->image}}" alt=""></td>
 
                         @else
                          <td><img style = "width: 120px; height: 120px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEXFxcX////CwsLGxsb7+/vT09PJycn19fXq6urb29ve3t7w8PDOzs7n5+f5+fnt7e30nlkBAAAFHUlEQVR4nO2dC5qqMAyFMTwUBdz/bq+VYYrKKJCkOfXmXwHna5uTpA+KwnEcx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3EcA2iO9cdIc5PUdO257y+BU39u66b4HplE3fk6VIcnqmNfl1+gksr6+iIucjl3WYukor7+re6Hoe1y1UhNO3zUd+fUFRmKpOa0Tt6dY5ubRCrOG/QFLk1WGmnt/JxzykcjdZ/jyxJDLlOV2l36AtcsJJb9boG3YcR3DuqODIE3ztYKPkDdmwRmpUToUaSaq++AvRgZMWbOpbQW8hdCAm8ZDugoikzREdCJ2okJPBx6azFLNOwoOgcxojJ98JkaTSJxMpklKrCAKhZGI0drTY/wU5lXoJYibannV9NYy4oozNEAkPHTjop+DTDxVGkIgYJNoyQQJtiIW+EMjGAjm649AjGIaqswcEFQKJ2QPlJbqytki6ZXAAZRJ52J2McaUowzAfs+uFzrYhnzaapphiPWdaJWShqxjqa6kTTQ205TVbsfMa6htL0iYOsXpJrQjHSmCkv1QGPtiHqlYcQ21Gj7fcDU8xOEUuNgSltPzexh+HqFlanCBHZ4OLhCV+gK/3OF6vWvucLv98MUOY2pwu/PS/+D2qJU7pYGbOvDFDW+bbON9p3o3oRxn0bfLgZTgSn6pSfrtr56qLHemtHPTK2319SzGvtjQ9qeb39WgS66Cm073nd0U1PzDdJCO3Gzn6TKpl9Zq7ujGWsQhlA3NwWIMwG9zM08Y/tBrR9VWeczv5CSQuuUNKIUTk23ZJ5RKfVhjnkXotfWIlgX2BSCDYbZR+QTcLhb3dKZDUY2M0d4KWItwhHRah/zsrOgKw4wycwjcgEVcgQDQo23CqSiWEJkFAfod2oE1uIFdA1OsCPqFXYNTjCfb8Ez+iX2x5sKLlVbhtqdDcar9ZevhnbZxoBUD35k23t0d304LYs1ELVbnfFaZ/REJJX9niP8Q19moZGo3m8XR/yBvOnjFfsXcI2c8ZuNo7WMP5HQh6yRGrlmFOJTnyTcT+zRlqPUBI2gTVWNUzUna1ERgecgF4GpNBQ38jGqxVLzQA1A31Rrhk6Yz9QEh/WND0GnuG9huhiTXJkxfAizTHLr6cbJKN6UCU6x/2DTRE1xEeEXi3O0ZUqBN4nJRzHhFB1JPlFTBZlI2kQ8zc3KJ1Le8DIRmFJiknuVS6RK4Ej/JtBfJErDSzOBiY4wJHX6Z1I4v1GUmdCPNirnLLeg3oJLcbX5PcpHNbRvOa1A956QmRPOUXVF+zkaUJynpkYR0bOMJH2nNej1pqyV/aKkz9jr5yj5vrXXz1F5SQLACiMapmierj2ikLyleKdlA/I/2oFxiglxx9B+mHwz0lf34IZQfhDRhlD6bhvgEAoPYooHkTczSIZTLC+cEExsoNKZiGBiY9cCfo/Y/SjIOBMQizWWTe73CMUasJx7jlD+DdKdWUKoY4PRYFtGpO0G1Lx4RaadgTtJhf4fiGqGIwKWCGuGIwKWqP+7IxYCzygjR9IAO5pC7Da9g70TBVpWRNgFBlgT8RV2WxHbKwJMv4BOaEaYaU2K16yZMN/qgV+G7IWIvwyZCxHeDQMsR8wg0DBDDXB5H2EV+hkEGmaoySHQsEJNFoGGFWrAq98JRhUMX1iMMMqLLEIpK5jCbd4vw9nSt/72lewXiN6jmdjfq8Hdknlk92ZwJnbIMMRM7JBhiFlUFoHd1UWaP1QKsPsHA5mkNB+Smn9JqV3wskatnQAAAABJRU5ErkJggg==" alt=""></td> 
                         @endif
-                          <td>{{ $service->short_description }}</td>
+                         
                        
                         <td>
                           <button class="btn btn-primary">
-                            <a style="color: white" class="d-inline-block" href="{{route('business-service.edit',[$service->id])}}">
+                            <a style="color: white" class="d-inline-block" href="{{route('business-service.edit',[$product->id])}}">
                               <i class="bx bx-edit-alt me-1"></i> Sửa
                             </a>
                           </button> 
-                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $service->id }}">
+                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $product->id }}">
                               <i class="bx bx-trash me-1"></i> Xóa
                           </button>
-                          <div class="modal fade" id="confirmationModal{{ $service->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                          <div class="modal fade" id="confirmationModal{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                       <div class="modal-header">
@@ -69,7 +68,7 @@
                                       <div class="modal-body">Bạn có chắc muốn xóa ? </div>
                                       <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>                                         
-                                      <form action="{{ route('business-service.destroy', ['id' => $service->id]) }}" method="POST" style="display: inline-block;">
+                                      <form action="{{ route('business-service.destroy', ['id' => $product->id]) }}" method="POST" style="display: inline-block;">
                                           @csrf
                                           @method('DELETE')
                                           <button type="submit" class="btn btn-danger">Xóa</button>                                          
@@ -127,6 +126,13 @@
 
                             <h6 class="card-title text-primary">Ảnh</h6>
                             <div class="thumbnails row">
+                            <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
+                                  <label for="imageInput">
+                                      <img src="https://via.placeholder.com/150" alt="Ảnh mới" id="imageThumbnail">
+                                  </label>
+                                  <input type="file" id="imageInput" name="image" accept="image/*" style="display:none;">
+                              </div>
+
                                 @for($i = 0; $i < 7; $i++)
                                     <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
                                         <label for="thumbnailInput{{$i}}">
@@ -142,8 +148,8 @@
                         <input type="file" id="imageInput" accept="image/*" style="display:none;">
                         <input type="hidden" id="selectedImagesData" name="images[]" value="">
 
-                        <input type="hidden" id="" name="image_width" value="400" >
-                        <input type="hidden" id="" name="image_height" value="600" >
+                        <input type="hidden" id="" name="image_width" value="200" >
+                        <input type="hidden" id="" name="image_height" value="300" >
 
                         <div class="form-group">
                                 <label for="price"><h6 class="card-title text-primary">Giá sản phẩm </h6> </label>
@@ -152,16 +158,16 @@
                         </div>
 
                         <div class="form-group">
-                                <label for="warehouse"><h6 class="card-title text-primary">Kho hàng </h6> </label>
-                                <input type="text" class="form-control" id="warehouse" name="warehouse" value ="{{!empty($business_service->name) ? $business_service->name : '' }}">
-                                <span class="error-message" id="warehouse-error"></span>
+                                <label for="stock"><h6 class="card-title text-primary">Kho hàng </h6> </label>
+                                <input type="text" class="form-control" id="stock" name="stock" value ="{{!empty($business_service->name) ? $business_service->name : '' }}">
+                                <span class="error-message" id="stock-error"></span>
                         </div>
 
                         
                         <div id="variants" >
                         <div class="btn btn-success col-lg-2" onclick="addVariant()">Thêm biến thể</div>
                         </div>
-                        <div onclick="generateTable()" class="mt-2 mb-2 form-control btn btn-dark">Tạo bảng</div>
+                        <div onclick="generateTable()" class="mt-2 mb-2 form-control btn btn-dark btn-create-variant" style="display: none">Tạo bảng</div>
 
                         <!-- Bảng hiển thị giá cho từng giá trị thuộc tính của biến thể -->
                         <div class="card p-2">
@@ -177,7 +183,7 @@
                         
                         <label for=""><h6 class="card-title text-primary mt-4">Thuộc tính sản phẩm </h6> </label>
                         <select id="productTypeSelect" class="form-control ">
-                            <option value="">Chọn loại sản phẩm</option>
+                            <option value="">Chọn dữ liệu mâu</option>
                             @foreach($product_types as $product_type)
                                 <option value="{{ $product_type->id }}">{{ $product_type->name }}</option>
                             @endforeach
@@ -227,6 +233,26 @@
                 }
             });
         }
+
+      // Xử lý sự kiện chọn ảnh mới với name="image"
+      const imageInput = document.getElementById('imageInput');
+      imageInput.addEventListener('change', function (event) {
+          const files = event.target.files;
+
+          if (files && files.length > 0) {
+              const file = files[0];
+              const reader = new FileReader();
+              reader.onload = function () {
+                  const imageDataUrl = reader.result;
+                  const imageThumbnail = document.getElementById('imageThumbnail');
+                  if (imageThumbnail) {
+                      imageThumbnail.src = imageDataUrl;
+                  }
+              };
+              reader.readAsDataURL(file);
+          }
+      });
+
     });
 </script>
 
@@ -254,7 +280,7 @@
       const valueDiv = document.createElement("div");
       valueDiv.classList.add("d-flex", "mb-2");
       valueDiv.innerHTML = `
-        <input type="text" class="mt-2 mb-2 form-control col-lg-2" name="variant[${variantIndex}][values][${valuesDiv.childElementCount}][value]" placeholder="Giá trị biến thể">
+        <input type="text" class="mt-2 mb-2 form-control col-lg-2 input-variant" name="variant[${variantIndex}][values][${valuesDiv.childElementCount}][value]" placeholder="Giá trị biến thể">
         <div class="btn btn-danger mt-2 mb-2" onclick="removeValue(${variantIndex}, ${valuesDiv.childElementCount})"><i class="bx bx-trash me-1"></i></div>
       `;
       valuesDiv.appendChild(valueDiv);
@@ -301,8 +327,8 @@
         newRow.innerHTML = `
           <td>${getVariantValue(1, i)}</td>
           <td>${getVariantValue(2, j)}</td>
-          <td><input type="text" class="mt-2 mb-2 form-control" name="price_${i}_${j}" placeholder="Giá"></td>
-          <td><input type="text" class="mt-2 mb-2 form-control" name="stock_${i}_${j}" placeholder="Kho hàng"></td>
+          <td><input type="text" class="mt-2 mb-2 form-control" name="price_${i}_${j}" placeholder="Giá" required></td>
+          <td><input type="text" class="mt-2 mb-2 form-control" name="stock_${i}_${j}" placeholder="Kho hàng" required></td>
         `;
         table.appendChild(newRow);
       }
@@ -415,5 +441,12 @@
         }
     });
 </script>
+<script>
+    // Bắt sự kiện khi người dùng nhập giá trị vào input có class "input-variant"
+    $(document).on('input', '.input-variant', function() {
+        // Tự động kích hoạt sự kiện click trên nút "btn-create-variant"
+        $('.btn-create-variant').click();
+    });
 
+</script>
 @endsection

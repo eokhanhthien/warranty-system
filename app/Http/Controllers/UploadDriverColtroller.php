@@ -54,6 +54,59 @@ class UploadDriverColtroller extends Controller
     
         return $paths;
     }
+    public function upload_singer_image(Request $request){
+        $paths = [];
+    
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileData = File::get($file);
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            if(!empty($request->image_width) && !empty($request->image_height)){
+                $resizedFileData = $this->resizeImage($fileData, $request->image_width, $request->image_height); // Thay đổi kích thước ảnh
+            }else{
+                $resizedFileData = $fileData;
+            }
+    
+            $result = Storage::cloud()->put($fileName, $resizedFileData);
+    
+            if ($result) {
+                $metadata = Storage::cloud()->getMetadata($fileName);
+                $path = $metadata['path'];
+               return $path;
+            } else {
+                // Xử lý khi không thành công
+            }
+        }
+    
+        return $paths;
+    }
+    public function upload_singer_images(Request $request){
+        $paths = [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $fileData = File::get($image);
+                $fileName = time() . '.' . $image->getClientOriginalExtension();
+                if(!empty($request->image_width) && !empty($request->image_height)){
+                    $resizedFileData = $this->resizeImage($fileData, $request->image_width, $request->image_height); // Thay đổi kích thước ảnh
+                }else{
+                    $resizedFileData = $fileData;
+                }
+                
+                $result = Storage::cloud()->put($fileName, $resizedFileData);
+    
+                if ($result) {
+                    $metadata = Storage::cloud()->getMetadata($fileName);
+                    $path = $metadata['path'];
+                    $paths[] = $path; // Thêm đường dẫn vào mảng paths
+                } else {
+                    // Xử lý khi không thành công
+                }
+            }
+        }
+    
+        return $paths;
+    }
     
 
     public function get_file(){
