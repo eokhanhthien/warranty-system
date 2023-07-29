@@ -49,7 +49,7 @@
                        
                         <td>
                           <button class="btn btn-primary">
-                            <a style="color: white" class="d-inline-block" href="{{route('business-service.edit',[$product->id])}}">
+                            <a style="color: white" class="d-inline-block" href="{{route('products.edit',[$product->id])}}">
                               <i class="bx bx-edit-alt me-1"></i> Sửa
                             </a>
                           </button> 
@@ -182,7 +182,7 @@
                         </div>
                         
                         <label for=""><h6 class="card-title text-primary mt-4">Thuộc tính sản phẩm </h6> </label>
-                        <select id="productTypeSelect" class="form-control ">
+                        <select id="productTypeSelect" class="form-control" name="attribute_id">
                             <option value="">Chọn dữ liệu mâu</option>
                             @foreach($product_types as $product_type)
                                 <option value="{{ $product_type->id }}">{{ $product_type->name }}</option>

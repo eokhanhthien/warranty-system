@@ -49,6 +49,7 @@ class BusinessProductController extends Controller
         $product->subcategory_id = $request->subcategory;
         $product->price = $request->price;
         $product->business_id = auth()->user()->business_id;
+        $product->attribute_id = $request->attribute_id;
         $product->image = !empty($path_image) ? $path_image : '';
         $product->stock = $request->stock;
         $product->save();
@@ -135,10 +136,22 @@ class BusinessProductController extends Controller
         // return view('admin.business.service.show', compact('businessService'));
     }
 
-    public function edit(BusinessService $businessService)
-    {
-        $business_service = $businessService;
-        return view('admin.services_business.edit', compact('business_service'));
+    public function edit($id)
+    {        
+  
+        $categories = ProductCategory::where('business_id', Auth::user()->business_id)->get();
+        $sub_categories = ProductSubcategory::where('business_id', Auth::user()->business_id)->get();
+        $product_types = ProductType::get();
+        $product_current = Product::find($id);
+        $product_detail = ProductDetail::where('product_id' , $id)->first();
+
+        $product_detail_images = json_decode($product_detail->images, true);
+        $product_attribute = json_decode($product_detail->attributes, true);
+        $variant = Variant::where('product_id' , $id)->get();
+
+
+        // dd( $product_attribute);
+        return view('admin.product_business.edit',compact('categories','sub_categories','product_types','product_current','product_detail_images','variant','product_attribute'));
     }
 
     public function update(Request $request, BusinessService $businessService)
