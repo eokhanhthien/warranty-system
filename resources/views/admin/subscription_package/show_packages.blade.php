@@ -100,7 +100,48 @@
     @endforeach 
 </div>
 @endif
-    </div>
+    <div class="card">
+
+                <h5 class="card-header">Tất cả gói đã đăng ký</h5>
+                <div class="table-responsive text-nowrap">
+                <table class="table" id="table_businesses">
+                  <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày hết hạn</th>
+                        <th>Trạng thái</th>
+                        <th>Mã đơn</th>
+                    </tr>
+                  </thead>
+                  @if(!empty($subscriptions))
+                    <tbody class="table-border-bottom-0">
+                      @foreach($subscriptions as $subscription)
+                      <tr>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td>{{ $subscription->package->name }}</td>
+                        <td>{{ \Carbon\Carbon::parse($subscription->start_date)->format('d/m/Y') }} </td>
+                        <td>{{ \Carbon\Carbon::parse($subscription->end_date)->format('d/m/Y') }} </td>
+                        <td>
+                            @if(\Carbon\Carbon::parse($subscription->end_date) < \Carbon\Carbon::now())
+                                Hết hạn
+                            @else
+                                Còn hiệu lực
+                            @endif
+                        </td>
+                        <td>{{ $subscription->order_code}} </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                    @endif
+                </table>
+
+                </div>
+
+        </div>
+
+        </div>
 </div>
 
 @endsection

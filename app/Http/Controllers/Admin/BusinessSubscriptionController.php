@@ -153,7 +153,8 @@ class BusinessSubscriptionController extends Controller
       $currentPackage = $subscriptionModel->getPackageCurrent();
       $upcomingPackages = $subscriptionModel->getPackageUpcoming();
       $PackageNotAccepted = $subscriptionModel->getPackageNotAccepted();
-        
-      return view('admin.subscription_package.show_packages', compact('currentPackage', 'PackageNotAccepted','upcomingPackages'));
+ 
+      $subscriptions = Subscription::where('business_id',Auth::user()->business_id)->where('status','accept')->get();
+      return view('admin.subscription_package.show_packages', compact('currentPackage', 'PackageNotAccepted','upcomingPackages','subscriptions'));
     }
 }

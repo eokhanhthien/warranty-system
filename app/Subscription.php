@@ -62,19 +62,24 @@ class Subscription extends Model
 
     public function getPackageCurrent()
     {
-        $now = Carbon::now()->toDateString();
-        // dd($now);
-        return $this->where('start_date', '<=', $now)
-                    ->where('end_date', '>=', $now)
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Ho_Chi_Minh'); // Đặt múi giờ thành múi giờ của Việt Nam (Asia/Ho_Chi_Minh)
+    
+        // Giờ hiện tại theo múi giờ của Việt Nam
+        // dd();
+        return $this->where('start_date', '<=', $now->toDateString())
+                    ->where('end_date', '>=', $now->toDateString())
                     ->where('status', 'accept')
                     ->where('business_id', Auth::user()->business_id)
                     ->first();
     }
 
     public function getPackageUpcoming()
-    {
+    {        
+        $now = Carbon::now();
+        $now->setTimezone('Asia/Ho_Chi_Minh'); // Đặt múi giờ thành múi giờ của Việt Nam (Asia/Ho_Chi_Minh)
         $currentPackage = $this->getPackageCurrent();
-        $endDateOfCurrentPackage = $currentPackage ? $currentPackage->end_date : "null" ;
+        $endDateOfCurrentPackage = $currentPackage ? $currentPackage->end_date :  $now->toDateString() ;
       
         return $this->where('start_date', '>', $endDateOfCurrentPackage)
                     ->where('status', 'accept')

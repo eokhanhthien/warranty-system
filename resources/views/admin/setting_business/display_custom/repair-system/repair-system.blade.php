@@ -56,7 +56,7 @@
                             @foreach($display_information->images as $image)
                                 <!-- <iframe src="https://drive.google.com/file/d/{{$image}}/preview" alt="" style="width: 120px; height: 120px"></iframe> -->
                                   <div class="img-size col-3">
-                                    <img src="https://drive.google.com/uc?export=view&id={{$image}}" alt="">
+                                    <img src="https://drive.google.com/uc?export=view&id={{$image}}" style="width: 100%; "alt="">
                                   </div>
                             @endforeach
                         @endif
