@@ -1,4 +1,4 @@
-<textarea name="content" id="content"></textarea>
+<textarea name="content" id="content">{{!empty($content) ? $content : ''}}</textarea>
 <script src="https://cdn.ckeditor.com/4.16.1/full/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('content', {

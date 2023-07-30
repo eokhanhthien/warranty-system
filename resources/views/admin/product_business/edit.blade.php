@@ -19,7 +19,7 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
     <div class="col-xl-12">
-    <form action="" method="POST" id="form-admin-service" enctype="multipart/form-data">
+    <form action="{{ route('products.update', ['id' => $product_current->id]) }}" method="POST" id="form-admin-service" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 
@@ -54,37 +54,39 @@
                                 <span class="error-message" id="name-error"></span>
                             </div>
 
-                            <h6 class="card-title text-primary">Ảnh</h6>
-                            <div class="thumbnails row">
-                            <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
+                        <h6 class="card-title text-primary">Ảnh cũ</h6>
+                        <div class="row">
+                            @if(isset($product_detail_images) && !empty($product_detail_images))
+                                    @foreach($product_detail_images as $image)
+                                    <div class="col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
+                                        <img  class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$image}}" alt="" style ="width: 100px">
+                                    </div>
+                                    @endforeach
+                            @endif
+                        </div>
+
+                        <h6 class="card-title text-primary">Thêm mới ảnh</h6>
+                        <p style = "color: red">Lưu ý: nếu thêm ảnh mới thì các ảnh cũ sẽ bị xóa đi</p>
+                        <div class="thumbnails row">
+                        <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
                                 <label for="imageInput">
-                                    @if(isset($product_current->image) && !empty($product_current->image))
-                                        <img src="{{ 'https://drive.google.com/uc?export=view&id=' . urlencode($product_current->image) }}" alt="Ảnh mới" id="imageThumbnail">
-                                    @else
-                                        <img src="https://via.placeholder.com/150" alt="Ảnh mới" id="imageThumbnail">
-                                    @endif
+                                    <img src="https://via.placeholder.com/150" alt="Ảnh mới" id="imageThumbnail">
                                 </label>
                                 <input type="file" id="imageInput" name="image" accept="image/*" style="display:none;">
                             </div>
 
-
-                              @for($i = 0; $i < 7; $i++)
-                                    <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
-                                        <label for="thumbnailInput{{$i}}">
-                                            @if(isset($product_detail_images[$i]))
-                                                <img src="{{ 'https://drive.google.com/uc?export=view&id=' . urlencode($product_detail_images[$i]) }}" alt="Ảnh {{$i+1}}" id="thumbnail{{$i}}">
-                                            @else
-                                                <img src="https://via.placeholder.com/150" alt="Ảnh {{$i+1}}" id="thumbnail{{$i}}">
-                                            @endif
-                                            <!-- <p>Ảnh {{$i+1}}</p> -->
-                                        </label>
-                                        <input type="file" id="thumbnailInput{{$i}}" name="images[{{$i}}]" accept="image/*" style="display:none;">
-                                    </div>
-                                @endfor
-
-                            </div>
-                          
+                            @for($i = 0; $i < 7; $i++)
+                                <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
+                                    <label for="thumbnailInput{{$i}}">
+                                        <img src="https://via.placeholder.com/150" alt="Ảnh {{$i+1}}" id="thumbnail{{$i}}">
+                                        <!-- <p>Ảnh {{$i+1}}</p> -->
+                                    </label>
+                                    <input type="file" id="thumbnailInput{{$i}}" name="images[{{$i}}]" accept="image/*" style="display:none;">
+                                </div>
+                            @endfor
                         </div>
+
+
                         <input type="file" id="imageInput" accept="image/*" style="display:none;">
                         <input type="hidden" id="selectedImagesData" name="images[]" value="">
 
@@ -107,7 +109,7 @@
                         <h6 class="card-title text-primary">Biến thể</h6>
 
                         <div class="row">
-                        <p>Lưu ý: nếu tạo biến thể mới thì các biến thể cũ sẽ bị xóa đi</p>
+                        @if(!empty($variant))
                             @foreach ($variant as $index => $variantItem)
                                 <div class="col-md-4 mb-3">
                                     <div class="card">
@@ -123,8 +125,9 @@
                                     </div>
                                 </div>
                             @endforeach
+                        @endif
                         </div>
-
+                        <p style = "color: red">Lưu ý: nếu tạo biến thể mới thì các biến thể cũ sẽ bị xóa đi</p>
                         <div id="variants" >
                         <div class="btn btn-success col-lg-2" onclick="addVariant()">Tạo thể (mới)</div>
                         </div>
@@ -159,7 +162,9 @@
                       </div>
 
                         <h6 class="card-title text-primary mt-3">Mô tả chi tiết sản phẩm</h6> 
-                        @include('ckeditor.ckeditor')  
+                        @include('ckeditor.ckeditor', ['content' => $product_detail->content])
+                      <button type="submit" class="btn btn-primary" id="submit-btn">Lưu</button>
+
                     </div> 
                    
 </form>

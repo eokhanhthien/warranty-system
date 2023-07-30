@@ -128,6 +128,7 @@ Route::put('/validate-admin-service', 'validateData@validateDataAdminService')->
 Route::post('/validate-business-package', 'validateData@validateDatabusinessPackage')->name('validate.business.package');
 Route::put('/validate-business-package', 'validateData@validateDatabusinessPackage')->name('validate.business.package');
 Route::post('/validate-admin-product', 'validateData@validateDataAdminProduct')->name('validate-admin-product');
+Route::put('/validate-admin-product', 'validateData@validateDataAdminProduct')->name('validate-admin-product');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {
