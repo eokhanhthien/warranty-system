@@ -278,15 +278,30 @@ class BusinessProductController extends Controller
     }
     
 
-    public function destroy(BusinessService $businessService)
-    {
+    public function destroy($id)
+    {  
+        $product =  Product::find($id);
         $deleteimage = new UploadDriverColtroller();
-        $deleteimage->delete_image($businessService->image);
-
-        $businessService->delete();
-
-        return redirect()->route('business-service.index')->with('success', 'Xóa dịch vụ thành công..');
+        if(!empty($product->image)){
+        $deleteimage->delete_image($product->image);
+        }
+        $product->delete();
+        $product_detail = ProductDetail::where('product_id' , $id)->first();
+        if(!empty(json_decode($product_detail->images))){
+            foreach (json_decode($product_detail->images) as $key => $image) {
+                    $deleteImage = new UploadDriverColtroller();
+                    $deleteImage->delete_image($image);
+            }
+        }
+        $product_detail -> delete();
+        $variant_old = Variant::where('product_id', $id)->get();
+        if(!empty($variant_old)){
+            foreach ($variant_old as $key => $item) {
+                $item->delete();
+        }
     }
+    return redirect()->back()->with('success', 'Xóa sản phẩm thành công.');
+}
 
 
     public function getAttributes($id)

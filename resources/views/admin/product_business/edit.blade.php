@@ -114,13 +114,11 @@
                                 <div class="col-md-4 mb-3">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title">Biến thể: {{$index + 1 }}</h5>
-                                            <p class="card-text">Title 1: {{ $variantItem->title_1 }}</p>
-                                            <p class="card-text">Title 2: {{ $variantItem->title_2 }}</p>
-                                            <p class="card-text">Value 1: {{ $variantItem->value_1 }}</p>
-                                            <p class="card-text">Value 2: {{ $variantItem->value_2 }}</p>
-                                            <p class="card-text">Price: {{ $variantItem->price }}</p>
-                                            <p class="card-text">Stock: {{ $variantItem->stock }}</p>
+                                            <h5 class="card-title">Biến thể: {{$index + 1 }} </h5>
+                                            <p class="card-text">{{ $variantItem->title_1 }} <span>{{ $variantItem->value_1 }}</span></p>
+                                            <p class="card-text">{{ $variantItem->title_2 }} <span>{{ $variantItem->value_2 }}</span></p>
+                                            <p class="card-text">Giá: {{ $variantItem->price }}</p>
+                                            <p class="card-text">Kho: {{ $variantItem->stock }}</p>
                                         </div>
                                     </div>
                                 </div>
