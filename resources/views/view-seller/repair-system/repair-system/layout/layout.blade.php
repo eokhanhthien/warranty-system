@@ -27,7 +27,11 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('assets/manager_web/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/manager_web/css/style_all_product.css') }}" rel="stylesheet">
 
+    <!-- swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/manager_web/css/style.css') }}" rel="stylesheet">
 </head>
@@ -92,7 +96,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav me-auto">
                     <a href="{{ route('seller.business', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3))) && url()->current() === url('artisq/' . request()->segment(2) . '/' . request()->segment(3)) ? 'nav-item nav-link active' : 'nav-item nav-link' }}">Trang chủ</a>
-                    <a href="{{ route('seller.business.about', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/about')) && url()->current() === url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/about') ? 'nav-item nav-link active' : 'nav-item nav-link' }}">Thông tin</a>
+                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/about')) && url()->current() === url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/about') ? 'nav-item nav-link active' : 'nav-item nav-link' }}">Sản phẩm</a>
                     <a href="service.html" class="nav-item nav-link">Dịch vụ</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Trang</a>
@@ -200,6 +204,7 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('assets/manager_web/js/main.js') }}"></script>
+    <script src="{{ asset('assets/manager_web/js/style_all_product.js') }}"></script>
 </body>
 
 </html>

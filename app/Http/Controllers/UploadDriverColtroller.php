@@ -137,7 +137,7 @@ class UploadDriverColtroller extends Controller
         $originalHeight = imagesy($image);
     
         // Tính toán tỉ lệ scale cho việc thay đổi kích thước
-        $scale = max($width / $originalWidth, $height / $originalHeight);
+        $scale = min($width / $originalWidth, $height / $originalHeight);
     
         // Tính toán kích thước mới dựa trên tỉ lệ đã tính toán
         $newWidth = $originalWidth * $scale;
@@ -155,29 +155,18 @@ class UploadDriverColtroller extends Controller
             $originalWidth, $originalHeight // Kích thước ảnh gốc
         );
     
-        // Tính toán kích thước cắt ảnh
-        $cropWidth = min($newWidth, $width);
-        $cropHeight = min($newHeight, $height);
-    
-        // Tính toán vị trí cắt ảnh để trung tâm
-        $cropX = ($newWidth - $cropWidth) / 2;
-        $cropY = ($newHeight - $cropHeight) / 2;
-    
-        // Cắt ảnh theo kích thước và vị trí đã tính toán
-        $croppedImage = imagecrop($resizedImage, ['x' => $cropX, 'y' => $cropY, 'width' => $cropWidth, 'height' => $cropHeight]);
-    
         // Tạo buffer để lưu dữ liệu ảnh mới
         ob_start();
-        imagejpeg($croppedImage, null, 100);
+        imagejpeg($resizedImage, null, 100);
         $resizedFileData = ob_get_clean();
     
         // Giải phóng bộ nhớ và trả về dữ liệu ảnh mới
         imagedestroy($image);
         imagedestroy($resizedImage);
-        imagedestroy($croppedImage);
     
         return $resizedFileData;
     }
+    
     
      
 

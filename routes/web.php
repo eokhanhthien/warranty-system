@@ -106,7 +106,8 @@ Route::post('/business-setting-add', 'BusinessSettingController@businessSettingA
 Route::prefix('artisq')->namespace('Seller')->group(function () {
     Route::middleware(['CheckDomain','CheckSubscription'])->group(function () {
         Route::get('{domain}/{category_slug}', 'SellerController@index')->name('seller.business');
-        Route::get('{domain}/{category_slug}/about', 'SellerController@about')->name('seller.business.about');
+        Route::get('{domain}/{category_slug}/all-product', 'SellerController@all_product')->name('seller.business.all.product');
+        Route::get('{domain}/{category_slug}/detail-product/{id}', 'SellerController@detail')->name('seller.business.detail.product');
     });
 });
 
