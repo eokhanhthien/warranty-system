@@ -20,63 +20,42 @@
             <div class="row g-4">
                 <div class="col-lg-3 col-md-3 " data-wow-delay="0.1s">
                 <div id="sidebar">  
-                    <h3>CATEGORIES</h3>
-                    <div class="checklist categories">
-                        <ul>
-                            <li><a href=""><span></span>New Arivals</a></li>
-                            <li><a href=""><span></span>Accesories</a></li>
-                            <li><a href=""><span></span>Bags</a></li>
-                            <li><a href=""><span></span>Dressed</a></li>
-                            <li><a href=""><span></span>Jackets</a></li>
-                            <li><a href=""><span></span>jewelry</a></li>
-                            <li><a href=""><span></span>Shoes</a></li>
-                            <li><a href=""><span></span>Shirts</a></li>
-                            <li><a href=""><span></span>Sweaters</a></li>
-                            <li><a href=""><span></span>T-shirts</a></li>
-                        </ul>
-                    </div>
+                <h3>CATEGORIES</h3>
+                <form id="filterForm">
+    <div class="checklist categories">
+        @if(!empty($product_categories))
+            @foreach($product_categories as $category)
+                <div class="category-link" data-category="{{ $category->id }}">
+                    {{$category->name}}
+                </div>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @if(!empty($product_subcategories))
+                        @foreach($product_subcategories as $subcategory)
+                            @if($subcategory->category_id === $category->id)
+                                <label class="dropdown-item subcategory-option">
+                                    <input type="checkbox" name="subcategories[]" value="{{ $subcategory->id }}">
+                                    {{$subcategory->name}}
+                                </label>
+                            @endif
+                        @endforeach
+                    @endif
+                </div>
+            @endforeach
+        @endif
+    </div>
+
+
+</form>
+
+
+
                     
-                    <h3>COLORS</h3>
-                    <div class="checklist colors">
-                        <ul>
-                            <li><a href=""><span></span>Beige</a></li>
-                            <li><a href=""><span style="background:#222"></span>Black</a></li>
-                            <li><a href=""><span style="background:#6e8cd5"></span>Blue</a></li>
-                            <li><a href=""><span style="background:#f56060"></span>Brown</a></li>
-                            <li><a href=""><span style="background:#44c28d"></span>Green</a></li>
-                        </ul>
-                        
-                        <ul>
-                            <li><a href=""><span style="background:#999"></span>Grey</a></li>
-                            <li><a href=""><span style="background:#f79858"></span>Orange</a></li>
-                            <li><a href=""><span style="background:#b27ef8"></span>Purple</a></li>
-                            <li><a href=""><span style="background:#f56060"></span>Red</a></li>
-                            <li><a href=""><span style="background:#fff;border: 1px solid #e8e9eb;width:13px;height:13px;"></span>White</a></li>
-                        </ul>        
-                    </div>
-                    
-                    <h3>SIZES</h3>
-                    <div class="checklist sizes">
-                        <ul>
-                            <li><a href=""><span></span>XS</a></li>
-                            <li><a href=""><span></span>S</a></li>
-                            <li><a href=""><span></span>M</a></li>
-                        </ul>
-                        
-                        <ul>
-                            <li><a href=""><span></span>L</a></li>
-                            <li><a href=""><span></span>XL</a></li>
-                            <li><a href=""><span></span>XXL</a></li>
-                        </ul>        
-                    </div>
-                    
-                    <h3>PRICE RANGE</h3>
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/price-range.png" alt="" />
+                                     
                 </div>
                 </div>
                 <div class="col-lg-9 col-md-9 " data-wow-delay="0.3s">
            
-                    <div class="row">
+                    <div class="row" id="list_product">
                         @if(!empty($products))
                         @foreach($products as $product)
                         <div class="product col-lg-3 col-6" style="z-index: 1;">
@@ -109,6 +88,93 @@
         </div>
         </div>
     </div>
+
+
+    <!-- Thêm đoạn mã JavaScript sau khi đã tải thư viện Bootstrap JS -->
+<script>
+    // Bắt sự kiện khi click vào danh mục (category)
+    const categoryLinks = document.querySelectorAll('.category-link');
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            // Hiển thị dropdown menu của danh mục tương ứng
+            const dropdownMenu = this.nextElementSibling;
+            dropdownMenu.classList.toggle('show');
+        });
+    });
+</script>
+
+<script>
+    // Bắt sự kiện khi click vào các subcategory và các lựa chọn lọc khác
+    const filters = document.querySelectorAll('.category-link, input[type="checkbox"]');
+    filters.forEach(filter => {
+        filter.addEventListener('change', function() {
+            // Gửi Ajax để cập nhật lại trang với các lựa chọn lọc
+            const formData = new FormData(document.getElementById('filterForm'));
+            // Kiểm tra nếu không có checkbox nào được chọn, gán một mảng rỗng cho biến 'subcategories'
+            if (!formData.get('subcategories[]')) {
+                formData.set('subcategories[]', []);
+            }
+            // Gửi Ajax request bằng jQuery
+            $.ajax({
+                url: 'filter-product', // Thay your_domain và your_category_slug bằng giá trị thực tế của bạn
+                method: 'POST',
+                data: formData,
+                contentType: false, // Không cần xử lý contentType
+                processData: false, // Không cần xử lý processData
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // Thêm CSRF token nếu trang yêu cầu
+                },
+                success: function(data) {
+                    // Xóa các sản phẩm hiện có trong phần tử có id "list_product"
+                    $('#list_product').empty();
+
+                    // Tạo phần tử HTML cho mỗi sản phẩm và đưa chúng vào phần tử có id "list_product"
+                    if (data.length === 0) {
+                        // Hiển thị thông báo "Not Found"
+                        $('#list_product').html(`
+                            <div id="notFound">
+                                <img src="https://cdn.dribbble.com/users/721524/screenshots/4117132/untitled-1-_1_.png" alt="Not Found">
+                                <p>Không tìm thấy sản phẩm nào.</p>
+                            </div>
+                        `);
+                    } else {
+                    data.forEach(product => {
+                        const productId = product.id;
+                        const productHTML = `
+                            <div class="product col-lg-3 col-6" style="z-index: 1;">
+                                <div class="make3D">
+                                    <div class="shadow"></div>
+                                    <img class="" src="https://drive.google.com/uc?export=view&id=${product.image}" alt="" style="width: 100%">
+                                    <div class="image_overlay"></div>
+                                    <div class="add_to_cart">Thêm giỏ hàng</div>
+                                    <a href="{{ route('seller.business.detail.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3), 'id' => '' ]) }}/` + productId + `">
+                                        <div class="view_gallery">Xem chi tiết</div>
+                                    </a>
+                                    <div class="p-3">          
+                                        <span class="product_name">${product.name}</span>    
+                                        <p class="text-primary">${product.price.toLocaleString()} đ</p>                                           
+                                        <div class="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>                     
+                                        </div>  
+                                    </div>
+                                </div>	
+                            </div>
+                        `;
+
+                        $('#list_product').append(productHTML);
+                    });
+                }
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
+
 
 
 @endsection

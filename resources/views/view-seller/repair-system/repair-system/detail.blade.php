@@ -62,6 +62,10 @@
       height: 100%;
       object-fit: cover;
     }
+    .content-detail img{
+      width: 100% !important;
+      height: 100% !important;
+    }
   </style>
 
 <div class="container-xxl py-5">
@@ -101,10 +105,12 @@
                 </div>
                 <div class="col-lg-6">
                   <h3>{{$product->name}}</h3>
+                  <h3 class="text-primary">{{ number_format($product->price)}} đ</h3>
+                  <button class='btn btn-primary'>Thêm vào giỏ hàng</button>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row content-detail">
             @if(isset($product_detail->content))
                 {!! $product_detail->content !!}
             @endif

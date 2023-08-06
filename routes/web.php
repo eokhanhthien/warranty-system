@@ -108,6 +108,7 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::get('{domain}/{category_slug}', 'SellerController@index')->name('seller.business');
         Route::get('{domain}/{category_slug}/all-product', 'SellerController@all_product')->name('seller.business.all.product');
         Route::get('{domain}/{category_slug}/detail-product/{id}', 'SellerController@detail')->name('seller.business.detail.product');
+        Route::post('{domain}/{category_slug}/filter-product', 'SellerController@filterProduct')->name('seller.filter.product');
     });
 });
 
