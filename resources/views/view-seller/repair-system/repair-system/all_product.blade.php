@@ -72,54 +72,68 @@
 </script>
 
 <script>
-        $(document).ready(function() {
-            // Xử lý khi người dùng nhấn vào các mục trong danh sách categories
-            $(document).on('click', '.category-link', function() {
-                var subcategories = [];
+    $(document).ready(function() {
+        var selectedSubcategories = []; // Mảng chứa danh sách subcategory đã chọn
 
-                $(this).next('.dropdown-menu').find('input[type="checkbox"]:checked').each(function() {
-                    subcategories.push($(this).val());
-                });
-
-                fetch_data(1, subcategories); // Đặt trang về 1 khi thay đổi mục lọc
+        // Xử lý khi người dùng nhấn vào các mục trong danh sách categories
+        $(document).on('click', '.category-link', function() {
+            $(this).next('.dropdown-menu').find('input[type="checkbox"]').each(function() {
+                if ($(this).is(':checked')) {
+                    var subcategory_id = $(this).val();
+                    if (!selectedSubcategories.includes(subcategory_id)) {
+                        selectedSubcategories.push(subcategory_id);
+                    }
+                } else {
+                    var subcategory_id = $(this).val();
+                    if (selectedSubcategories.includes(subcategory_id)) {
+                        selectedSubcategories.splice(selectedSubcategories.indexOf(subcategory_id), 1);
+                    }
+                }
             });
 
-            // Xử lý khi người dùng nhấn vào các checkbox trong dropdown-menu
-            $(document).on('click', '.subcategory-option input[type="checkbox"]', function() {
-                var category_id = $(this).closest('.dropdown-menu').prev('.category-link').data('category');
-                var subcategories = [];
+            fetch_data(1, selectedSubcategories); // Đặt trang về 1 khi thay đổi mục lọc
+        });
 
-                $(this).closest('.dropdown-menu').find('input[type="checkbox"]:checked').each(function() {
-                    subcategories.push($(this).val());
-                });
-
-                fetch_data(1, subcategories); // Đặt trang về 1 khi thay đổi mục lọc
+        // Xử lý khi người dùng nhấn vào các checkbox trong dropdown-menu
+        $(document).on('click', '.subcategory-option input[type="checkbox"]', function() {
+            var category_id = $(this).closest('.dropdown-menu').prev('.category-link').data('category');
+            $(this).closest('.dropdown-menu').find('input[type="checkbox"]').each(function() {
+                if ($(this).is(':checked')) {
+                    var subcategory_id = $(this).val();
+                    if (!selectedSubcategories.includes(subcategory_id)) {
+                        selectedSubcategories.push(subcategory_id);
+                    }
+                } else {
+                    var subcategory_id = $(this).val();
+                    if (selectedSubcategories.includes(subcategory_id)) {
+                        selectedSubcategories.splice(selectedSubcategories.indexOf(subcategory_id), 1);
+                    }
+                }
             });
 
-            // Xử lý khi người dùng thay đổi trang phân trang
-            $(document).on('click', '.pagination a', function(event) {
-                event.preventDefault();
-                var page = $(this).attr('href').split('page=')[1];
-                var subcategories = [];
-                $('.category-link.active').next('.dropdown-menu').find('input[type="checkbox"]:checked').each(function() {
-                    subcategories.push($(this).val());
-                });
+            fetch_data(1, selectedSubcategories); // Đặt trang về 1 khi thay đổi mục lọc
+        });
 
-                fetch_data(page, subcategories);
-            });
+        // Xử lý khi người dùng thay đổi trang phân trang
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
 
-            function fetch_data(page, subcategories) {
-                $.ajax({
-                    url: '?page=' + page,
-                    type: 'GET',
-                    dataType: 'json',
-                    data: {
-                        subcategories: subcategories
-                    },
-                    success: function(data) {
-                        $('#list_product').empty();
-                        $('#pagination').empty();
-                        if (data.data.length === 0) {
+            fetch_data(page, selectedSubcategories);
+        });
+
+        function fetch_data(page, selectedSubcategories) {
+            $.ajax({
+                url: '?page=' + page,
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    subcategories: selectedSubcategories
+                },
+                success: function(data) {
+                    $('#list_product').empty();
+                    $('#pagination').empty();
+                    if (data.data.length === 0) {
                         // Hiển thị thông báo "Not Found"
                         $('#list_product').html(`
                             <div id="notFound">
@@ -127,13 +141,14 @@
                                 <p>Không tìm thấy sản phẩm nào.</p>
                             </div>
                         `);
-                        }else{
-                            $('#list_product').html(data.data);
-                        }
-                        $('#pagination').html(data.pagination);
+                    } else {
+                        $('#list_product').html(data.data);
                     }
-                });
-            }
-        });
-    </script>
+                    $('#pagination').html(data.pagination);
+                }
+            });
+        }
+    });
+</script>
+
 @endsection
