@@ -1,17 +1,9 @@
-@extends('view-seller.repair-system.repair-system.layout.layout')
+@extends('view-seller.ecommerce.shop-clothes.layout.layout')
 @section('content')
   <!-- Page Header Start -->
+
   <div class="container-fluid page-header mb-5 py-5">
-        <div class="container">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Tất cả sản phẩm</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb text-uppercase">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">About</li>
-                </ol>
-            </nav>
-        </div>
+         <img src="https://img.freepik.com/premium-photo/shirt-mockup-concept-with-plain-clothing_23-2149448787.jpg" alt="" style ="width: 100%; height: 300px; object-fit: cover;" >
     </div>
     <!-- Page Header End -->
     <!-- Service Start -->
@@ -48,9 +40,10 @@
                 </div>
                 <div class="col-lg-9 col-md-9 " data-wow-delay="0.3s">
                 <div class="row" id="list_product">
-                    @include('view-seller.repair-system.repair-system.list_product')
+                    @include('view-seller.' . $category_slug . '.' . $display_slug . '.list_product' )
                 </div>
-                    @include('view-seller.repair-system.repair-system.pagination')
+                    @include('view-seller.' . $category_slug . '.' . $display_slug . '.pagination' )
+
                 </div>
         </div>
         </div>

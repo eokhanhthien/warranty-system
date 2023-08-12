@@ -60,7 +60,7 @@
       <div class="misc-wrapper">
         <h2 class="mb-2 mx-2">Không tìm thấy trang :(</h2>
         <p class="mb-4 mx-2">Đáng tiêc, chúng tôi không tìm thấy trang bạn truy cập</p>
-        <a href="{{route('login')}}" class="btn btn-primary">Quay trở lại</a>
+        <button class="btn btn-primary" onclick="goBack()">Quay trở lại</button>
         <div class="mt-3">
           <img
             src="{{ asset('assets/img/illustrations/page-misc-error-light.png') }}"
@@ -99,3 +99,8 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>

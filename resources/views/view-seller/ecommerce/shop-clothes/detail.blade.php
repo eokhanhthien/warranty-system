@@ -1,4 +1,4 @@
-@extends('view-seller.repair-system.repair-system.layout.layout')
+@extends('view-seller.ecommerce.shop-clothes.layout.layout')
 @section('content')
 <style>  
     .swiper {
@@ -68,7 +68,7 @@
     }
   </style>
 
-<div class="container-xxl py-5">
+<div class="container-xxl py-5" style="margin-top: 100px;">
         <div class="container">     
             <div class="row">
                 <div class="col-lg-6">

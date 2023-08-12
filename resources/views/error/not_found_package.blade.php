@@ -58,8 +58,8 @@
     <!--Under Maintenance -->
     <div class="container-xxl container-p-y">
       <div class="misc-wrapper">
-        <h2 class="mb-2 mx-2">Gói của bạn đã hết hạn</h2>
-        <p class="mb-4 mx-2">Hãy đăng ký gói mới để tiếp tục sử dụng dịch vụ của chúng tôi</p>
+        <h2 class="mb-2 mx-2">Bạn chưa kích hoạt gói</h2>
+        <p class="mb-4 mx-2">Hãy đăng ký gói để tiếp tục sử dụng dịch vụ của chúng tôi</p>
         <a href="/admin/subscription-package" class="btn btn-primary">Đăng ký ngay</a>
         <div class="mt-4">
           <img

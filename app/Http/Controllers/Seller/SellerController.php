@@ -27,7 +27,7 @@ public function index(Request $request, $domain, $category){
 public function all_product(Request $request, $domain, $category)
 {
     $business = $request->business;
-    $paginationLimit = 1;
+    $paginationLimit = 16;
 
     // Lấy danh sách sản phẩm với phân trang
     $productsQuery = Product::where('business_id', $business->id);
@@ -63,7 +63,9 @@ public function all_product(Request $request, $domain, $category)
     $product_categories = ProductCategory::where('business_id', $business->id)->get();
     $product_subcategories = ProductSubcategory::where('business_id', $business->id)->get();
 
-    return view('view-seller.' . $category . '/' . $request->display_slug . '.all_product', compact('business', 'products', 'product_categories', 'product_subcategories'));
+    $display_slug = $request->display_slug;
+    $category_slug = $category;
+    return view('view-seller.' . $category . '/' . $request->display_slug . '.all_product', compact('business', 'products', 'product_categories', 'product_subcategories','category_slug','display_slug'));
 }
 
 
@@ -71,7 +73,6 @@ public function detail(Request $request, $domain, $category , $id){
     $business = $request->business;
     $product =  Product::find($id);
     $product_detail =  ProductDetail::where('product_id', $id)->first();
-    // dd($product_detail);
     return view('view-seller.' .$category. '/' .$request->display_slug.  '.detail', compact('business','product','product_detail'));
 }
 }
