@@ -50,7 +50,7 @@
                           @endif
                       
                       <h6 class="card-title text-primary">Thêm mới ảnh </h6>
-                      <p>Khi thêm mới ảnh thì ảnh cũ sẽ bị xóa đi</p>
+                      <p style = "color: red">Lưu ý: nếu thêm ảnh mới thì các ảnh cũ sẽ bị xóa đi</p>
                         @for($i = 0; $i < 5; $i++)
                                     <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
                                         <label for="thumbnailInput{{$i}}">
@@ -96,6 +96,22 @@
                         </div>
                         @endif
                         </div>
+
+                        <h6 class="card-title text-primary">Thêm mới ảnh tiêu đề</h6>
+                          @if(!empty($display_information->image))         
+                                    <div class="img-size col-3">
+                                      <img src="https://drive.google.com/uc?export=view&id={{$display_information->image}}" style="width: 100%; "alt="">
+                                    </div>                   
+                          @endif
+                          <p style = "color: red">Lưu ý: nếu thêm ảnh mới thì các ảnh cũ sẽ bị xóa đi</p>
+                          <div class="thumbnails row">
+                            <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
+                                    <label for="imageInput">
+                                        <img src="https://via.placeholder.com/150" alt="Ảnh mới" id="imageThumbnail">
+                                    </label>
+                                    <input type="file" id="imageInput" name="image" accept="image/*" style="display:none;">
+                            </div>
+                          </div>
 
                         <div class="text-right">
                           <button style="submit" class="btn btn-primary ">Lưu</button>

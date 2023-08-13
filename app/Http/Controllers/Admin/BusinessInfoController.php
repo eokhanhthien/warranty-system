@@ -76,6 +76,21 @@ class BusinessInfoController extends Controller
         }else{
             $displayInformation['images'] = $display_information_old->images;
         }
+
+        if ($request->hasFile('image')) {
+            // upload image
+            $uploadController = new UploadDriverColtroller();
+            $path_image = $uploadController->upload_singer_image($request);
+            $displayInformation['image'] = $path_image;
+            // Delete old image
+            if(!empty(json_decode($business->display_information)->image)){
+            $deleteimage = new UploadDriverColtroller();
+            $deleteimage->delete_image(json_decode($business->display_information)->image);
+            }
+        }else{
+            $displayInformation['image'] = $display_information_old->image;
+        }
+
         $displayInformation['title_banner'] = $request->title_banner ? $request->title_banner : null;
         $displayInformation['service'] = $request->service ? $request->service : null;
         $displayInformation['service_title'] = $request->service_title ? $request->service_title : null;

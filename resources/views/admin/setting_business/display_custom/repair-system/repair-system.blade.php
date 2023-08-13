@@ -2,7 +2,7 @@
                     <ul class="nav nav-tabs nav-fill" role="tablist">
                       <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-home" aria-controls="navs-justified-home" aria-selected="true">
-                          <i class="tf-icons bx bx-home"></i> Trang chủ
+                          <i class="tf-icons bx bx-home"></i> Website
                         </button>
                       </li>
                       <li class="nav-item">
@@ -47,7 +47,7 @@
                           <div for="imageUpload" class="control-div"><strong>Ảnh Banner nên có kích thước > 1200x600</strong> </div>
                           <small id="imageUploadMessage" class="form-text text-muted"></small>
                         </div>
-                        <input type="hidden" id="" name="image_width" value="2000" >
+                        <input type="hidden" id="" name="image_width" value="3000" >
                         <input type="hidden" id="" name="image_height" value="1000" >
 
                         <div id="thumbnailContainer" class="row"></div>
@@ -78,17 +78,21 @@
                         </div>
 
 
-                        <!-- <h6 class="card-title text-primary">Thời gian làm việc</h6>
-
-                        <div class="form-group">
-                          <label for="opening-time">Giờ mở cửa:</label>
-                          <input type="time" class="form-control" id="opening-time" name="opening-time">
-                        </div>
-
-                        <div class="form-group">
-                          <label for="closing-time">Giờ đóng cửa:</label>
-                          <input type="time" class="form-control" id="closing-time" name="closing-time">
-                        </div> -->
+                        <h6 class="card-title text-primary">Thêm mới ảnh tiêu đề</h6>
+                          @if(!empty($display_information->image))         
+                                    <div class="img-size col-3">
+                                      <img src="https://drive.google.com/uc?export=view&id={{$display_information->image}}" style="width: 100%; "alt="">
+                                    </div>                   
+                          @endif
+                          <p style = "color: red">Lưu ý: nếu thêm ảnh mới thì các ảnh cũ sẽ bị xóa đi</p>
+                          <div class="thumbnails row">
+                            <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
+                                    <label for="imageInput">
+                                        <img src="https://via.placeholder.com/150" alt="Ảnh mới" id="imageThumbnail">
+                                    </label>
+                                    <input type="file" id="imageInput" name="image" accept="image/*" style="display:none;">
+                            </div>
+                          </div>
 
 
                         <h6 class="card-title text-primary">Các dịch vụ của bạn  

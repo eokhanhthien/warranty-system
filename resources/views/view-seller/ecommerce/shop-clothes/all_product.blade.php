@@ -1,10 +1,16 @@
 @extends('view-seller.ecommerce.shop-clothes.layout.layout')
 @section('content')
   <!-- Page Header Start -->
-
-  <div class="container-fluid page-header mb-5 py-5">
+  @if(!empty($display_information->image))
+    <div class="container-fluid page-header mb-5 py-5">
+        <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$display_information->image}}" alt=""  style ="width: 100%; height: 300px; object-fit: cover;">
+    </div>
+    @else
+    <div class="container-fluid page-header mb-5 py-5">
          <img src="https://img.freepik.com/premium-photo/shirt-mockup-concept-with-plain-clothing_23-2149448787.jpg" alt="" style ="width: 100%; height: 300px; object-fit: cover;" >
     </div>
+    @endif
+
     <!-- Page Header End -->
     <!-- Service Start -->
     <div class="container-xxl py-5">

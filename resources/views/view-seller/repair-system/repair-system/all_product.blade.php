@@ -1,18 +1,22 @@
 @extends('view-seller.repair-system.repair-system.layout.layout')
 @section('content')
   <!-- Page Header Start -->
-  <div class="container-fluid page-header mb-5 py-5">
-        <div class="container">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Tất cả sản phẩm</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb text-uppercase">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">About</li>
-                </ol>
-            </nav>
+  @if(!empty($display_information->image))
+    <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$display_information->image}}" alt=""  style ="width: 100%; height: 300px; object-fit: cover;">
+    @else
+        <div class="container-fluid page-header mb-5 py-5">
+            <div class="container">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Tất cả sản phẩm</h1>
+                <nav aria-label="breadcrumb animated slideInDown">
+                    <ol class="breadcrumb text-uppercase">
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </div>
+    @endif
     <!-- Page Header End -->
     <!-- Service Start -->
     <div class="container-xxl py-5">

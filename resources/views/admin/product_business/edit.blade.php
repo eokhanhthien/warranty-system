@@ -73,7 +73,7 @@
                                     <img src="https://via.placeholder.com/150" alt="Ảnh mới" id="imageThumbnail">
                                 </label>
                                 <input type="file" id="imageInput" name="image" accept="image/*" style="display:none;">
-                            </div>
+                        </div>
 
                             @for($i = 0; $i < 7; $i++)
                                 <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">

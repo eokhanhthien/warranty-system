@@ -83,7 +83,9 @@ public function all_product(Request $request, $domain, $category)
 
     $display_slug = $request->display_slug;
     $category_slug = $category;
-    return view('view-seller.' . $category . '/' . $request->display_slug . '.all_product', compact('business', 'products', 'product_categories', 'product_subcategories', 'category_slug', 'display_slug'));
+    $display_information = json_decode($request->business->display_information);
+
+    return view('view-seller.' . $category . '/' . $request->display_slug . '.all_product', compact('business', 'products', 'product_categories', 'product_subcategories', 'category_slug', 'display_slug','display_information'));
 }
 
 

@@ -99,4 +99,28 @@
   }
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+ 
+      // Xử lý sự kiện chọn ảnh mới với name="image"
+      const imageInput = document.getElementById('imageInput');
+      imageInput.addEventListener('change', function (event) {
+          const files = event.target.files;
+
+          if (files && files.length > 0) {
+              const file = files[0];
+              const reader = new FileReader();
+              reader.onload = function () {
+                  const imageDataUrl = reader.result;
+                  const imageThumbnail = document.getElementById('imageThumbnail');
+                  if (imageThumbnail) {
+                      imageThumbnail.src = imageDataUrl;
+                  }
+              };
+              reader.readAsDataURL(file);
+          }
+      });
+
+    });
+</script>
 @endsection
