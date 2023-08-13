@@ -104,7 +104,7 @@
 
                 <h5 class="card-header">Tất cả gói đã đăng ký</h5>
                 <div class="table-responsive text-nowrap">
-                <table class="table" id="table_businesses">
+                <table class="table" id="table_package">
                   <thead>
                     <tr>
                         <th>STT</th>
@@ -145,3 +145,15 @@
 </div>
 
 @endsection
+
+<!-- Gọi hàm thêm search table -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('assets/js/data-table-js.js') }}"></script>
+<script>
+    $(document).ready(function() {
+
+        var id_table = '#table_package';
+        searchDataTable(id_table,true, true, 10);
+
+    });
+</script>

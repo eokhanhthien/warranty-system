@@ -148,8 +148,8 @@
                         <input type="file" id="imageInput" accept="image/*" style="display:none;">
                         <input type="hidden" id="selectedImagesData" name="images[]" value="">
 
-                        <input type="hidden" id="" name="image_width" value="800" >
-                        <input type="hidden" id="" name="image_height" value="400" >
+                        <input type="hidden" id="" name="image_width" value="1000" >
+                        <input type="hidden" id="" name="image_height" value="600" >
 
                         <div class="form-group">
                                 <label for="price"><h6 class="card-title text-primary">Giá sản phẩm </h6> </label>

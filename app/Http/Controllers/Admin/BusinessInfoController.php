@@ -76,9 +76,9 @@ class BusinessInfoController extends Controller
         }else{
             $displayInformation['images'] = $display_information_old->images;
         }
-        $displayInformation['title_banner'] = $request->title_banner;
-        $displayInformation['service'] = $request->service;
-        $displayInformation['service_title'] = $request->service_title;
+        $displayInformation['title_banner'] = $request->title_banner ? $request->title_banner : null;
+        $displayInformation['service'] = $request->service ? $request->service : null;
+        $displayInformation['service_title'] = $request->service_title ? $request->service_title : null;
         $jsonData = json_encode($displayInformation);
         $business->display_information = $jsonData;
         $business->save();

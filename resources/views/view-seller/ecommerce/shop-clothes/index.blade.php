@@ -7,13 +7,23 @@
                     <div class="left-content">
                         <div class="thumb">
                             <div class="inner-content">
-                                <h4>We Are Hexashop</h4>
-                                <span>Awesome, clean &amp; creative HTML5 Template</span>
+                            @if(!empty($display_information->service) && isset($display_information->service[0]))
+                                <h4>{{$display_information->service[0]}}</h4>
+                                <span>Cảm ơn bạn đã luôn đồng hành</span>           
+                            @else
+                                 <h4>We Are {{$business->name}}</h4>
+                                <span>Cảm ơn bạn đã luôn đồng hành</span>
+                            @endif 
+
                                 <div class="main-border-button">
                                     <a href="#">Purchase Now!</a>
                                 </div>
                             </div>
+                            @if(!empty($display_information->images))
+                            <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$display_information->images[0]}}" alt="">
+                            @else
                             <img src="{{ asset('assets/shop_clothes/images/left-banner-image.jpg')}}" alt="">
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -29,14 +39,24 @@
                                         </div>
                                         <div class="hover-content">
                                             <div class="inner">
+                                            @if(!empty($display_information->service) && isset($display_information->service[1]))
+                                                <h4>{{$display_information->service[1]}}</h4>
+                                                <span>Đảm bảo chất lượng sản phẩm</span>           
+                                            @else
                                                 <h4>Women</h4>
                                                 <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                            @endif 
+
                                                 <div class="main-border-button">
                                                     <a href="#">Discover More</a>
                                                 </div>
                                             </div>
                                         </div>
+                                        @if(!empty($display_information->images))
+                                        <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$display_information->images[1]}}" alt="">
+                                        @else
                                         <img src="{{ asset('assets/shop_clothes/images/baner-right-image-01.jpg')}}">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -49,14 +69,24 @@
                                         </div>
                                         <div class="hover-content">
                                             <div class="inner">
+                                            @if(!empty($display_information->service) && isset($display_information->service[2]))
+                                                <h4>{{$display_information->service[2]}}</h4>
+                                                <span>Uy tín trong từng sản phẩm</span>           
+                                            @else
                                                 <h4>Men</h4>
                                                 <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                            @endif 
+
                                                 <div class="main-border-button">
                                                     <a href="#">Discover More</a>
                                                 </div>
                                             </div>
                                         </div>
+                                        @if(!empty($display_information->images))
+                                        <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$display_information->images[2]}}" alt="">
+                                        @else
                                         <img src="{{ asset('assets/shop_clothes/images/baner-right-image-02.jpg')}}">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -69,14 +99,24 @@
                                         </div>
                                         <div class="hover-content">
                                             <div class="inner">
+                                            @if(!empty($display_information->service) && isset($display_information->service[3]))
+                                                <h4>{{$display_information->service[3]}}</h4>
+                                                <span>Sự hài lòng của bạn là niềm vui của chúng tôi</span>           
+                                            @else
                                                 <h4>Kids</h4>
                                                 <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                            @endif 
+
                                                 <div class="main-border-button">
                                                     <a href="#">Discover More</a>
                                                 </div>
                                             </div>
                                         </div>
+                                        @if(!empty($display_information->images))
+                                        <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$display_information->images[3]}}" alt="">
+                                        @else
                                         <img src="{{ asset('assets/shop_clothes/images/baner-right-image-03.jpg')}}">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -89,14 +129,23 @@
                                         </div>
                                         <div class="hover-content">
                                             <div class="inner">
+                                            @if(!empty($display_information->service) && isset($display_information->service[4]))
+                                                <h4>{{$display_information->service[4]}}</h4>
+                                                <span>Sự hài lòng của bạn là niềm vui của chúng tôi</span>           
+                                            @else
                                                 <h4>Accessories</h4>
                                                 <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
+                                            @endif 
                                                 <div class="main-border-button">
                                                     <a href="#">Discover More</a>
                                                 </div>
                                             </div>
                                         </div>
+                                        @if(!empty($display_information->images))
+                                        <img class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$display_information->images[4]}}" alt="">
+                                        @else
                                         <img src="{{ asset('assets/shop_clothes/images/baner-right-image-04.jpg')}}">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
