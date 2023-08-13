@@ -50,6 +50,24 @@ public function all_product(Request $request, $domain, $category)
         $productsQuery->whereIn('subcategory_id', $subcategories);
     }
 
+    // Sắp xếp sản phẩm nếu có tùy chọn
+    $sortOption = $request->sort_by;
+    switch ($sortOption) {
+        case 'price_asc':
+            $productsQuery->orderBy('price', 'asc');
+            break;
+        case 'price_desc':
+            $productsQuery->orderBy('price', 'desc');
+            break;
+        case 'date_asc':
+            $productsQuery->orderBy('created_at', 'asc');
+            break;
+        case 'date_desc':
+        default:
+            $productsQuery->orderBy('created_at', 'desc');
+            break;
+    }
+
     // Lấy dữ liệu phân trang
     $products = $productsQuery->paginate($paginationLimit);
 
@@ -65,8 +83,9 @@ public function all_product(Request $request, $domain, $category)
 
     $display_slug = $request->display_slug;
     $category_slug = $category;
-    return view('view-seller.' . $category . '/' . $request->display_slug . '.all_product', compact('business', 'products', 'product_categories', 'product_subcategories','category_slug','display_slug'));
+    return view('view-seller.' . $category . '/' . $request->display_slug . '.all_product', compact('business', 'products', 'product_categories', 'product_subcategories', 'category_slug', 'display_slug'));
 }
+
 
 
 public function detail(Request $request, $domain, $category , $id){

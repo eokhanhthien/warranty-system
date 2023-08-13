@@ -19,8 +19,17 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-3 col-md-3 " data-wow-delay="0.1s">
-                    <div id="sidebar">  
-                    <h3>CATEGORIES</h3>
+                    <div id="sidebar">
+                    <div class="filter-options">
+                        <label for="sort_by">Sắp xếp theo:</label>
+                        <select class="custom-select" id="sort_by" name="sort_by" style="padding: 2px; outline: none;">
+                            <option value="date_desc">Mới nhất</option>
+                            <option value="date_asc">Cũ nhất</option>
+                            <option value="price_asc">Giá tăng dần</option>
+                            <option value="price_desc">Giá giảm dần</option>
+                        </select>
+                    </div>
+                    <h3>DANH MỤC</h3>
                     <form id="filterForm">
                         <div class="checklist categories">
                             @if(!empty($product_categories))
@@ -114,6 +123,12 @@
             fetch_data(1, selectedSubcategories); // Đặt trang về 1 khi thay đổi mục lọc
         });
 
+        // Xử lý khi người dùng thay đổi tùy chọn sắp xếp
+        $('#sort_by').change(function() {
+            var page = 1; // Đặt trang về 1 khi thay đổi tùy chọn sắp xếp
+            fetch_data(page, selectedSubcategories);
+        });
+
         // Xử lý khi người dùng thay đổi trang phân trang
         $(document).on('click', '.pagination a', function(event) {
             event.preventDefault();
@@ -123,12 +138,14 @@
         });
 
         function fetch_data(page, selectedSubcategories) {
+            var sortOption = $('#sort_by').val();
             $.ajax({
                 url: '?page=' + page,
                 type: 'GET',
                 dataType: 'json',
                 data: {
-                    subcategories: selectedSubcategories
+                    subcategories: selectedSubcategories,
+                    sort_by: sortOption
                 },
                 success: function(data) {
                     $('#list_product').empty();
