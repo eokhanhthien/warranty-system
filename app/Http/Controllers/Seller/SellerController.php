@@ -20,8 +20,8 @@ public function index(Request $request, $domain, $category){
     $business = $request->business;
     $display_information = json_decode($request->business->display_information);
     $service_business = BusinessService::where('business_id', $business->id)->get();
-    
-    return view('view-seller.' .$category. '/' .$request->display_slug.  '.index', compact('business','display_information','service_business') );
+    $products = Product::where('business_id', $business->id)->take(16)->get();
+    return view('view-seller.' .$category. '/' .$request->display_slug.  '.index', compact('business','display_information','service_business', 'products', ) );
 }
 
 public function all_product(Request $request, $domain, $category)

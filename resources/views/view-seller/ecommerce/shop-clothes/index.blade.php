@@ -16,7 +16,7 @@
                             @endif 
 
                                 <div class="main-border-button">
-                                    <a href="#">Purchase Now!</a>
+                                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}">Purchase Now!</a>
                                 </div>
                             </div>
                             @if(!empty($display_information->images))
@@ -48,7 +48,7 @@
                                             @endif 
 
                                                 <div class="main-border-button">
-                                                    <a href="#">Discover More</a>
+                                                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}">Discover More</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@
                                             @endif 
 
                                                 <div class="main-border-button">
-                                                    <a href="#">Discover More</a>
+                                                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}">Discover More</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,7 +108,7 @@
                                             @endif 
 
                                                 <div class="main-border-button">
-                                                    <a href="#">Discover More</a>
+                                                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}">Discover More</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -137,7 +137,7 @@
                                                 <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             @endif 
                                                 <div class="main-border-button">
-                                                    <a href="#">Discover More</a>
+                                                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}">Discover More</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,8 +163,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="section-heading">
-                        <h2>Men's Latest</h2>
-                        <span>Details to details is what makes Hexashop different from the other themes.</span>
+                        <h2>Sản phẩm mới nhất</h2>
+                        <span>Sản phẩm mới nhất được cập nhật trên website của chúng tôi</span>
                     </div>
                 </div>
             </div>
@@ -174,20 +174,26 @@
                 <div class="col-lg-12">
                     <div class="men-item-carousel">
                         <div class="owl-men-item owl-carousel">
+                        @if(!empty($products))
+                        @foreach ($products as $product)
                             <div class="item">
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="{{route('seller.business.detail.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3), 'id' => $product->id ])}}"><i class="fa fa-eye"></i></a>  
+                                            <!-- <a href="{{route('seller.business.detail.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3), 'id' => $product->id ])}}"><i class="fa fa-eye"></a> -->
+
+                                        </li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/men-01.jpg')}}" alt="">
+                                    <img src="https://drive.google.com/uc?export=view&id={{$product->image}}" alt="" style="max-height: 412px;object-fit: cover;">
+
                                 </div>
-                                <div class="down-content">
-                                    <h4>Classic Spring</h4>
-                                    <span>$120.00</span>
+                                <div class="down-content">                                   
+                                    <h4>{{ $product->name}}</h4>
+                                    <span>{{ number_format($product->price) }} VNĐ</span>
                                     <ul class="stars">
                                         <li><i class="fa fa-star"></i></li>
                                         <li><i class="fa fa-star"></i></li>
@@ -197,6 +203,8 @@
                                     </ul>
                                 </div>
                             </div>
+                            @endforeach
+                            @else
                             <div class="item">
                                 <div class="thumb">
                                     <div class="hover-content">
@@ -266,6 +274,8 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -274,239 +284,6 @@
     </section>
     <!-- ***** Men Area Ends ***** -->
 
-    <!-- ***** Women Area Starts ***** -->
-    <section class="section" id="women">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="section-heading">
-                        <h2>Women's Latest</h2>
-                        <span>Details to details is what makes Hexashop different from the other themes.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="women-item-carousel">
-                        <div class="owl-women-item owl-carousel">
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/women-01.jpg')}}" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <h4>New Green Jacket</h4>
-                                    <span>$75.00</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/women-02.jpg')}}" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <h4>Classic Dress</h4>
-                                    <span>$45.00</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/women-03.jpg')}}" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <h4>Spring Collection</h4>
-                                    <span>$130.00</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/women-01.jpg')}}" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <h4>Classic Spring</h4>
-                                    <span>$120.00</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Women Area Ends ***** -->
-
-    <!-- ***** Kids Area Starts ***** -->
-    <section class="section" id="kids">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="section-heading">
-                        <h2>Kid's Latest</h2>
-                        <span>Details to details is what makes Hexashop different from the other themes.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="kid-item-carousel">
-                        <div class="owl-kid-item owl-carousel">
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/kid-01.jpg')}}" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <h4>School Collection</h4>
-                                    <span>$80.00</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/kid-02.jpg')}}" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <h4>Summer Cap</h4>
-                                    <span>$12.00</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/kid-03.jpg')}}" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <h4>Classic Kid</h4>
-                                    <span>$30.00</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="thumb">
-                                    <div class="hover-content">
-                                        <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <img src="{{ asset('assets/shop_clothes/images/kid-01.jpg')}}" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <h4>Classic Spring</h4>
-                                    <span>$120.00</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Kids Area Ends ***** -->
 
     <!-- ***** Explore Area Starts ***** -->
     <section class="section" id="explore">
@@ -514,15 +291,15 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="left-content">
-                        <h2>Explore Our Products</h2>
-                        <span>You are allowed to use this HexaShop HTML CSS template. You can feel free to modify or edit this layout. You can convert this template as any kind of ecommerce CMS theme as you wish.</span>
+                        <h2>Khám phá sản phẩm của chúng tôi</h2>
+                        <span>Với mục tiêu mang đến sự phong cách và thoải mái cho khách hàng, chúng tôi chọn lựa kỹ lưỡng từng sản phẩm trong bộ sưu tập. Chất liệu cao cấp, cắt may tỉ mỉ và sự tinh tế trong từng chi tiết là những yếu tố mà chúng tôi không bao giờ bỏ qua</span>
                         <div class="quote">
-                            <i class="fa fa-quote-left"></i><p>You are not allowed to redistribute this template ZIP file on any other website.</p>
+                            <i class="fa fa-quote-left"></i><p>Với sự đa dạng trong mẫu mã và kiểu dáng, cửa hàng quần áo của chúng tôi là nơi bạn có thể tìm thấy những sản phẩm phù hợp với mọi dịp, từ những bữa tiệc sang trọng, ngày làm việc bận rộn cho đến những buổi dạo chơi thoải mái cùng bạn bè và gia đình.</p>
                         </div>
-                        <p>There are 5 pages included in this HexaShop Template and we are providing it to you for absolutely free of charge at our TemplateMo website. There are web development costs for us.</p>
-                        <p>If this template is beneficial for your website or business, please kindly <a rel="nofollow" href="https://paypal.me/templatemo" target="_blank">support us</a> a little via PayPal. Please also tell your friends about our great website. Thank you.</p>
+                        <p>Chúng tôi luôn cập nhật bộ sưu tập mới theo xu hướng thời trang hiện đại nhất để bạn luôn được trải nghiệm những điều mới mẻ và thú vị.</p>
+                        <p>Không chỉ dừng lại ở việc bán sản phẩm, chúng tôi mong muốn xây dựng một cộng đồng thời trang nơi bạn có thể cùng nhau chia sẻ và trao đổi về những phong cách và xu hướng thời trang yêu thích. </p>
                         <div class="main-border-button">
-                            <a href="products.html">Discover More</a>
+                            <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}">Discover More</a>
                         </div>
                     </div>
                 </div>

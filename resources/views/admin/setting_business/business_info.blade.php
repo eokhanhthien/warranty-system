@@ -73,11 +73,54 @@
 
           </div>
 
+
+          <h6 class="card-title text-primary">Logo doanh nghiệp</h6>
+            @if(!empty($businesses->logo_image))         
+                    <div class="img-size col-3">
+                        <img src="https://drive.google.com/uc?export=view&id={{$businesses->logo_image}}" style="width: 100px; "alt="">
+                    </div>                   
+            @endif
+            <p style = "color: red">Lưu ý: nếu thêm ảnh mới thì các ảnh cũ sẽ bị xóa đi</p>
+            <div class="thumbnails row">
+            <div class="thumbnail col-lg-2 col-sm-4 col-md-3 col-6 mb-3">
+                    <label for="imageInput">
+                        <img src="https://via.placeholder.com/150" alt="Ảnh mới" id="imageThumbnail">
+                    </label>
+                    <input type="file" id="imageInput" name="image" accept="image/*" style="display:none;">
+            </div>
+            </div>
+
+            <input type="hidden" id="" name="image_width" value="500" >
+            <input type="hidden" id="" name="image_height" value="500" >
+
           <div class="form-group text-right">                
               <button type="submit" class="btn btn-primary" id="submit-btn">Lưu</button>
           </div>
         </form>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+ 
+      // Xử lý sự kiện chọn ảnh mới với name="image"
+      const imageInput = document.getElementById('imageInput');
+      imageInput.addEventListener('change', function (event) {
+          const files = event.target.files;
 
+          if (files && files.length > 0) {
+              const file = files[0];
+              const reader = new FileReader();
+              reader.onload = function () {
+                  const imageDataUrl = reader.result;
+                  const imageThumbnail = document.getElementById('imageThumbnail');
+                  if (imageThumbnail) {
+                      imageThumbnail.src = imageDataUrl;
+                  }
+              };
+              reader.readAsDataURL(file);
+          }
+      });
+
+    });
+</script>
 @endsection

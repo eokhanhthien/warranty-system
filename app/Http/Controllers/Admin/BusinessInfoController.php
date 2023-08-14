@@ -41,6 +41,20 @@ class BusinessInfoController extends Controller
         $business->fb_link = !empty($request->fb_link) ? $request->fb_link : '';
         $business->twitter_link = !empty($request->twitter_link) ? $request->twitter_link : '';
         $business->address = $addressJson;
+        if ($request->hasFile('image')) {
+            // upload image
+            $uploadController = new UploadDriverColtroller();
+            $path_image = $uploadController->upload_singer_image($request);
+
+            // Delete old image
+            if(!empty($business->logo_image)){
+            $deleteimage = new UploadDriverColtroller();
+            $deleteimage->delete_image($business->logo_image);
+            }
+            $business->logo_image = $path_image;
+        }else{
+            $business->logo_image  = $business->logo_image;
+        }
         $business->save();
         return redirect()->back()->with('success', 'Cập nhật doanh nghiệp thành công');
     }
