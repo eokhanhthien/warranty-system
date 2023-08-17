@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () { return view('welcome'); }); 
+Route::get('/', function () { return view('welcome'); })->name('home-page'); 
 // Route::get('/dashboard', function ()  { return view('dashboard');})->name('dashboard')->middleware('auth');
 Route::get('/not-found', function () { return view('error.index');});
 

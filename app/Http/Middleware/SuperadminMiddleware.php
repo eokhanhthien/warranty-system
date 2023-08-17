@@ -9,7 +9,7 @@ class SuperadminMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 1) {
+        if ( Auth::user()->role == 1) {
             return $next($request);
         }
         // Nếu không có quyền, chuyển hướng hoặc xử lý theo yêu cầu của bạn
