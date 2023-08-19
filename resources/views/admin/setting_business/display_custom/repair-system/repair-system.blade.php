@@ -55,8 +55,8 @@
                         @if(!empty($display_information->images))
                             @foreach($display_information->images as $image)
                                 <!-- <iframe src="https://drive.google.com/file/d/{{$image}}/preview" alt="" style="width: 120px; height: 120px"></iframe> -->
-                                  <div class="img-size col-3">
-                                    <img src="https://drive.google.com/uc?export=view&id={{$image}}" style="width: 100%; "alt="">
+                                  <div class="img-size col-6 col-lg-3 col-sm-6 mt-2">
+                                    <img src="https://drive.google.com/uc?export=view&id={{$image}}" style="width: 100%;  height: 150px; object-fit: cover;"alt="">
                                   </div>
                             @endforeach
                         @endif
@@ -80,8 +80,8 @@
 
                         <h6 class="card-title text-primary">Thêm mới ảnh tiêu đề trang sản phẩm</h6>
                           @if(!empty($display_information->image))         
-                                    <div class="img-size col-3">
-                                      <img src="https://drive.google.com/uc?export=view&id={{$display_information->image}}" style="width: 100%; "alt="">
+                                    <div class="img-size col-6 col-lg-3 col-sm-6 mt-2">
+                                      <img src="https://drive.google.com/uc?export=view&id={{$display_information->image}}" style="width: 100%;"alt="">
                                     </div>                   
                           @endif
                           <p style = "color: red">Lưu ý: nếu thêm ảnh mới thì các ảnh cũ sẽ bị xóa đi</p>

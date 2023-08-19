@@ -36,14 +36,14 @@
                       <td>{{ $product_type->name }}</td>
                    
                       <td>
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary btn-pd">
                           <a style="color: white" class="d-inline-block" href="{{route('product-type.edit',[$product_type->id])}}">
                             <i class="bx bx-edit-alt me-1"></i> Sửa
                           </a>
                         </button> 
            
 
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $product_type->id }}">
+                        <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $product_type->id }}">
                               <i class="bx bx-trash me-1"></i> Xóa
                           </button>
 

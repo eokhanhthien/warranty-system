@@ -46,7 +46,7 @@
                       <td>{{ $subscription->order_date }}</td>
 
                       <td>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{ $loop->index + 1 }}">              
+                        <button class="btn btn-primary btn-pd" data-bs-toggle="modal" data-bs-target="#modal{{ $loop->index + 1 }}">              
                             <i class='bx bx-check'></i> Xử lý
                         </button>
            

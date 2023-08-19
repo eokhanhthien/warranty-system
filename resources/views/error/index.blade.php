@@ -60,7 +60,7 @@
       <div class="misc-wrapper">
         <h2 class="mb-2 mx-2">Không tìm thấy trang :(</h2>
         <p class="mb-4 mx-2">Đáng tiêc, chúng tôi không tìm thấy trang bạn truy cập</p>
-        <button class="btn btn-primary" onclick="goBack()">Quay trở lại</button>
+        <button class="btn btn-primary btn-pd" onclick="goBack()">Quay trở lại</button>
         <div class="mt-3">
           <img
             src="{{ asset('assets/img/illustrations/page-misc-error-light.png') }}"

@@ -99,7 +99,7 @@
 
                         <h6 class="card-title text-primary">Thêm mới ảnh tiêu đề trang sản phẩm</h6>
                           @if(!empty($display_information->image))         
-                                    <div class="img-size col-3">
+                                    <div class="img-size col-6 col-lg-3 col-sm-6 mt-2">
                                       <img src="https://drive.google.com/uc?export=view&id={{$display_information->image}}" style="width: 100%; "alt="">
                                     </div>                   
                           @endif

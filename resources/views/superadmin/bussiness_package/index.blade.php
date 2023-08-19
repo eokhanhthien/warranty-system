@@ -56,14 +56,14 @@
                                 ngày
                             @endif</td>
                       <td>
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary btn-pd">
                           <a style="color: white" class="d-inline-block" href="{{route('businesses-package.edit',[$package->id])}}">
                             <i class="bx bx-edit-alt me-1"></i> Sửa
                           </a>
                         </button> 
            
 
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $package->id }}">
+                        <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $package->id }}">
                               <i class="bx bx-trash me-1"></i> Xóa
                           </button>
 

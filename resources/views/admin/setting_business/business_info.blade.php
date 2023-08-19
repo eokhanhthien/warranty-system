@@ -76,7 +76,7 @@
 
           <h6 class="card-title text-primary">Logo doanh nghiệp</h6>
             @if(!empty($businesses->logo_image))         
-                    <div class="img-size col-3">
+                    <div class="img-size col-6 col-lg-3 col-sm-6 mt-2">
                         <img src="https://drive.google.com/uc?export=view&id={{$businesses->logo_image}}" style="width: 100px; "alt="">
                     </div>                   
             @endif

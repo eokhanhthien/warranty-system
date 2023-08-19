@@ -160,7 +160,7 @@
     const variantCounts = Array.from(variants).map((variant) => variant.childElementCount);
 
     // Kiểm tra nếu chỉ có một biến thể, thì đặt variantCounts[1] thành 1
-    if (variantCounts.length === 1) {
+    if (variantCounts.length == 1) {
       variantCounts.push(1);
     }
 

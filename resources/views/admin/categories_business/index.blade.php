@@ -19,8 +19,8 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
     <div class="container mt-5" >
-    <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">Thêm danh mục</button>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#addSubCategoryModal">Thêm danh mục con</button>
+    <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#addCategoryModal">Thêm danh mục</button>
+    <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#addSubCategoryModal">Thêm danh mục con</button>
 
     <!-- Bảng danh mục -->
 
@@ -42,12 +42,12 @@
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $category->name }}</td>
                 <td>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#editModal{{ $category->id }}">
+                <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#editModal{{ $category->id }}">
                     <i class="bx bx-edit-alt me-1"></i> Sửa
                 </button> 
 
 
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $category->id }}">
+                <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $category->id }}">
                         <i class="bx bx-trash me-1"></i> Xóa
                     </button>
 
@@ -130,12 +130,12 @@
                 <td>{{ $subcategory->name }}</td>
                 <td>{{ $subcategory->parrent_category->name }}</td>
                 <td>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#editModal_sub{{ $subcategory->id }}">
+                <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#editModal_sub{{ $subcategory->id }}">
                     <i class="bx bx-edit-alt me-1"></i> Sửa
                 </button> 
 
 
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $subcategory->id }}">
+                <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $subcategory->id }}">
                         <i class="bx bx-trash me-1"></i> Xóa
                 </button>
 
@@ -187,7 +187,7 @@
                                                 <select class="form-control" id="parentCategory" name="category_id">
                                                     <option value="">Chọn danh mục</option>
                                                     @foreach($categories as $category)
-                                                        <option value="{{$category->id}}" {{$category->id === $subcategory->category_id ? 'selected' : ''}} >{{$category->name}}</option>
+                                                        <option value="{{$category->id}}" {{$category->id == $subcategory->category_id ? 'selected' : ''}} >{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

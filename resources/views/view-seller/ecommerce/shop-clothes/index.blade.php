@@ -342,8 +342,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-heading">
-                        <h2>Social Media</h2>
-                        <span>Details to details is what makes Hexashop different from the other themes.</span>
+                        <h2>Truyền thông xã hội</h2>
+                        <span>Chi tiết đến từng chi tiết chính là điều làm nên sự khác biệt của {$business->name}.</span>
                     </div>
                 </div>
             </div>
@@ -427,8 +427,8 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="section-heading">
-                        <h2>By Subscribing To Our Newsletter You Can Get 30% Off</h2>
-                        <span>Details to details is what makes Hexashop different from the other themes.</span>
+                        <h2>Đăng ký với chúng tôi</h2>
+                        <span>Đăng ký email để nhận các thông báo mới nhất về các sản phẩm.</span>
                     </div>
                     <form id="subscribe" action="" method="get">
                         <div class="row">
@@ -454,15 +454,24 @@
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li>Store Location:<br><span>Sunny Isles Beach, FL 33160, United States</span></li>
-                                <li>Phone:<br><span>010-020-0340</span></li>
-                                <li>Office Location:<br><span>North Miami Beach</span></li>
+                                <li>Vị trí cửa hàng:<br>
+                                @if(!empty($business->address))
+                                    @php
+                                        $decodedAddress = json_decode($business->address);
+                                        $provinceName = App\Province::where('id', $decodedAddress->province)->first();
+                                        $districtName = App\District::where('id', $decodedAddress->district)->first();
+                                        $wardName = App\Ward::where('id', $decodedAddress->ward)->first();
+                                    
+                                    @endphp
+                                @endif
+                                <span>{{!empty($provinceName->city_name) ? $provinceName->city_name : 'Sunny Isles Beach'}}, {{!empty($districtName->districts_name) ? $districtName->districts_name : ' FL 33160'}}, {{!empty($wardName->wards_name) ? $wardName->wards_name : ' United States'}}</span></li>
+                                <li>Số điện thoại:<br><span>{{$business->phone_number}}</span></li>
                             </ul>
                         </div>
                         <div class="col-6">
                             <ul>
-                                <li>Work Hours:<br><span>07:30 AM - 9:30 PM Daily</span></li>
-                                <li>Email:<br><span>info@company.com</span></li>
+                                <li>Giờ mở cửa:<br><span>07:30 AM - 9:30 PM mỗi ngày</span></li>
+                                <li>Email:<br><span>{{$business->email}}</span></li>
                                 <li>Social Media:<br><span><a href="#">Facebook</a>, <a href="#">Instagram</a>, <a href="#">Behance</a>, <a href="#">Linkedin</a></span></li>
                             </ul>
                         </div>

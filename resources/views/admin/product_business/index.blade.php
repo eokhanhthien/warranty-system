@@ -22,14 +22,15 @@
                 <div class="text-right">
                       <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Thêm</button>
                 </div>
-                <h5 class="card-header">Tất cả thành viên</h5>
+                <h5 class="card-header">Tất cả sản phẩm</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table" id="table_team">
                     <thead>
                       <tr>
                         <th>STT</th>
-                        <th>Name</th>
-                        <th>Image</th>
+                        <th>Tên</th>
+                        <th>Giá</th>
+                        <th>Ảnh</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -39,6 +40,7 @@
                       <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $product->name }}</td>
+                        <td>{{ number_format($product->price)}} VNĐ</td>
                         @if(!empty($product->image))
                         <td><img  class="" src="https://drive.google.com/uc?export=view&id={{$product->image}}" alt="" style ="width: 100px"></td>
 
@@ -48,12 +50,12 @@
                          
                        
                         <td>
-                          <button class="btn btn-primary">
+                          <button class="btn btn-primary btn-pd">
                             <a style="color: white" class="d-inline-block" href="{{route('products.edit',[$product->id])}}">
                               <i class="bx bx-edit-alt me-1"></i> Sửa
                             </a>
                           </button> 
-                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $product->id }}">
+                          <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $product->id }}">
                               <i class="bx bx-trash me-1"></i> Xóa
                           </button>
                           <div class="modal fade" id="confirmationModal{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -311,7 +313,7 @@
     const variantCounts = Array.from(variants).map((variant) => variant.childElementCount);
 
     // Kiểm tra nếu chỉ có một biến thể, thì đặt variantCounts[1] thành 1
-    if (variantCounts.length === 1) {
+    if (variantCounts.length == 1) {
       variantCounts.push(1);
     }
 
@@ -404,7 +406,7 @@
         // Handle product type selection change event
         $("#productTypeSelect").on("change", function () {
           const productTypeId = $(this).val();
-          if (productTypeId === "") {
+          if (productTypeId == "") {
               // If the selected option has an empty value, clear the attributes container
               $("#attributes-container").empty();
           } else {

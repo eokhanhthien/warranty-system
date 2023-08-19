@@ -29,7 +29,7 @@
                                     <option value="">Chọn một danh mục</option>
                                     <!-- Dùng Blade để hiển thị các tùy chọn cho categories -->
                                     @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" {{ $category->id === $product_current->category_id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}" {{ $category->id == $product_current->category_id ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
                                     @endforeach
@@ -41,7 +41,7 @@
                                 <select id="subcategory" name="subcategory" class="form-control" required>
                                     <option value="">Chọn một danh mục con</option>
                                     @foreach ($sub_categories as $category)
-                                    <option value="{{ $category->id }}" {{ $category->id === $product_current->subcategory_id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}" {{ $category->id == $product_current->subcategory_id ? 'selected' : '' }}>
                                         {{ $category->name }}
                                     </option>
                                     @endforeach
@@ -272,7 +272,7 @@
     const variantCounts = Array.from(variants).map((variant) => variant.childElementCount);
 
     // Kiểm tra nếu chỉ có một biến thể, thì đặt variantCounts[1] thành 1
-    if (variantCounts.length === 1) {
+    if (variantCounts.length == 1) {
       variantCounts.push(1);
     }
 
@@ -366,7 +366,7 @@
         // Handle product type selection change event
         $("#productTypeSelect").on("change", function () {
           const productTypeId = $(this).val();
-          if (productTypeId === "") {
+          if (productTypeId == "") {
               // If the selected option has an empty value, clear the attributes container
               $("#attributes-container").empty();
           } else {

@@ -38,14 +38,14 @@
                       <td>{{ $category->vi_name }}</td>
                       <td>{{ $category->slug }}</td>
                       <td>
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary btn-pd">
                           <a style="color: white" class="d-inline-block" href="{{route('superadmin.businesses.display.edit',[$category->id])}}">
                             <i class="bx bx-edit-alt me-1"></i> Sửa
                           </a>
                         </button> 
            
 
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $category->id }}">
+                        <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $category->id }}">
                               <i class="bx bx-trash me-1"></i> Xóa
                           </button>
 

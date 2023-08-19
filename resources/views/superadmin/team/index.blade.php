@@ -44,14 +44,14 @@
                           <td>{{ $user->email }}</td>
                         <td><span class="badge bg-label-primary me-1">{{ $user->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
                         <td>
-                          <button class="btn btn-primary">
+                          <button class="btn btn-primary btn-pd">
                             <a style="color: white" class="d-inline-block" href="{{route('superadmin.team.edit',[$user->id])}}">
                               <i class="bx bx-edit-alt me-1"></i> Sửa
                             </a>
                           </button> 
             
                        
-                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $user->id }}">
+                          <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $user->id }}">
                               <i class="bx bx-trash me-1"></i> Xóa
                           </button>
                           <div class="modal fade" id="confirmationModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -237,7 +237,7 @@ const businessSelect = document.getElementById('business_id');
 roleSelect.addEventListener('change', function() {
     const selectedRole = roleSelect.value;
 
-    if (selectedRole === '1') {
+    if (selectedRole == '1') {
         businessSelect.disabled = true;
         businessSelect.value = ''; // Reset giá trị trường "Thuộc doanh nghiệp" thành rỗng
     } else {

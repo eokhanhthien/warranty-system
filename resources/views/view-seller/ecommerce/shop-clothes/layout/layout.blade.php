@@ -48,8 +48,8 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                        <li class="scroll-to-section"><a href="{{ route('seller.business', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3))) && url()->current() === url('artisq/' . request()->segment(2) . '/' . request()->segment(3)) ? ' active' : '' }}">Trang chủ</a></li>
-                        <li class="scroll-to-section"><a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product')) && url()->current() === url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/all-product') ? ' active' : '' }}">Sản phẩm</a></li>
+                        <li class="scroll-to-section"><a href="{{ route('seller.business', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3))) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3)) ? ' active' : '' }}">Trang chủ</a></li>
+                        <li class="scroll-to-section"><a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product')) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/all-product') ? ' active' : '' }}">Sản phẩm</a></li>
 
                             <!-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li> -->
                             <!-- <li class="scroll-to-section"><a href="#men">Men's</a></li> -->
@@ -100,9 +100,18 @@
                             <img src="{{ asset('assets/shop_clothes/images/white-logo.png')}}" alt="hexashop ecommerce templatemo">
                         </div>
                         <ul>
-                            <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
-                            <li><a href="#">hexashop@company.com</a></li>
-                            <li><a href="#">010-020-0340</a></li>
+                        @if(!empty($business->address))
+                            @php
+                                $decodedAddress = json_decode($business->address);
+                                $provinceName = App\Province::where('id', $decodedAddress->province)->first();
+                                $districtName = App\District::where('id', $decodedAddress->district)->first();
+                                $wardName = App\Ward::where('id', $decodedAddress->ward)->first();
+                            
+                                @endphp
+                            @endif
+                            <li>{{!empty($provinceName->city_name) ? $provinceName->city_name : 'Sunny Isles Beach'}}, {{!empty($districtName->districts_name) ? $districtName->districts_name : ' FL 33160'}}, {{!empty($wardName->wards_name) ? $wardName->wards_name : ' United States'}}</li></li>
+                            <li>{{$business->email}}</li>
+                            <li>{{$business->number_phone}}</li>
                         </ul>
                     </div>
                 </div>
@@ -134,9 +143,8 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="under-footer">
-                        <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved. 
-                        
-                        <br>Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a></p>
+                        <p>Copyright © 2022 {{$business->name}} Co., Ltd. All Rights Reserved. 
+                    
                         <ul>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>

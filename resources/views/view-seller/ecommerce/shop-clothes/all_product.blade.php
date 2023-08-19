@@ -38,7 +38,7 @@
                                     <div class="dropdown-menu show" aria-labelledby="navbarDropdown">
                                         @if(!empty($product_subcategories))
                                             @foreach($product_subcategories as $subcategory)
-                                                @if($subcategory->category_id === $category->id)
+                                                @if($subcategory->category_id == $category->id)
                                                     <label class="dropdown-item subcategory-option">
                                                         <input type="checkbox" name="subcategories[]" value="{{ $subcategory->id }}">
                                                         {{$subcategory->name}}
@@ -149,7 +149,7 @@
                 success: function(data) {
                     $('#list_product').empty();
                     $('#pagination').empty();
-                    if (data.data.length === 0) {
+                    if (data.data.length == 0) {
                         // Hiển thị thông báo "Not Found"
                         $('#list_product').html(`
                             <div id="notFound">

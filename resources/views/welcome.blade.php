@@ -8,7 +8,7 @@
   <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <!-- Site Metas -->
-  <link rel="icon" href="{{ asset('assets/img/images_home/fevicon.png')}}" type="image/gif" />
+  <link rel="icon" href="{{ asset('assets/img/images_home/logo.jpg')}}" type="image/gif" />
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
@@ -55,7 +55,7 @@
                 <a class="nav-link" href="#">Trang chủ <span class="sr-only">(current)</span></a>
               </li> -->
               <li class="nav-item">
-                <a class="nav-link" href="{{route('login')}}">Đăng nhập website</a>
+                <a class="nav-link" href="{{route('login')}}">Đăng nhập</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#service">Dịch vụ</a>
@@ -122,14 +122,14 @@
                 <div class="col-md-6">
                     <div class="detail-box">
                         <h1>
-                            Các giải pháp của chúng tôi <br>
-                            Mang đến giải pháp bán hàng và quản lý doanh nghiệp tối ưu
+                          Các giải pháp của chúng tôi <br>
+                          Tùy chỉnh linh hoạt giao diện và hình ảnh của website
                         </h1>
                         <p>
-                        Giải Pháp Thiết Kế Website Toàn Diện, công cụ cho phép khởi tạo website doanh nghiệp, website và ứng dụng bán hàng nhanh chóng </p>
+                        Chúng tôi cung cấp các công cụ tùy chỉnh mạnh mẽ để bạn có thể thay đổi giao diện, màu sắc, kiểu chữ. </p>
                         <div class="btn-box">
-                        <a href="" class="btn-1">
-                            Xem thêm
+                        <a href="{{route('login')}}" class="btn-1">
+                        Dùng thử miễn phí
                         </a>
                         </div>
                     </div>
@@ -153,10 +153,10 @@
                 <div class="detail-box">
                     <h1>
                         Các giải pháp của chúng tôi <br>
-                        Mang đến giải pháp bán hàng và quản lý doanh nghiệp tối ưu
+                        Quản lý nội dung rõ ràng với giao diện bắt mắt, chuẩn SEO
                     </h1>
                     <p>
-                    Giải Pháp Thiết Kế Website Toàn Diện, công cụ cho phép khởi tạo website doanh nghiệp, website và ứng dụng bán hàng nhanh chóng </p>
+                    Hệ thống quản lý nội dung tích hợp cho phép bạn thêm, sửa đổi và xóa nội dung trên các trang web một cách dễ dàng. </p>
                     <div class="btn-box">
                       <a href="{{route('login')}}" class="btn-1">
                         Dùng thử miễn phí
@@ -311,7 +311,7 @@
             <p>
             Tại Long Tỵ, chúng tôi không chỉ tìm hiểu các yêu cầu của khách hàng, mà chúng tôi tìm hiểu về thực trạng và thực tế nhu cầu của họ. Từ đó đề ra các giải pháp công nghệ tổng thể để tối ưu và tăng tốc doanh nghiệp, hơn là chỉ giải quyết các yêu cầu đơn lẻ.</p>
             <a href="{{route('login')}}">
-              Vào trang quản lý
+              Dùng thử miễn phí
             </a>
           </div>
         </div>
@@ -494,7 +494,7 @@
                         <i class="fa fa-quote-left" aria-hidden="true"></i>
                       </div>
                       <p>
-                      Chức năng chuyển đổi số điện thoại đã làm cho trang web của chúng tôi trở nên thân thiện hơn với người dùng. Khách hàng có thể dễ dàng bấm vào số điện thoại để liên hệ với chúng tôi ngay lập tức. Điều này giúp tạo cơ hội tương tác nhanh chóng và tạo lòng tin cho khách hàng.
+                      Tôi thật sự ấn tượng với trang web chuyển đổi kỹ thuật số này! Giao diện thân thiện và dễ sử dụng, cho phép tôi dễ dàng tìm kiếm thông tin cần thiết. Tôi cũng rất thích tính năng tương tác mượt mà, giúp tôi tiết kiệm thời gian trong việc thực hiện các giao dịch và thủ tục trực tuyến
                       </p>
                     </div>
                   </div>
@@ -523,8 +523,7 @@
                         <i class="fa fa-quote-left" aria-hidden="true"></i>
                       </div>
                       <p>
-                      Tôi thật sự thích cách trang web đã tích hợp chức năng chuyển đổi số điện thoại. Việc thêm một liên kết gọi điện thoại trực tiếp không chỉ dễ dàng mà còn đảm bảo tích hợp tương thích trên cả máy tính và điện thoại di động. Điều này thực sự tiết kiệm thời gian cho doanh nghiệp của tôi.
-                      </p>
+                      Website chuyển đổi kỹ thuật số này đã đem lại cho tôi trải nghiệm mua sắm trực tuyến tuyệt vời. Tôi cảm thấy yên tâm hơn khi thấy dữ liệu của tôi được bảo mật và giao dịch được thực hiện một cách an toàn. Mong rằng họ sẽ tiếp tục phát triển và cải thiện để mang đến nhiều tiện ích hơn nữa.
                     </div>
                   </div>
                 </div>

@@ -100,14 +100,14 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Doanh nghiệp</span>
             </li>
-            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) && url()->current() === url('superadmin/businesses') ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) && url()->current() == url('superadmin/businesses') ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
                 <i class='menu-icon bx bx-git-branch'> </i>
                 <div data-i18n="Layouts">{{__('lang_v1.branch')}}</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) && url()->current() === url('superadmin/businesses') ? 'menu-item active' : 'menu-item' }}">
+                <li class="{{ str_starts_with(request()->url(), url('superadmin/businesses')) && url()->current() == url('superadmin/businesses') ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('superadmin.businesses') }}" class="menu-link">
                     <div data-i18n="Without menu">Quản lý doanh nghiệp</div>
                   </a>
@@ -327,6 +327,44 @@
                 </li>        
               </ul>
             </li>
+
+
+            <!-- Kênh đầu tư -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Kênh đầu tư</span>
+            </li>
+
+            <li class="{{ str_starts_with(request()->url(), url('admin/investment-channel')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+              <i class='menu-icon bx bx-money' ></i>
+                <div data-i18n="Layouts">Khảo sát thị trường</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/investment-channel/price-gold')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="/admin/investment-channel/price-gold" class="menu-link">
+                    <div data-i18n="Without menu">Giá vàng</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/investment-channel/gasoline')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="/admin/investment-channel/gasoline" class="menu-link">
+                    <div data-i18n="Without menu">Giá xăng dầu</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/investment-channel/interest-rate')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="/admin/investment-channel/interest-rate" class="menu-link">
+                    <div data-i18n="Without menu">Lãi xuất vay</div>
+                  </a>
+                </li>        
+              </ul>
+            </li>
+
             @endif
 
           </ul>

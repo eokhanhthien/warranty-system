@@ -125,9 +125,9 @@
                         <td>{{ \Carbon\Carbon::parse($subscription->end_date)->format('d/m/Y') }} </td>
                         <td>
                             @if(\Carbon\Carbon::parse($subscription->end_date) < \Carbon\Carbon::now())
-                                Hết hạn
+                                <span style="color: red">Hết hạn</span>
                             @else
-                                Còn hiệu lực
+                                <span style="color: green">Còn hiệu lực</span> 
                             @endif
                         </td>
                         <td>{{ $subscription->order_code}} </td>

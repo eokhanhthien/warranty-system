@@ -97,3 +97,21 @@ button.dt-button.buttons-excel.buttons-html5 {
 .img-size img{
     width: 100%;
 }
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 0px 10px !important;
+    line-height: 40px !important;
+}
+.btn-pd {
+    padding: 5px !important;
+}
+button.dt-button.buttons-pdf.buttons-html5, button.dt-button.buttons-excel.buttons-html5 {
+    padding: 2px !important;
+    margin: 8px !important;
+    font-size: 13px !important;
+}
+.dataTables_wrapper .dataTables_length select {
+    padding: 0px !important;
+}
+.dataTables_wrapper .dataTables_filter input {
+    outline: none !important;
+}

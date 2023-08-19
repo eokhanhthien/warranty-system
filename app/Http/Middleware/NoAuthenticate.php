@@ -9,10 +9,10 @@ class NoAuthenticate
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::check()&& Auth::user()->role === 1) {
+        if (Auth::check()&& Auth::user()->role == 1) {
             return redirect()->route('superadmin.dashboard');
         }
-        else if (Auth::check()&& Auth::user()->role === 2) {
+        else if (Auth::check()&& Auth::user()->role == 2) {
             return redirect()->route('admin.dashboard');
         }
         return $next($request);

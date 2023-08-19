@@ -50,14 +50,14 @@
                       </td>
                       <td><span class="badge bg-label-primary me-1">{{ $business->email_verified_at ? 'Verified' : 'Not Verified' }}</span></td>
                       <td>
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary btn-pd">
                           <a style="color: white" class="d-inline-block" href="{{route('superadmin.businesses.edit',[$business->id])}}">
                             <i class="bx bx-edit-alt me-1"></i> Sửa
                           </a>
                         </button> 
            
 
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ $business->id }}">
+                        <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $business->id }}">
                               <i class="bx bx-trash me-1"></i> Xóa
                           </button>
 

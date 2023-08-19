@@ -96,8 +96,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav me-auto">
-                    <a href="{{ route('seller.business', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3))) && url()->current() === url('artisq/' . request()->segment(2) . '/' . request()->segment(3)) ? 'nav-item nav-link active' : 'nav-item nav-link' }}">Trang chủ</a>
-                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product')) && url()->current() === url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/all-product') ? 'nav-item nav-link active' : 'nav-item nav-link' }}">Sản phẩm</a>
+                    <a href="{{ route('seller.business', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3))) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3)) ? 'nav-item nav-link active' : 'nav-item nav-link' }}">Trang chủ</a>
+                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product')) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/all-product') ? 'nav-item nav-link active' : 'nav-item nav-link' }}">Sản phẩm</a>
                     <a href="service.html" class="nav-item nav-link">Dịch vụ</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Trang</a>

@@ -43,11 +43,11 @@ class Subscription extends Model
             $startDate = $today;
         }
 
-        if ($type === 'day') {
+        if ($type == 'day') {
             $endDate = $startDate->copy()->addDays($time);
-        } elseif ($type === 'month') {
+        } elseif ($type == 'month') {
             $endDate = $startDate->copy()->addMonths($time);
-        } elseif ($type === 'year') {
+        } elseif ($type == 'year') {
             $endDate = $startDate->copy()->addYears($time);
         } else {
             $endDate = null;
