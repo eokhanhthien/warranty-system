@@ -13,6 +13,7 @@ class User extends Model implements Authenticatable
         'name',
         'email',
         'password',
+        'last_login',
     ];
 
     protected $hidden = [

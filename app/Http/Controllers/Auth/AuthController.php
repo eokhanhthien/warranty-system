@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -33,6 +34,11 @@ class AuthController extends Controller
                 // config(['session.lifetime' => $lifetimeMinutes]);
                 // Đăng nhập thành công, thực hiện các thao tác cần thiết
                 // attempt sẽ tạo token, lưu thông tin vào session, v.v.
+
+                // Cập nhật trường last_login sau khi đăng nhập thành công
+                if (Auth::check()) {
+                    Auth::user()->update(['last_login' => Carbon::now()]);
+                }
                 if (Auth::check() && Auth::user()->role == 1) {
                     return redirect()->route('superadmin.dashboard');
                 }elseif(Auth::check() && Auth::user()->role == 2){
