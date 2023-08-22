@@ -98,6 +98,9 @@
         </div>
       </div>
     </div>
-
+    <script>
+        // Clear sessionStorage
+        sessionStorage.clear();
+    </script>
     <!-- / Content -->
 @endsection

@@ -1,4 +1,4 @@
-@extends('view-seller.repair-system.repair-system.layout.layout')
+@extends('view-seller.ecommerce.agriculture.layout.layout')
 @section('content')
 <style>  
     .swiper {
@@ -105,7 +105,7 @@
                 </div>
                 <div class="col-lg-6 ">
                   <h3>{{$product->name}}</h3>
-                  <h3 class="text-primary">{{ number_format($product->price)}} đ @if(!empty($variant)) <span> (Option mặc định)</span> @endif</h3>
+                  <h3 class="text-primary">{{ number_format($product->price)}} đ @if(!empty($variant) && count($variant)!=0) <span> (Option mặc định)</span> @endif</h3>
                   <div class="row">
                         @if(!empty($variant))
                             @foreach ($variant as $index => $variantItem)

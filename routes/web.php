@@ -74,13 +74,15 @@ Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'supe
 
 Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'CheckBusinessSetting']))->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
+    Route::resource('/subscription-package', 'BusinessSubscriptionController');
+    Route::get('/show-packages', "BusinessSubscriptionController@showPackages")->name('package.show.packages');
+
+    Route::middleware(['CheckSubscriptionRoleAdmin'])->group(function () {
     Route::get('/business-info', 'BusinessInfoController@index')->name('admin.business.info');
     Route::post('/business-update-info', 'BusinessInfoController@update')->name('admin.business.info.update');
     Route::get('/business-display', 'BusinessInfoController@businessDisplay')->name('admin.business.display');
     Route::post('/set-business-display', 'BusinessInfoController@setBusinessDisplay')->name('admin.set.business.display');
     Route::resource('/business-service', 'BusinessServiceController');
-    Route::resource('/subscription-package', 'BusinessSubscriptionController');
-    Route::get('/show-packages', "BusinessSubscriptionController@showPackages")->name('package.show.packages');
     Route::resource('/categories', 'BusinessCategoryController');
     Route::get('/getSubcategories/{category_id}', 'BusinessCategoryController@getSubcategories')->name('getSubcategories');
     Route::resource('/products', 'BusinessProductController');
@@ -89,6 +91,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::get('/investment-channel/gasoline', 'InvestmentChannelController@gasoline');
     Route::get('/investment-channel/interest-rate', 'InvestmentChannelController@interest_rate');
     // Các Route khác cho Admin
+    });
 });
 // Check cài đặt doanh ngiệp lần đầu
 Route::prefix('admin')->namespace('Setting')->middleware((['auth', 'admin']))->group(function () {

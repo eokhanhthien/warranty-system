@@ -15,7 +15,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Under Maintenance - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Website tạm ngưng</title>
 
     <meta name="description" content="" />
 
@@ -58,9 +58,9 @@
     <!--Under Maintenance -->
     <div class="container-xxl container-p-y">
       <div class="misc-wrapper">
-        <h2 class="mb-2 mx-2">Bạn chưa kích hoạt gói</h2>
-        <p class="mb-4 mx-2">Hãy đăng ký gói để tiếp tục sử dụng dịch vụ của chúng tôi</p>
-        <a href="/admin/subscription-package" class="btn btn-primary">Đăng ký ngay</a>
+        <h2 class="mb-2 mx-2">Chủ website này chưa gian hạn gói đăng ký</h2>
+        <p class="mb-4 mx-2">Website đang tạm ngưng do gói đăng ký đã hết hạn, vui lòng truy cập lại sau</p>
+        <!-- <a href="/admin/subscription-package" class="btn btn-primary">Đăng ký ngay</a> -->
         <div class="mt-4">
           <img
             src="{{ asset('assets/img/illustrations/girl-doing-yoga-light.png')}}"

@@ -96,7 +96,7 @@
                         Mang đến giải pháp bán hàng và quản lý doanh nghiệp tối ưu
                     </h1>
                     <p>
-                    Giải Pháp Thiết Kế Website Toàn Diện, công cụ cho phép khởi tạo website doanh nghiệp, website và ứng dụng bán hàng nhanh chóng </p>
+                    Giải Pháp Thiết Kế Website Toàn Diện, công cụ cho phép khởi tạo website doanh nghiệp, website bán hàng nhanh chóng </p>
                     <div class="btn-box">
                       <a href="{{route('login')}}" class="btn-1">
                         Dùng thử miễn phí

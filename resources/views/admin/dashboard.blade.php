@@ -23,8 +23,7 @@
                         <div class="card-body">
                           <h5 class="card-title text-primary">{{trans('lang_v1.welcome')}}</h5><span class="fw-bold text-primary">{{auth()->user()->name}}</span>
                           <p class="mb-4">
-                            You have done <span class="fw-bold">172%</span> more sales today. Check your new badge in
-                            your profile.
+                            Quản lý <span class="fw-bold">Website</span> của bạn một cách nhanh chóng
                           </p>
 
                           <a href="{{$domain}}" target="_blank" class="btn btn-sm btn-outline-primary">Truy cập WebSite của bạn</a>

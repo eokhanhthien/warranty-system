@@ -25,6 +25,7 @@ class DashboardController extends Controller
         $request->session()->put('businesses', $businesses);
         
         $domain =  $baseUrl . '/artisq/' . $businesses->domain . '/' . $businesses->slug;
+        $request->session()->put('domain', $domain);
         return view('admin.dashboard', compact('domain'));
     }
 

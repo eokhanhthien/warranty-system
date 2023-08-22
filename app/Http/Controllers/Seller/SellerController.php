@@ -10,6 +10,7 @@ use App\Product;
 use App\ProductDetail;
 use App\ProductCategory;
 use App\ProductSubcategory;
+use App\Variant;
 
 
 class SellerController extends Controller
@@ -94,6 +95,8 @@ public function detail(Request $request, $domain, $category , $id){
     $business = $request->business;
     $product =  Product::find($id);
     $product_detail =  ProductDetail::where('product_id', $id)->first();
-    return view('view-seller.' .$category. '/' .$request->display_slug.  '.detail', compact('business','product','product_detail'));
+    $variant = Variant::where('product_id' , $product->id)->get();
+
+    return view('view-seller.' .$category. '/' .$request->display_slug.  '.detail', compact('business','product','product_detail','variant'));
 }
 }

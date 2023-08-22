@@ -22,8 +22,8 @@
         <div class="owl-carousel header-carousel position-relative">
         @if(!empty($display_information->images))
         @php
-            $image_about_1 = $display_information->images[0];
-            $image_about_2 = $display_information->images[1];
+            $image_about_1 = !empty($display_information->images[0])?$display_information->images[0]:'';
+            $image_about_2 = !empty($display_information->images[1])? $display_information->images[1] : '';
         @endphp
             @foreach($display_information->images as $image)
                 <div class="owl-carousel-item position-relative" style="height: 800px;">

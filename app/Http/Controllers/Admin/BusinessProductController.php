@@ -80,7 +80,7 @@ class BusinessProductController extends Controller
                         // Kiểm tra nếu tồn tại giá và số lượng tồn kho tương ứng
                         if (isset($data[$priceKey]) && isset($data[$stockKey])) {
                             $variants[] = [
-                                'product_id' => 1,
+                                'product_id' => $product->id,
                                 'title_1' => $variantData[1]['name'],
                                 'title_2' => $variantData[2]['name'],
                                 'value_1' => $value_1['value'],
@@ -151,7 +151,7 @@ class BusinessProductController extends Controller
 
         $image_to_add = $product_current->image;
         array_unshift($product_detail_images, $image_to_add);
-        // dd( $product_detail->content);
+        // dd( $variant);
         return view('admin.product_business.edit',compact('categories','sub_categories','product_types','product_current','product_detail_images','variant','product_attribute','product_detail'));
     }
 
@@ -226,7 +226,7 @@ class BusinessProductController extends Controller
                         // Kiểm tra nếu tồn tại giá và số lượng tồn kho tương ứng
                         if (isset($data[$priceKey]) && isset($data[$stockKey])) {
                             $variants[] = [
-                                'product_id' => 1,
+                                'product_id' => $product->id,
                                 'title_1' => $variantData[1]['name'],
                                 'title_2' => $variantData[2]['name'],
                                 'value_1' => $value_1['value'],

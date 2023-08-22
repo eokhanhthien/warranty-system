@@ -88,7 +88,7 @@ class BusinessInfoController extends Controller
             }
 
         }else{
-            $displayInformation['images'] = $display_information_old->images;
+            $displayInformation['images'] = !empty($display_information_old->images) ? $display_information_old->images : '';
         }
 
         if ($request->hasFile('image')) {
@@ -102,7 +102,7 @@ class BusinessInfoController extends Controller
             $deleteimage->delete_image(json_decode($business->display_information)->image);
             }
         }else{
-            $displayInformation['image'] = $display_information_old->image;
+            $displayInformation['image'] = !empty($display_information_old->image) ? $display_information_old->image : '';
         }
 
         $displayInformation['title_banner'] = $request->title_banner ? $request->title_banner : null;

@@ -227,6 +227,8 @@
             <!--  ADMIN  -->
             @if (auth()->check() && auth()->user()->role == 2) 
             <!-- Dashboard -->
+            <a class="menu-item" href="{{session('domain')}}" target="_blank" class="text-light"><button class="btn btn-primary mt-3 mb-4 ml-3"> Truy cập WebSite của bạn  </button></a>
+
             <li class="{{ str_starts_with(request()->url(), url('admin/dashboard')) ? 'menu-item active' : 'menu-item' }}">
               <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
