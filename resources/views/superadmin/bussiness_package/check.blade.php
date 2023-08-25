@@ -28,6 +28,7 @@
                       <th>Trạng thái</th>
                       <th>Ngày bắt đầu</th>
                       <th>Ngày kết thúc</th>
+                      <th>Tình trạng</th>
                       <th>Ngày xem</th>
                       <th>action</th>
                     </tr>
@@ -43,6 +44,13 @@
                       <td>{{ $subscription->status }}</td>
                       <td>{{ $subscription->start_date }}</td>
                       <td>{{ $subscription->end_date }}</td>
+                      <td>
+                            @if(\Carbon\Carbon::parse($subscription->end_date) < \Carbon\Carbon::now())
+                                <span style="color: red">Hết hạn</span>
+                            @else
+                                <span style="color: green">Còn hiệu lực</span> 
+                            @endif
+                        </td>
                       <td>{{ $subscription->order_date }}</td>
 
                       <td>

@@ -28,6 +28,7 @@
                         <th>Image</th>
                         <th>Email</th>
                         <th>Last login</th>
+                        <th>Created at</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -52,6 +53,7 @@
                                   <span class="badge bg-label-primary me-1">N/V</span>
                               @endif
                           </td>
+                          <td>{{ $user->created_at }}</td>
 
                         <td>
                           <button class="btn btn-primary btn-pd">

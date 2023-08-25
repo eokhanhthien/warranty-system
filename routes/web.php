@@ -114,7 +114,14 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::get('{domain}/{category_slug}', 'SellerController@index')->name('seller.business');
         Route::get('{domain}/{category_slug}/all-product', 'SellerController@all_product')->name('seller.business.all.product');
         Route::get('{domain}/{category_slug}/detail-product/{id}', 'SellerController@detail')->name('seller.business.detail.product');
+        Route::get('{domain}/{category_slug}/login', 'AuthController@index')->name('seller.login');
+        Route::get('{domain}/{category_slug}/register', 'AuthController@register')->name('seller.register');
+        Route::post('{domain}/{category_slug}/get-register', 'AuthController@getRegister')->name('seller.get.register');
+        Route::post('{domain}/{category_slug}/get-login', 'AuthController@authLoginCustomer')->name('seller.get.login');
+        Route::get('{domain}/{category_slug}/logout', 'AuthController@authLogoutCustomer')->name('seller.logout');
     });
+    Route::post('/add-to-cart', 'CartController@addToCart')->name('cart.add');
+
 });
 
 
@@ -136,6 +143,7 @@ Route::post('/validate-business-package', 'validateData@validateDatabusinessPack
 Route::put('/validate-business-package', 'validateData@validateDatabusinessPackage')->name('validate.business.package');
 Route::post('/validate-admin-product', 'validateData@validateDataAdminProduct')->name('validate-admin-product');
 Route::put('/validate-admin-product', 'validateData@validateDataAdminProduct')->name('validate-admin-product');
+Route::post('/validate-register-customer', 'validateData@validateRegisterCustomer')->name('validate-register-customer');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

@@ -46,6 +46,10 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
     ],
 
     /*
@@ -71,6 +75,10 @@ return [
             'model' => App\User::class,
         ],
 
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Customer::class, // Thay bằng model của khách hàng
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

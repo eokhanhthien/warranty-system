@@ -94,9 +94,24 @@
                         <input type="hidden" id="" name="image_height" value="600" >
 
                         <div class="form-group">
-                                <label for="price"><h6 class="card-title text-primary">Giá sản phẩm </h6> </label>
+                                <label for="import_price"><h6 class="card-title text-primary">Giá nhập vào </h6> </label>
+                                <input type="text" class="form-control" id="import_price" name="import_price" value ="{{!empty($product_current->import_price) ? $product_current->import_price : '' }}">
+                                <span class="error-message" id="import_price-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="price"><h6 class="card-title text-primary">Giá bán ra </h6> </label>
                                 <input type="text" class="form-control" id="price" name="price" value ="{{!empty($product_current->price) ? $product_current->price : '' }}">
                                 <span class="error-message" id="price-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="unit"><h6 class="card-title text-primary">Đơn vị </h6></label>
+                                <select id="unit" name="unit" class="form-control" required>
+                                    <option value="">Chọn một đơn vị</option>
+                                    <option value="sản phẩm" {{ $product_current->unit == 'sản phẩm' ? 'selected' : '' }}>Sản phẩm, cái</option>
+                                    <option value="kg" {{ $product_current->unit == 'kg' ? 'selected' : '' }}>Kg</option>
+                                </select>
                         </div>
 
                         <div class="form-group">

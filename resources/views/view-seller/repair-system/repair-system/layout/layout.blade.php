@@ -35,6 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/manager_web/css/style.css') }}" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -110,6 +111,48 @@
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
                 </div>
+                <div>
+                    <i class="fas fa-shopping-cart" style="font-size: 24px;padding: 0 20px 0 0;cursor: pointer;"></i>
+                </div>
+                @php
+                    $loggedInCustomer = Auth::guard('customer')->user();
+                    $customerDomain = null;
+
+                    if ($loggedInCustomer) {
+                        $customerBusiness = \App\Business::find($loggedInCustomer->business_id);
+                        if ($customerBusiness) {
+                            $customerDomain = $customerBusiness->domain;
+                        }
+                    }
+                @endphp
+                @if(Auth::guard('customer')->check() && $customerDomain == request()->segment(2))
+                @php
+                        $name = Auth::guard('customer')->user()->full_name;
+                        $lastSpacePosition = mb_strrpos($name, ' ');
+                        $lastName = mb_substr($name, $lastSpacePosition + 1);
+                        $initial = mb_strtoupper(mb_substr($lastName, 0, 1));
+                    @endphp
+
+                <div class="dropdown">
+                <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;margin-right: 20px;">
+                        <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
+                </div>
+                <div class="dropdown-content">
+                    <a href="">{{Auth::guard('customer')->user()->full_name}}</a>
+                    <a href="{{route('seller.logout', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng xuất</a>
+                </div>
+                </div>
+                @else
+                <div>
+                    <a href="{{route('seller.login', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}" class="pr-4" style="    color: var(--dark);
+                    font-size: 15px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    outline: none;
+                    padding: 0 20px 0 0"> Đăng nhập </a>
+                </div>
+                @endif
+
                 <div class="mt-4 mt-lg-0 me-lg-n4 py-3 px-4 bg-primary d-flex align-items-center">
                     <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 45px; height: 45px;">
                         <i class="fa fa-phone-alt text-primary"></i>

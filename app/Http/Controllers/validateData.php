@@ -311,4 +311,38 @@ public function validateDataAdminProduct(Request $request){
         'success' => true,
     ]);
 }
+
+public function validateRegisterCustomer(Request $request){
+    // Tạo một mảng chứa các quy tắc cho Validator
+    $rules = [
+        'email' => 'required|email|unique:customers,email',
+        'password' => 'required',
+        'full_name' => 'required',
+        'repassword' => 'required|same:password',
+       
+    ];
+
+    // Tạo Validator và áp dụng các quy tắc
+    $validator = Validator::make($request->all(), $rules, [
+        'email.required' => 'Vui lòng nhập địa chỉ email.',
+        'email.email' => 'Vui lòng nhập đúng định dạng email.',
+        'email.unique' => 'Địa chỉ email đã tồn tại.',
+        'password.required' => 'Vui lòng nhập mật khẩu.',
+        'full_name.required' => 'Vui lòng nhập tên của bạn.',
+        'repassword.required' => 'Vui lòng nhập mật khẩu.',
+        'repassword.same' => 'Mật khẩu chưa khớp.',
+        
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+    ]);
+}
 }

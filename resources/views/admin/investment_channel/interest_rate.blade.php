@@ -13,16 +13,16 @@
 </div>
 <script>
         // Check if the page was reloaded
-        if (sessionStorage.getItem('reloaded_gold')=='false') {
+        if (sessionStorage.getItem('reloaded_gold')=='false' || !sessionStorage.getItem('reloaded_gold')) {
             sessionStorage.setItem('reloaded_gold', 'true');
             setTimeout(function() {
                 location.reload();
-            }, 0); // Reload once immediately
+            }, 500); // Reload once immediately
         }
         // Clear sessionStorage after 10 minutes (600000 milliseconds)
         setTimeout(function() {
             sessionStorage.setItem('reloaded_gold', 'false');
 
-        }, 2000);
+        }, 1000);
 </script>
 @endsection

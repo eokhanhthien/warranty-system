@@ -33,6 +33,7 @@
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <!-- body -->
 
@@ -68,8 +69,37 @@
                       <li class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product')) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product') ? 'active' : ''}}"><a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" >Sản phẩm</a></li>
                       <li> <a href="#vegetable">Vegetable</a> </li>
                       <li> <a href="#testimonial">Testomonial</a> </li>
-                      <li> <a href="#contact">Contact Us</a> </li>
-                     
+
+                      @php
+                          $loggedInCustomer = Auth::guard('customer')->user();
+                          $customerDomain = null;
+
+                          if ($loggedInCustomer) {
+                              $customerBusiness = \App\Business::find($loggedInCustomer->business_id);
+                              if ($customerBusiness) {
+                                  $customerDomain = $customerBusiness->domain;
+                              }
+                          }
+                      @endphp
+                      @if(Auth::guard('customer')->check() && $customerDomain == request()->segment(2))
+                        @php
+                              $name = Auth::guard('customer')->user()->full_name;
+                              $lastSpacePosition = mb_strrpos($name, ' ');
+                              $lastName = mb_substr($name, $lastSpacePosition + 1);
+                              $initial = mb_strtoupper(mb_substr($lastName, 0, 1));
+                        @endphp
+                      <li>  <div class="dropdown">
+                      <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;margin-right: 20px;">
+                              <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
+                      </div>
+                      <div class="dropdown-content">
+                          <a href="">{{Auth::guard('customer')->user()->full_name}}</a>
+                          <a href="{{route('seller.logout', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng xuất</a>
+                      </div>
+                      </div> </li>
+                      @else
+                      <li> <a href="{{route('seller.login', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng nhập</a> </li>
+                  @endif
                      <li> <a href="#"><img src="{{ asset('assets/agriculture/icon/icon_b.png')}}" alt="#" /></a></li>
                      </ul>
                    </nav>

@@ -29,6 +29,8 @@
     <!-- swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     </head>
     
     <body>
@@ -73,7 +75,43 @@
                                     <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li>
                                 </ul>
                             </li>
-                            <li class="scroll-to-section"><a href="#explore">Explore</a></li>
+
+                            @php
+                          $loggedInCustomer = Auth::guard('customer')->user();
+                          $customerDomain = null;
+
+                          if ($loggedInCustomer) {
+                              $customerBusiness = \App\Business::find($loggedInCustomer->business_id);
+                              if ($customerBusiness) {
+                                  $customerDomain = $customerBusiness->domain;
+                              }
+                          }
+                      @endphp
+                      @if(Auth::guard('customer')->check() && $customerDomain == request()->segment(2))
+                        @php
+                              $name = Auth::guard('customer')->user()->full_name;
+                              $lastSpacePosition = mb_strrpos($name, ' ');
+                              $lastName = mb_substr($name, $lastSpacePosition + 1);
+                              $initial = mb_strtoupper(mb_substr($lastName, 0, 1));
+                        @endphp
+                
+                      <li class="submenu">
+                      <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;margin-right: 20px;">
+                              <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
+                      </div>
+                                <ul>
+                                    <li><a href="">{{Auth::guard('customer')->user()->full_name}}</a></li>
+                                    <li> <a href="{{route('seller.logout', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng xuất</a></li>
+                                    
+                                </ul>
+                            </li>
+
+                      @else
+                      <li class="scroll-to-section"><a href="{{route('seller.login', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng nhập</a></li>
+
+                  @endif
+
+                  
                         </ul>        
                         <a class='menu-trigger'>
                             <span>Menu</span>

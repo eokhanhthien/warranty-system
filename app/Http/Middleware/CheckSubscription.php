@@ -21,7 +21,7 @@ class CheckSubscription
         $now = Carbon::now()->toDateString();
         $subscription = new Subscription();
         $currentPackage = $subscription->where('start_date', '<=', $now)
-        ->where('end_date', '>=', $now)
+        ->where('end_date', '>', $now)
         ->where('status', 'accept')
         ->where('business_id', $request->business->id)
         ->first();

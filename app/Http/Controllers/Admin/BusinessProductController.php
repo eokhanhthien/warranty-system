@@ -48,6 +48,8 @@ class BusinessProductController extends Controller
         $product->category_id = $request->category;
         $product->subcategory_id = $request->subcategory;
         $product->price = $request->price;
+        $product->import_price = $request->import_price;
+        $product->unit = $request->unit;
         $product->business_id = auth()->user()->business_id;
         $product->attribute_id = $request->attribute_id;
         $product->image = !empty($path_image) ? $path_image : '';
@@ -165,6 +167,8 @@ class BusinessProductController extends Controller
         $product->category_id = $request->category;
         $product->subcategory_id = $request->subcategory;
         $product->price = $request->price;
+        $product->import_price = $request->import_price;
+        $product->unit = $request->unit;
         $product->business_id = auth()->user()->business_id;
         $product->attribute_id = $request->attribute_id;
 

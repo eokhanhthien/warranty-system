@@ -68,7 +68,7 @@ class Subscription extends Model
         // Giờ hiện tại theo múi giờ của Việt Nam
         // dd();
         return $this->where('start_date', '<=', $now->toDateString())
-                    ->where('end_date', '>=', $now->toDateString())
+                    ->where('end_date', '>', $now->toDateString())
                     ->where('status', 'accept')
                     ->where('business_id', Auth::user()->business_id)
                     ->first();
