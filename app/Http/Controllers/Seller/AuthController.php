@@ -62,6 +62,9 @@ class AuthController extends Controller
 
     public function authLogoutCustomer() {
         Auth::guard('customer')->logout(); // Đăng xuất người dùng khách hàng
-        return redirect()->back();
+        $domain = request()->segment(2);
+        $category_slug = request()->segment(3);
+        $url = route('seller.business', ['domain' => $domain, 'category_slug' => $category_slug]);
+        return redirect($url)->with('success', 'Đăng xuất thành công');
     }
 }

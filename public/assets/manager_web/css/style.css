@@ -81,13 +81,13 @@
     position: relative;
     padding: 0 4.75rem;
     transition: .5s;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .nav-bar.sticky-top {
     position: sticky;
     padding: 0;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .navbar .dropdown-toggle::after {

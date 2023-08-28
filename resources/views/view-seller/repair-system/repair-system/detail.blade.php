@@ -194,24 +194,16 @@ function handleCardClick(card) {
                 },
                 data: {
                   product_id: product_id,
-                  variant_id: variantId
+                  variant_id: variantId,
+                  quantity : 1
                 },
-                // success: function(data) {
-                //     $('#list_product').empty();
-                //     $('#pagination').empty();
-                //     if (data.data.length == 0) {
-                //         // Hiển thị thông báo "Not Found"
-                //         $('#list_product').html(`
-                //             <div id="notFound">
-                //                 <img src="https://cdn.dribbble.com/users/721524/screenshots/4117132/untitled-1-_1_.png" alt="Not Found">
-                //                 <p>Không tìm thấy sản phẩm nào.</p>
-                //             </div>
-                //         `);
-                //     } else {
-                //         $('#list_product').html(data.data);
-                //     }
-                //     $('#pagination').html(data.pagination);
-                // }
+                success: function(response) {
+                  if(response.success == 1){
+                    toastr.success(response.message);
+                  }else{
+                    toastr.error(response.message);
+                  }
+                }
             });
         // console.log(variantId,product_id);
     }

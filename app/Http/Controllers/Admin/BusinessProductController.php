@@ -314,4 +314,18 @@ class BusinessProductController extends Controller
         $attributes = json_decode($productType->attributes, true);
         return response()->json($attributes);
     }
+
+    public function updateQuantity(Request $request)
+    {
+        $product = Product::find($request->id);
+
+        if ($product) {
+            $product->stock = $request->quantity;
+            $product->save();
+            
+            return response()->json(['success' => 1,'message' => 'Cập nhật kho thành công.']);
+        }
+
+        return response()->json(['success' => 0,'message' => 'cập nhật thất bại']);
+    }
 }

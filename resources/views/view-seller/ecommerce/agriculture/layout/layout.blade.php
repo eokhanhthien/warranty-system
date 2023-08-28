@@ -65,10 +65,10 @@
                   <nav class="main-menu ">
                     <ul class="menu-area-main">
                       <!-- <li class="active"> <a href="index.html">Home</a> </li> -->
-                      <li class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3))) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3)) ? 'active' : ''}}"><a href="{{ route('seller.business', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" >Trang chủ</a></li>
-                      <li class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product')) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product') ? 'active' : ''}}"><a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" >Sản phẩm</a></li>
-                      <li> <a href="#vegetable">Vegetable</a> </li>
-                      <li> <a href="#testimonial">Testomonial</a> </li>
+                      <li class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3))) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3)) ? 'active' : ''}}"><a class="fonttaga" href="{{ route('seller.business', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" >Trang chủ</a></li>
+                      <li class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product')) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product') ? 'active' : ''}}"><a class="fonttaga" href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" >Sản phẩm</a></li>
+                      <li> <a class="fonttaga" href="#vegetable">Vegetable</a> </li>
+                      <li> <a class="fonttaga" href="#testimonial">Testomonial</a> </li>
 
                       @php
                           $loggedInCustomer = Auth::guard('customer')->user();
@@ -98,7 +98,7 @@
                       </div>
                       </div> </li>
                       @else
-                      <li> <a href="{{route('seller.login', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng nhập</a> </li>
+                      <li> <a class="fonttaga" href="{{route('seller.login', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng nhập</a> </li>
                   @endif
                      <li> <a href="#"><img src="{{ asset('assets/agriculture/icon/icon_b.png')}}" alt="#" /></a></li>
                      </ul>

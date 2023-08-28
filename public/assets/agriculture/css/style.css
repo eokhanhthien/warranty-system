@@ -1626,4 +1626,8 @@ transition: all 0.3s ease-in;
   
   .dropdown:hover .dropdown-content {display: block;}
   
-  
+  .fonttaga{
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+  }

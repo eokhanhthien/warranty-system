@@ -33,7 +33,12 @@
     <!-- Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
+<style>
+  .img-box {
+    height: 400px;
+}
 
+</style>
 <body>
 
   <div class="hero_area">
@@ -92,7 +97,7 @@
                 <div class="col-md-6">
                   <div class="detail-box">
                     <h1>
-                        Các giải pháp của chúng tôi <br>
+                        Các giải pháp <br>
                         Mang đến giải pháp bán hàng và quản lý doanh nghiệp tối ưu
                     </h1>
                     <p>
@@ -108,7 +113,7 @@
                   <div class="row">
                     <div class=" col-lg-10 mx-auto">
                       <div class="img-box">
-                        <img src="{{ asset('assets/img/images_home/slider-img.png')}}" alt="">
+                      <img src="https://themercen.com/wp-content/uploads/2023/01/graphic-hero-banner-565x492.png" alt="">
                       </div>
                     </div>
                   </div>
@@ -122,11 +127,11 @@
                 <div class="col-md-6">
                     <div class="detail-box">
                         <h1>
-                          Các giải pháp của chúng tôi <br>
+                          Mang đến chất lượng <br>
                           Tùy chỉnh linh hoạt giao diện và hình ảnh của website
                         </h1>
                         <p>
-                        Chúng tôi cung cấp các công cụ tùy chỉnh mạnh mẽ để bạn có thể thay đổi giao diện, màu sắc, kiểu chữ. </p>
+                        Chúng tôi cung cấp các công cụ tùy chỉnh mạnh mẽ để bạn có thể thay đổi giao diện, màu sắc, kiểu chữ, hình ảnh, chủ đề. </p>
                         <div class="btn-box">
                         <a href="{{route('login')}}" class="btn-1">
                         Dùng thử miễn phí
@@ -138,7 +143,7 @@
                   <div class="row">
                     <div class=" col-lg-10 mx-auto">
                       <div class="img-box">
-                        <img src="{{ asset('assets/img/images_home/slider-img.png')}}" alt="">
+                        <img src="https://www.digitallabz.ca/wp-content/uploads/revslider/home-1/rev_1-5.png" alt="">
                       </div>
                     </div>
                   </div>
@@ -152,7 +157,7 @@
                 <div class="col-md-6">
                 <div class="detail-box">
                     <h1>
-                        Các giải pháp của chúng tôi <br>
+                        SEO tối ưu cho Website <br>
                         Quản lý nội dung rõ ràng với giao diện bắt mắt, chuẩn SEO
                     </h1>
                     <p>
@@ -168,7 +173,7 @@
                   <div class="row">
                     <div class=" col-lg-10 mx-auto">
                       <div class="img-box">
-                        <img src="{{ asset('assets/img/images_home/slider-img.png')}}" alt="">
+                        <img src="https://whisskers.com/wp-content/uploads/2019/04/about-service1.png" alt="">
                       </div>
                     </div>
                   </div>

@@ -78,19 +78,22 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
     Route::get('/show-packages', "BusinessSubscriptionController@showPackages")->name('package.show.packages');
 
     Route::middleware(['CheckSubscriptionRoleAdmin'])->group(function () {
-    Route::get('/business-info', 'BusinessInfoController@index')->name('admin.business.info');
-    Route::post('/business-update-info', 'BusinessInfoController@update')->name('admin.business.info.update');
-    Route::get('/business-display', 'BusinessInfoController@businessDisplay')->name('admin.business.display');
-    Route::post('/set-business-display', 'BusinessInfoController@setBusinessDisplay')->name('admin.set.business.display');
-    Route::resource('/business-service', 'BusinessServiceController');
-    Route::resource('/categories', 'BusinessCategoryController');
-    Route::get('/getSubcategories/{category_id}', 'BusinessCategoryController@getSubcategories')->name('getSubcategories');
-    Route::resource('/products', 'BusinessProductController');
-    Route::get('/get-product-type-attributes/{id}', 'BusinessProductController@getAttributes');
-    Route::get('/investment-channel/price-gold', 'InvestmentChannelController@price_gold');
-    Route::get('/investment-channel/gasoline', 'InvestmentChannelController@gasoline');
-    Route::get('/investment-channel/interest-rate', 'InvestmentChannelController@interest_rate');
-    // Các Route khác cho Admin
+        Route::get('/business-info', 'BusinessInfoController@index')->name('admin.business.info');
+        Route::post('/business-update-info', 'BusinessInfoController@update')->name('admin.business.info.update');
+        Route::get('/business-display', 'BusinessInfoController@businessDisplay')->name('admin.business.display');
+        Route::post('/set-business-display', 'BusinessInfoController@setBusinessDisplay')->name('admin.set.business.display');
+        Route::resource('/business-service', 'BusinessServiceController');
+        Route::resource('/categories', 'BusinessCategoryController');
+        Route::get('/getSubcategories/{category_id}', 'BusinessCategoryController@getSubcategories')->name('getSubcategories');
+        Route::resource('/products', 'BusinessProductController');
+        Route::post('/update-stock', 'BusinessProductController@updateQuantity')->name('stock.update');
+
+        Route::get('/get-product-type-attributes/{id}', 'BusinessProductController@getAttributes');
+        Route::get('/investment-channel/price-gold', 'InvestmentChannelController@price_gold');
+        Route::get('/investment-channel/gasoline', 'InvestmentChannelController@gasoline');
+        Route::get('/investment-channel/interest-rate', 'InvestmentChannelController@interest_rate');
+        
+        // Các Route khác cho Admin
     });
 });
 // Check cài đặt doanh ngiệp lần đầu
@@ -114,6 +117,13 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::get('{domain}/{category_slug}', 'SellerController@index')->name('seller.business');
         Route::get('{domain}/{category_slug}/all-product', 'SellerController@all_product')->name('seller.business.all.product');
         Route::get('{domain}/{category_slug}/detail-product/{id}', 'SellerController@detail')->name('seller.business.detail.product');
+        // Cart
+        Route::middleware(['auth_customer'])->group(function () {
+            Route::get('{domain}/{category_slug}/cart', 'CartController@showCart')->name('seller.show.cart');
+            Route::delete('{domain}/{category_slug}/delete-cart/{id}', 'CartController@deletefromCart')->name('seller.delete.cart');
+        });
+
+
         Route::get('{domain}/{category_slug}/login', 'AuthController@index')->name('seller.login');
         Route::get('{domain}/{category_slug}/register', 'AuthController@register')->name('seller.register');
         Route::post('{domain}/{category_slug}/get-register', 'AuthController@getRegister')->name('seller.get.register');
@@ -121,6 +131,7 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::get('{domain}/{category_slug}/logout', 'AuthController@authLogoutCustomer')->name('seller.logout');
     });
     Route::post('/add-to-cart', 'CartController@addToCart')->name('cart.add');
+    Route::post('/update-cart', 'CartController@updateQuantity')->name('cart.update');
 
 });
 

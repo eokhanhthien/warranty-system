@@ -36,9 +36,27 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/manager_web/css/style.css') }}" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+      <!-- Bao gồm tệp tin CSS của Toastr -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bao gồm tệp tin JavaScript của Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
+    @if(session('success'))
+        <script>
+            toastr.success('{!! html_entity_decode(session('success')) !!}');
+        </script>
+    @endif
+
+    @if(session('error'))
+        <script>
+            toastr.error('{!! html_entity_decode(session('error')) !!}');
+        </script>
+    @endif
+
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -87,7 +105,7 @@
 
 
     <!-- Navbar Start -->
-    <div class="container-fluid nav-bar bg-light">
+    <div class="container-fluid nav-bar bg-light" style="z-index: 999;">
         <nav class="navbar navbar-expand-lg navbar-light bg-white p-3 py-lg-0 px-lg-4">
             <a href="" class="navbar-brand d-flex align-items-center m-0 p-0 d-lg-none">
                 <h1 class="text-primary m-0">{{$business->name}}</h1>
@@ -112,7 +130,8 @@
                     <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
                 </div>
                 <div>
-                    <i class="fas fa-shopping-cart" style="font-size: 24px;padding: 0 20px 0 0;cursor: pointer;"></i>
+                <a style=" font-weight: 600;text-transform: uppercase;" href="{{ route('seller.show.cart', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="nav-item nav-link"><i class="fas fa-shopping-cart" style="font-size: 24p;cursor: pointer;"></i> Giỏ hàng</a>
+                    
                 </div>
                 @php
                     $loggedInCustomer = Auth::guard('customer')->user();
