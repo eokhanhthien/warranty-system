@@ -91,7 +91,7 @@
                                             @method('PUT')
                                             <div class="form-group">
                                                 <label for="categoryName">Tên danh mục:</label>
-                                                <input type="text" class="form-control" id="categoryName" name="name" value="{{$category->name}}" require>
+                                                <input type="text" class="form-control" id="categoryName" name="name" value="{{$category->name}}" require placeholder="VD: Điện thoại">
                                                 <input type="hidden"  name="type" value = "category">
                                             </div>
                                             <div class="modal-footer">
@@ -179,7 +179,7 @@
                                             @method('PUT')
                                             <div class="form-group">
                                                 <label for="subCategoryName">Tên danh mục con:</label>
-                                                <input type="text" class="form-control" id="subCategoryName" name="name" value = "{{$subcategory->name}}">
+                                                <input type="text" class="form-control" id="subCategoryName" name="name" value = "{{$subcategory->name}}" placeholder="VD: Iphone">
                                                 <input type="hidden"  name="type" value = "subcategory">
                                             </div>
                                             <div class="form-group">
@@ -220,7 +220,7 @@
             @csrf
               <div class="form-group">
                 <label for="categoryName">Tên danh mục:</label>
-                <input type="text" class="form-control" id="categoryName" name="name" required>
+                <input type="text" class="form-control" id="categoryName" name="name" required placeholder="VD: Điện thoại">
                 <input type="hidden"  name="type" value = "category">
               </div>
                     <div class="modal-footer">
@@ -246,12 +246,12 @@
             @csrf
               <div class="form-group">
                 <label for="subCategoryName">Tên danh mục con:</label>
-                <input type="text" class="form-control" id="subCategoryName" name="name" required>
+                <input type="text" class="form-control" id="subCategoryName" name="name" required placeholder="VD: Iphone">
                 <input type="hidden"  name="type" value = "subcategory">
               </div>
               <div class="form-group">
                 <label for="parentCategory">Danh mục cha:</label>
-                <select class="form-control" id="parentCategory" name="category_id" required>
+                <select class="form-control" id="parentCategory" name="category_id" required >
                     <option value="">Chọn danh mục</option>
                     @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>

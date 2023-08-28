@@ -50,7 +50,7 @@
 
                             <div class="form-group">
                                 <label for="name"><h6 class="card-title text-primary">Tên sản phẩm  </h6> </label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ !empty($product_current->name) ? $product_current->name : '' }}">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ !empty($product_current->name) ? $product_current->name : '' }}" placeholder="VD: Iphone 14 PROMAX">
                                 <span class="error-message" id="name-error"></span>
                             </div>
 
@@ -95,28 +95,20 @@
 
                         <div class="form-group">
                                 <label for="import_price"><h6 class="card-title text-primary">Giá nhập vào </h6> </label>
-                                <input type="text" class="form-control" id="import_price" name="import_price" value ="{{!empty($product_current->import_price) ? $product_current->import_price : '' }}">
+                                <input type="text" class="form-control" id="import_price" name="import_price" value ="{{!empty($product_current->import_price) ? $product_current->import_price : '' }}" placeholder="VD: 12000000">
                                 <span class="error-message" id="import_price-error"></span>
                         </div>
 
                         <div class="form-group">
                                 <label for="price"><h6 class="card-title text-primary">Giá bán ra </h6> </label>
-                                <input type="text" class="form-control" id="price" name="price" value ="{{!empty($product_current->price) ? $product_current->price : '' }}">
+                                <input type="text" class="form-control" id="price" name="price" value ="{{!empty($product_current->price) ? $product_current->price : '' }}" placeholder="VD: 13000000">
                                 <span class="error-message" id="price-error"></span>
                         </div>
 
-                        <div class="form-group">
-                                <label for="unit"><h6 class="card-title text-primary">Đơn vị </h6></label>
-                                <select id="unit" name="unit" class="form-control" required>
-                                    <option value="">Chọn một đơn vị</option>
-                                    <option value="sản phẩm" {{ $product_current->unit == 'sản phẩm' ? 'selected' : '' }}>Sản phẩm, cái</option>
-                                    <option value="kg" {{ $product_current->unit == 'kg' ? 'selected' : '' }}>Kg</option>
-                                </select>
-                        </div>
 
                         <div class="form-group">
                                 <label for="stock"><h6 class="card-title text-primary">Kho hàng </h6> </label>
-                                <input type="text" class="form-control" id="stock" name="stock" value ="{{!empty($product_current->stock) ? $product_current->stock : '' }}">
+                                <input type="text" class="form-control" id="stock" name="stock" value ="{{!empty($product_current->stock) ? $product_current->stock : '' }}" placeholder="VD: 10">
                                 <span class="error-message" id="stock-error"></span>
                         </div>
 

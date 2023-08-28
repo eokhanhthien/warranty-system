@@ -86,12 +86,19 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::resource('/categories', 'BusinessCategoryController');
         Route::get('/getSubcategories/{category_id}', 'BusinessCategoryController@getSubcategories')->name('getSubcategories');
         Route::resource('/products', 'BusinessProductController');
+        Route::get('/discounts', 'BusinessProductController@getDiscount')->name('product.discounts');
+        Route::post('/create-discounts', 'BusinessProductController@createDiscount')->name('product.discounts.create');
+        Route::put('/update-discounts/{id}', 'BusinessProductController@updateDiscount')->name('product.discounts.update');
+        Route::delete('/delete-discounts/{id}', 'BusinessProductController@deleteDiscount')->name('product.discounts.delete');
         Route::post('/update-stock', 'BusinessProductController@updateQuantity')->name('stock.update');
 
         Route::get('/get-product-type-attributes/{id}', 'BusinessProductController@getAttributes');
+
         Route::get('/investment-channel/price-gold', 'InvestmentChannelController@price_gold');
         Route::get('/investment-channel/gasoline', 'InvestmentChannelController@gasoline');
         Route::get('/investment-channel/interest-rate', 'InvestmentChannelController@interest_rate');
+        Route::get('/investment-channel/deposit-rate', 'InvestmentChannelController@deposit_rate');
+        Route::get('/investment-channel/conversion-tool', 'InvestmentChannelController@conversion_tool');
         
         // Các Route khác cho Admin
     });

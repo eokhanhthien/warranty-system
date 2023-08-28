@@ -13,6 +13,7 @@ use App\ProductType;
 use App\Product;
 use App\ProductDetail;
 use App\Variant;
+use App\DiscountCode;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UploadDriverColtroller;
@@ -49,7 +50,6 @@ class BusinessProductController extends Controller
         $product->subcategory_id = $request->subcategory;
         $product->price = $request->price;
         $product->import_price = $request->import_price;
-        $product->unit = $request->unit;
         $product->business_id = auth()->user()->business_id;
         $product->attribute_id = $request->attribute_id;
         $product->image = !empty($path_image) ? $path_image : '';
@@ -168,7 +168,6 @@ class BusinessProductController extends Controller
         $product->subcategory_id = $request->subcategory;
         $product->price = $request->price;
         $product->import_price = $request->import_price;
-        $product->unit = $request->unit;
         $product->business_id = auth()->user()->business_id;
         $product->attribute_id = $request->attribute_id;
 
@@ -327,5 +326,43 @@ class BusinessProductController extends Controller
         }
 
         return response()->json(['success' => 0,'message' => 'cập nhật thất bại']);
+    }
+
+    public function getDiscount(){
+        $discount_codes =  DiscountCode::where('business_id', auth()->user()->business_id)->get();
+        return view('admin.product_business.discount', compact('discount_codes'));
+    }
+
+    public function createDiscount(Request $request){
+        // dd($request->all());
+        $discount_code = new DiscountCode();
+        $discount_code->name = $request->name;
+        $discount_code->code = $request->code;
+        $discount_code->amount = $request->amount;
+        $discount_code->start_at = $request->start_at;
+        $discount_code->expires_at = $request->expires_at;
+        $discount_code->business_id = auth()->user()->business_id;
+        $discount_code->save();
+        return redirect()->back()->with('success', 'Tạo mã giảm giá thành công.');
+
+    }
+
+    public function updateDiscount(Request $request,$id){
+        $discount_code = DiscountCode::find($id);
+        $discount_code->name = $request->name;
+        $discount_code->code = $request->code;
+        $discount_code->amount = $request->amount;
+        $discount_code->start_at = $request->start_at;
+        $discount_code->expires_at = $request->expires_at;
+        $discount_code->business_id = auth()->user()->business_id;
+        $discount_code->save();
+        return redirect()->back()->with('success', 'Cập nhật mã giảm giá thành công.');
+
+    }
+
+    public function deleteDiscount(Request $request,$id){
+        $discount_code = DiscountCode::find($id);
+        $discount_code->delete();
+        return redirect()->back()->with('success', 'Xóa mã giảm giá thành công.');
     }
 }

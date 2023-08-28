@@ -308,7 +308,7 @@
 
             </li>
 
-            <li class="{{ str_starts_with(request()->url(), url('admin/products')) || str_starts_with(request()->url(), url('admin/categories')) ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('admin/products')) || str_starts_with(request()->url(), url('admin/categories'))|| str_starts_with(request()->url(), url('admin/discounts'))  ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
               <i class='menu-icon bx bxs-component'></i>
                 <div data-i18n="Layouts">Sản phẩm</div>
@@ -328,6 +328,15 @@
                   </a>
                 </li>        
               </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/discounts')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('product.discounts') }}" class="menu-link">
+                    <div data-i18n="Without menu">Mã giảm giá</div>
+                  </a>
+                </li>        
+              </ul>
+              
             </li>
 
 
@@ -362,6 +371,22 @@
                 <li class="{{ str_starts_with(request()->url(), url('admin/investment-channel/interest-rate')) ? 'menu-item active' : 'menu-item' }}">
                   <a href="/admin/investment-channel/interest-rate" class="menu-link">
                     <div data-i18n="Without menu">Lãi xuất vay</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/investment-channel/deposit-rate')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="/admin/investment-channel/deposit-rate" class="menu-link">
+                    <div data-i18n="Without menu">Lãi xuất gửi</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/investment-channel/conversion-tool')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="/admin/investment-channel/conversion-tool" class="menu-link">
+                    <div data-i18n="Without menu">Công cụ chuyển đổi</div>
                   </a>
                 </li>        
               </ul>

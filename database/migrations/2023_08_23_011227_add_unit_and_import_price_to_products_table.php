@@ -9,7 +9,6 @@ class AddUnitAndImportPriceToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('unit')->nullable()->after('price'); // Đổi kiểu dữ liệu nếu cần thiết
             $table->integer('import_price')->nullable()->after('price');
 
         });
@@ -18,7 +17,6 @@ class AddUnitAndImportPriceToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('unit');
             $table->dropColumn('import_price');
         });
     }
