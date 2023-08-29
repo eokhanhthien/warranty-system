@@ -128,6 +128,8 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::middleware(['auth_customer'])->group(function () {
             Route::get('{domain}/{category_slug}/cart', 'CartController@showCart')->name('seller.show.cart');
             Route::delete('{domain}/{category_slug}/delete-cart/{id}', 'CartController@deletefromCart')->name('seller.delete.cart');
+            Route::post('{domain}/{category_slug}/order', 'CartController@Order')->name('seller.order');
+
         });
 
 
@@ -137,8 +139,11 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::post('{domain}/{category_slug}/get-login', 'AuthController@authLoginCustomer')->name('seller.get.login');
         Route::get('{domain}/{category_slug}/logout', 'AuthController@authLogoutCustomer')->name('seller.logout');
     });
+
     Route::post('/add-to-cart', 'CartController@addToCart')->name('cart.add');
     Route::post('/update-cart', 'CartController@updateQuantity')->name('cart.update');
+    Route::post('/check-discount', 'CartController@checkDiscount')->name('check.discount');
+    Route::get('/destroy-discount', 'CartController@destroyDiscount')->name('destroy.discount');
 
 });
 
@@ -162,6 +167,7 @@ Route::put('/validate-business-package', 'validateData@validateDatabusinessPacka
 Route::post('/validate-admin-product', 'validateData@validateDataAdminProduct')->name('validate-admin-product');
 Route::put('/validate-admin-product', 'validateData@validateDataAdminProduct')->name('validate-admin-product');
 Route::post('/validate-register-customer', 'validateData@validateRegisterCustomer')->name('validate-register-customer');
+Route::post('/validate-info-order', 'validateData@validateOrder')->name('validate.order');
 
 // Dịch ngôn ngữ
 Route::get('setLocale/{locale}', function ($locale) {

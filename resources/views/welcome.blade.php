@@ -37,7 +37,14 @@
   .img-box {
     height: 400px;
 }
-
+header.header_section {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: #000000a1;
+    z-index: 1000;
+}
 </style>
 <body>
 
@@ -64,6 +71,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#service">Dịch vụ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#template">Giao diện mẫu</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#price">Bảng giá</a>
@@ -297,6 +307,46 @@
         </div>
       </div>
     </div>
+
+
+    <div class="container mt-5" id="template">
+      <div class="heading_container heading_center">
+        <h2>
+          Một số giao diện mẫu
+        </h2>
+      </div>
+    </div>
+    <div class="container ">
+      <div class="row">
+        <div class="col-md-6 col-lg-6">
+          <div class="box ">
+              <img src="{{ asset('assets/img/images_home/temp1.jpg')}}" alt="" style ="width: 100%;  object-fit: cover;">
+            <div class="detail-box">
+              <h4>
+                <a href="https://longty.io.vn/artisq/hai-dang-ke-ilwv/repair-system" target="_blank">
+                  Bán hàng, sửa chữa, bảo hành
+                </a>
+              </h4>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-md-6 col-lg-6">
+          <div class="box ">
+              <img src="{{ asset('assets/img/images_home/temp2.jpg')}}" alt="" style ="width: 100%; object-fit: cover;">
+            <div class="detail-box">
+              <h4>
+                <a href="https://longty.io.vn/artisq/pho-xa-32nd/ecommerce" target="_blank">
+                  Thương mại điện tử
+                </a>
+              </h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </section>
 
   <!-- end service section -->

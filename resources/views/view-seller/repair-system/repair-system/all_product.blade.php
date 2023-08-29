@@ -61,9 +61,9 @@
                 </div>
                 <div class="col-lg-9 col-md-9 " data-wow-delay="0.3s">
                 <div class="row" id="list_product">
-                    @include('view-seller.repair-system.repair-system.list_product')
+                    @include('view-seller.' . $category_slug . '.' . $display_slug . '.list_product' )
                 </div>
-                    @include('view-seller.repair-system.repair-system.pagination')
+                    @include('view-seller.' . $category_slug . '.' . $display_slug . '.pagination' )
                 </div>
         </div>
         </div>

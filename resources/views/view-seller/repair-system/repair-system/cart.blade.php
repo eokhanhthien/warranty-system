@@ -118,37 +118,41 @@
 @if(!empty($carts) && count($carts) > 0)
 <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
             <div class="card-body p-4">
+            <form action="{{ route('seller.order', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" method="POST" id="info-order">
+            @csrf
               <div class="row justify-content-end">
                 
-                <div class="col-md-6 col-lg-6 col-xl-6 mb-4 mb-md-0">
-                <h5 >Thông tin khách hàng</h5>
+                <div class="col-md-12 col-lg-6 col-xl-6 mb-4 mb-md-0 col-12">
+                <h5 >Thông tin khách hàng<span class="text-danger">*</span></h5>
                 <div class="row">
-                  <div class="col-3" style="line-height: 40px;">Họ và tên : </div> <div class="col-6"> <input  class="form-control" type="text" value="{{Auth::guard('customer')->user()->full_name}}"></div>
+                  <div class="col-3" style="line-height: 40px;">Họ và tên<span class="text-danger">*</span> : </div> <div class="col-6"> <input  class="form-control" type="text" name="name" value="{{Auth::guard('customer')->user()->full_name}}" ><span class="error-message" id="name-error"></span></div>
                 </div>
 
                 <div class="row">
-                  <div class="col-3" style="line-height: 40px;">Số điện thoại : </div> <div class="col-6"> <input  class="form-control" type="text" value="{{Auth::guard('customer')->user()->phone_number}}"></div>
+                  <div class="col-3" style="line-height: 40px;">Số điện thoại<span class="text-danger">*</span> : </div> <div class="col-6"> <input  class="form-control" type="text" name="phone_number" value="{{Auth::guard('customer')->user()->phone_number}}" ><span class="error-message" id="phone_number-error"></span></div>
                 </div>
 
                 <div class="row">
-                  <div class="col-3" style="line-height: 40px;">Email : </div> <div class="col-6"> <input  class="form-control" type="text" value="{{Auth::guard('customer')->user()->email}}"></div>
+                  <div class="col-3" style="line-height: 40px;">Email<span class="text-danger">*</span> : </div> <div class="col-6"> <input  class="form-control" type="text" name="email" value="{{Auth::guard('customer')->user()->email}}" ><span class="error-message" id="email-error"></span></div>
                 </div>
 
-                <h5 class="mt-4">Vui lòng chọn địa chỉ giao hàng</h5>
+                <h5 class="mt-4">Vui lòng chọn địa chỉ giao hàng<span class="text-danger">*</span></h5>
                 <div>
                   @include('select-options.address', ['provinces' => $provinces, 'wards' => $wards, 'districts' => $districts])
 
-                  <textarea class="w-100 mt-3 form-control" style="height: 100px" placeholder="Nhập chi tiết địa chỉ"></textarea>
+                  <textarea class="w-100 mt-3 form-control" style="height: 100px" placeholder="Nhập chi tiết địa chỉ" name="note"></textarea>
+
+                  <input type="checkbox" name="set_default" class="mt-4" > <span>Đặt làm thông tin mặc định</span>
                 </div>
                   
                 </div>
 
                 <div class="col-lg-6 col-xl-6">
                 
-                <h5>Vui lòng chọn phương thức thanh toán</h5>
+                <h5>Vui lòng chọn phương thức thanh toán<span class="text-danger">*</span></h5>
                   <div class="d-flex flex-row pb-3">
                       <div class="d-flex align-items-center pe-2">
-                        <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel2v" value="" aria-label="..." checked="">
+                        <input class="form-check-input" type="radio" name="pay_method" id="radioNoLabel2v" value="POD" aria-label="..." checked="">
                       </div>
                       <div class="rounded border w-100 p-3">
                         <p class="d-flex align-items-center mb-0">
@@ -159,7 +163,7 @@
 
                     <div class="d-flex flex-row pb-3">
                       <div class="d-flex align-items-center pe-2">
-                        <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1v" value="" aria-label="..." >
+                        <input class="form-check-input" type="radio" name="pay_method" id="radioNoLabel1v" value="VNpay" aria-label="..." >
                       </div>
                       <div class="rounded border w-100 p-3">
                         <p class="d-flex align-items-center mb-0">
@@ -168,34 +172,12 @@
                       </div>
                     </div>
 
-                    <div class="card mb-4">
-                      <div class="card-body p-4 d-flex flex-row">
-                        <div class="form-outline flex-fill">
-                          <input type="text" placeholder="Nhập mã giảm giá" id="form1" class="form-control " />
-                        </div>
-                        <button type="button" class="btn btn-outline-warning ms-3">Apply</button>
-                      </div>
+                    <div id="discount">
+                     @include('view-seller.repair-system.repair-system.cart_total', ['total_price'=> $total_price] )
                     </div>
-        
-                <h5 class="mt-4">Tổng tiền</h5>
-                  <div class="d-flex justify-content-between" style="font-weight: 500;">
-                    <p class="mb-2">Tạm tính</p>
-                    <p class="mb-2 text-primary total_price" id="totalPrice_temp">{{number_format($total_price)}} đ</p>
-                  </div>
 
-                  <div class="d-flex justify-content-between" style="font-weight: 500;">
-                    <p class="mb-0">Phí vận chuyển</p>
-                    <p class="mb-0">30.000 đ</p>
-                  </div>
-
-                  <hr class="my-4">
-
-                  <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
-                    <p class="mb-2">Tổng cộng</p>
-                    <p class="mb-2 total_price text-primary" id="totalPrice">{{number_format($total_price + 30000)}} đ</p>
-                  </div>
-
-                  <button type="button" class="btn btn-primary btn-block btn-lg">
+          
+                  <button type="submit" class="btn btn-primary btn-block btn-lg">
                     <div class="d-flex justify-content-between">
                       <span>Đặt hàng</span>
                     </div>
@@ -203,15 +185,30 @@
 
                 </div>
               </div>
-
+          </form>
             </div>
 </div>
 @endif
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Gọi hàm validate để xử lý form -->
+<script src="{{ asset('assets/js/validateForm.js') }}"></script>
+
 <script>
+
+
+
+    $(document).ready(function() {
+        var formId = '#info-order';
+        var validateUrl = '/validate-info-order';
+
+        setupFormValidation(formId, validateUrl);
+
+    });
+
+
 var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
 function updateQuantity(newQuantity, productId) {
@@ -225,13 +222,10 @@ function updateQuantity(newQuantity, productId) {
       id: productId,
       quantity: newQuantity
     },
-    dataType: 'json', // Nếu bạn mong đợi nhận JSON response từ server
+
     success: function(response) {
      
-      var newTotalPrice = response.data; // Giả sử 'total_price' là dữ liệu trả về từ AJAX
-      var formattedTotalPrice = newTotalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-      $('#totalPrice').html('<span class="text-primary">' + formattedTotalPrice + '</span>');
-      $('#totalPrice_temp').html('<span class="text-primary">' + formattedTotalPrice + '</span>');
+      $('#discount').html(response);
     },
     error: function(xhr, status, error) {
       console.error('Có lỗi xảy ra khi cập nhật dữ liệu: ' + error);
@@ -253,5 +247,45 @@ function changeQuantity(button, step) {
 }
 
 
+function checkDiscount() {
+  var discountCode = $('#form1').val();
+  $.ajax({
+    type: 'POST',
+    url: "{{ route('check.discount')}}",
+    headers: {
+        'X-CSRF-TOKEN': csrfToken
+    },
+    data: {
+      code: discountCode,
+    },
+   
+    success: function(response) {
+      console.log(response)
+      $('#discount').html(response);
+
+    },
+    error: function(xhr, status, error) {
+      console.error('Có lỗi xảy ra khi cập nhật dữ liệu: ' + error);
+    }
+  });
+}
+
+function destroyDiscount() {
+  $.ajax({
+    type: 'GET',
+    url: "{{ route('destroy.discount')}}",
+    headers: {
+        'X-CSRF-TOKEN': csrfToken
+    },
+
+    success: function(response) {
+      console.log(response)
+      $('#discount').html(response);
+    },
+    error: function(xhr, status, error) {
+      console.error('Có lỗi xảy ra khi cập nhật dữ liệu: ' + error);
+    }
+  });
+}
 </script>
 @endsection
