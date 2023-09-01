@@ -89,7 +89,7 @@
                                     <option value="">Chọn vai trò</option>
                                     <option value="1" {{ $user->role == 1 ? 'selected' : '' }}>Superadmin</option>
                                     <option value="2" {{ $user->role == 2 ? 'selected' : '' }}>Chủ doanh nghiệp</option>
-                                    <option value="no" {{ $user->role == 'no' ? 'selected' : '' }}>Nhân viên</option>
+                                    <option value="3" {{ $user->role == '3' ? 'selected' : '' }}>Nhân viên</option>
                                 </select>
                                 <span class="error-message" id="role-error"></span>
                             </div>

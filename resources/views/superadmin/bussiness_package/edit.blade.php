@@ -51,6 +51,7 @@
                     <div class="form-group col-lg-6">                 
                     <label for="type">Kiểu:</label>
                         <select id="type" name="type" class="form-control">
+                        <option value="day" {{ $package->type == 'day' ? 'selected' : '' }}>Ngày</option>
                         <option value="month" {{ $package->type == 'month' ? 'selected' : '' }}>Tháng</option>
                         <option value="year" {{ $package->type == 'year' ? 'selected' : '' }}>Năm</option>
                         </select>

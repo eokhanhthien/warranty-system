@@ -99,4 +99,13 @@ public function detail(Request $request, $domain, $category , $id){
 
     return view('view-seller.' .$category. '/' .$request->display_slug.  '.detail', compact('business','product','product_detail','variant'));
 }
+
+public function Service(Request $request, $domain, $category ){
+    $business = $request->business;
+    $service_business = BusinessService::where('business_id', $business->id)->get();
+
+    return view('view-seller.' .$category. '/' .$request->display_slug.  '.service', compact('business','service_business'));
+}
+
+
 }

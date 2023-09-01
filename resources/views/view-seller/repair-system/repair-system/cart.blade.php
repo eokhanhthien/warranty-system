@@ -125,15 +125,15 @@
                 <div class="col-md-12 col-lg-6 col-xl-6 mb-4 mb-md-0 col-12">
                 <h5 >Thông tin khách hàng<span class="text-danger">*</span></h5>
                 <div class="row">
-                  <div class="col-3" style="line-height: 40px;">Họ và tên<span class="text-danger">*</span> : </div> <div class="col-6"> <input  class="form-control" type="text" name="name" value="{{Auth::guard('customer')->user()->full_name}}" ><span class="error-message" id="name-error"></span></div>
+                  <div class="col-5 col-ms-5 col-lg-3 col-xl-3" style="line-height: 40px;">Họ và tên<span class="text-danger">*</span> : </div> <div class="col-7 col-ms-7 col-lg-9 col-xl-9"> <input  class="form-control" type="text" name="name" value="{{Auth::guard('customer')->user()->full_name}}" ><span class="error-message" id="name-error"></span></div>
                 </div>
 
                 <div class="row">
-                  <div class="col-3" style="line-height: 40px;">Số điện thoại<span class="text-danger">*</span> : </div> <div class="col-6"> <input  class="form-control" type="text" name="phone_number" value="{{Auth::guard('customer')->user()->phone_number}}" ><span class="error-message" id="phone_number-error"></span></div>
+                  <div class="col-5 col-ms-5 col-lg-3 col-xl-3" style="line-height: 40px;">Số điện thoại<span class="text-danger">*</span> : </div> <div class="col-7 col-ms-7 col-lg-9 col-xl-9"> <input  class="form-control" type="text" name="phone_number" value="{{Auth::guard('customer')->user()->phone_number}}" ><span class="error-message" id="phone_number-error"></span></div>
                 </div>
 
                 <div class="row">
-                  <div class="col-3" style="line-height: 40px;">Email<span class="text-danger">*</span> : </div> <div class="col-6"> <input  class="form-control" type="text" name="email" value="{{Auth::guard('customer')->user()->email}}" ><span class="error-message" id="email-error"></span></div>
+                  <div class="col-5 col-ms-5 col-lg-3 col-xl-3" style="line-height: 40px;">Email<span class="text-danger">*</span> : </div> <div class="col-7 col-ms-7 col-lg-9 col-xl-9"> <input  class="form-control" type="text" name="email" value="{{Auth::guard('customer')->user()->email}}" ><span class="error-message" id="email-error"></span></div>
                 </div>
 
                 <h5 class="mt-4">Vui lòng chọn địa chỉ giao hàng<span class="text-danger">*</span></h5>

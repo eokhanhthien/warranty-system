@@ -77,7 +77,7 @@
                 @foreach($service_business->take(3) as $service)
                 <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp" data-wow-delay="0.1s" >
                     <div class="overflow-hidden ">
-                        <img  class="img-fluid w-100 h-100" src="https://drive.google.com/uc?export=view&id={{$service->image}}" alt="">
+                        <img  class="img-fluid w-100 h-100" src="https://drive.google.com/uc?export=view&id={{$service->image}}" alt="" style="max-height: 220px">
                     </div>
                     <div class="d-flex align-items-center justify-content-between bg-light p-4">
                         <h5 class="text-truncate me-3 mb-0">{{$service->name}}</h5>
@@ -161,7 +161,7 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="text-secondary text-uppercase">Về chúng tôi</h6>
-                    <h1 class="mb-4">Bảo hành, bảo trì</h1>
+                    <h1 class="mb-4">{{ !empty($display_information->title_banner[0]) ? $display_information->title_banner[0] : "Dịch vụ của chúng tôi" }}</h1>
                     <p class="mb-4">{{ !empty($display_information->service_title) ? $display_information->service_title : "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet" }}</p>
                     @if(!empty($display_information->service))
                          @foreach($display_information->service as $service)
@@ -237,7 +237,7 @@
         <div class="row g-0">
             <div class="col-lg-3 d-none d-lg-flex">
                 <div class="d-flex align-items-center justify-content-center bg-primary w-100 h-100">
-                    <h1 class="display-3 text-white m-0" style="transform: rotate(-90deg);">15 Years Experience</h1>
+                    <h1 class="display-3 text-white m-0" style="transform: rotate(-90deg);">5 Years Experience</h1>
                 </div>
             </div>
             <div class="col-md-12 col-lg-9">
@@ -326,7 +326,7 @@
 
 
     <!-- Booking Start -->
-    <div class="container-fluid my-5 px-0">
+    <!-- <div class="container-fluid my-5 px-0">
         <div class="video wow fadeInUp" data-wow-delay="0.1s">
             <button type="button" class="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
                 <span></span>
@@ -340,7 +340,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <!-- 16:9 aspect ratio -->
+                         
                             <div class="ratio ratio-16x9">
                                 <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
                                     allow="autoplay"></iframe>
@@ -393,12 +393,13 @@
                 </div>
             </div>
         </div>
-    </div>
+        
+    </div> -->
     <!-- Booking End -->
 
 
     <!-- Team Start -->
-    <div class="container-xxl py-5">
+    <!-- <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="text-secondary text-uppercase">Our Technicians</h6>
@@ -479,7 +480,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Team End -->
 
 
@@ -487,8 +488,8 @@
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="text-center">
-                <h6 class="text-secondary text-uppercase">Testimonial</h6>
-                <h1 class="mb-5">Our Clients Say!</h1>
+                <h6 class="text-secondary text-uppercase">Đánh giá</h6>
+                <h1 class="mb-5">Đánh giá của khách hàng</h1>
             </div>
             <div class="owl-carousel testimonial-carousel position-relative wow fadeInUp" data-wow-delay="0.1s">
                 <div class="testimonial-item text-center">

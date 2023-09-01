@@ -71,7 +71,7 @@
 <div class="container-xxl py-5">
         <div class="container">     
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                 <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
                   <div class="swiper-wrapper">
                   @php
@@ -103,7 +103,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                   <h3>{{$product->name}}</h3>
                   <input type="hidden" name="product_id" value="{{ $product->id }}">
 

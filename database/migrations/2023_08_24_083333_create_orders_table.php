@@ -20,6 +20,16 @@ class CreateOrdersTable extends Migration
             $table->date('order_date')->nullable();
             $table->string('status');
             $table->boolean('is_completed')->default(false);
+            $table->string('name');
+            $table->string('phone_number');
+            $table->string('email');
+            $table->string('province');
+            $table->string('district');
+            $table->string('ward');
+            $table->string('note');
+            $table->string('pay_method');
+            $table->string('discount_code')->nullable();
+            $table->integer('total_price');
             $table->timestamps();
         });
     }

@@ -75,7 +75,7 @@ class BusinessInfoController extends Controller
         // print_r(json_decode($business->display_information)->images);die;
         if ($request->hasFile('images')) {
             $uploadImage = new UploadDriverColtroller();
-            $pathImage = $uploadImage->upload_image($request);
+            $pathImage = $uploadImage->upload_singer_images($request);
 
             $displayInformation['images'] = $pathImage;
 

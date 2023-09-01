@@ -53,6 +53,7 @@ header.header_section {
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <img class="logo-img" style=" width: 52px;border-radius: 50px; margin-right: 8px;" src="{{ asset('img/logo-eo.png')}}" alt="">
           <a class="navbar-brand" href="">
             <span>LONG TỴ - DIGITAL</span>
           </a>
@@ -338,6 +339,32 @@ header.header_section {
               <h4>
                 <a href="https://longty.io.vn/artisq/pho-xa-32nd/ecommerce" target="_blank">
                   Thương mại điện tử
+                </a>
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+          <div class="box ">
+              <img src="{{ asset('assets/img/images_home/temp3.jpg')}}" alt="" style ="width: 100%; object-fit: cover;">
+            <div class="detail-box">
+              <h4>
+                <a href="https://longty.io.vn/artisq/the-gioi-di-dong-evnh/repair-system" target="_blank">
+                  Thương mại điện tử
+                </a>
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+          <div class="box ">
+              <img src="{{ asset('assets/img/images_home/temp4.jpg')}}" alt="" style ="width: 100%; object-fit: cover;">
+            <div class="detail-box">
+              <h4>
+                <a href="http://longty.io.vn/artisq/rausachcom-bdkc/ecommerce" target="_blank">
+                  Chủ đề nông sản
                 </a>
               </h4>
             </div>

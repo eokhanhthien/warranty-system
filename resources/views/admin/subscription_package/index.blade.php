@@ -51,34 +51,42 @@
         </div>
 
             <!-- Modal -->
-        <div class="modal fade" id="buyModal{{$package->id}}" tabindex="-1" role="dialog" aria-labelledby="buyModal{{$package->id}}Label" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="buyModal{{$package->id}}Label">Mua gói - {{$package->name}}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Nội dung của modal -->
-
-                        <p>Mua gói {{$package->name}} với giá {{number_format($package->price)}} VNĐ?</p>
-                        <div id="qrImage" style="display: flex; justify-content: center;">
-                            <img style="width: 70%;" src="https://img.vietqr.io/image/{{$gateway->bank_id}}-{{$gateway->account_no}}-{{$gateway->template}}.png?amount={{$package->price}}&addInfo=123&accountName={{$gateway->account_name}}" alt="">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary">Xác nhận mua</button>
-                    </div>
+            <div class="modal fade" id="buyModal{{$package->id}}" tabindex="-1" role="dialog" aria-labelledby="buyModal{{$package->id}}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="buyModal{{$package->id}}Label">Mua gói - {{$package->name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung của modal -->
+                <p>Mua gói {{$package->name}} với giá {{number_format($package->price)}} VNĐ?</p>
+                <div id="qrImage" style="display: flex; justify-content: center;">
+                    <img style="width: 70%;" class="qr-image" src="https://img.vietqr.io/image/{{$gateway->bank_id}}-{{$gateway->account_no}}-{{$gateway->template}}.png?amount={{$package->price}}&addInfo=123&accountName={{$gateway->account_name}}" alt="">
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button class="downloadButton btn btn-primary">Tải ảnh</button>
+            </div>
         </div>
+    </div>
+</div>
 
         @endforeach
         @endif
     </div>
+
+    <div class="row">
+    <h4>Hướng dẫn thanh toán</h4>
+    <p><strong>Bước 1</strong>: Chọn gói và click vào "Đăng ký" sẽ có mã QR hiện lên (Quý khách vui lòng chuyển khoản đúng thông tin, trong phần nội dung có thể ghi Họ và tên của quý khách)</p>
+    <p><strong>Bước 2</strong>: Mở ứng dụng Mobile Banking trên điện thoại của bạn và quét mã QR Code.</p>
+    <p><strong>Bước 3</strong>: Kiểm tra thông tin và chọn “Xác nhận” để hoàn tất giao dịch.</p>
+    <p>(Gói sẽ tự động kích hoạt trong vòng 15 phút)</p>
+   </div>
+
     </div>
 </div>
 
@@ -108,6 +116,19 @@
                   
                 }
             });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.downloadButton').click(function() {
+            var img = $(this).closest('.modal-content').find('.qr-image')[0];
+            var imageUrl = img.src;
+            
+            var fileName = 'qr_code.png';
+            
+            saveAs(imageUrl, fileName);
         });
     });
 </script>

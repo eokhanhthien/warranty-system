@@ -124,6 +124,8 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::get('{domain}/{category_slug}', 'SellerController@index')->name('seller.business');
         Route::get('{domain}/{category_slug}/all-product', 'SellerController@all_product')->name('seller.business.all.product');
         Route::get('{domain}/{category_slug}/detail-product/{id}', 'SellerController@detail')->name('seller.business.detail.product');
+        Route::get('{domain}/{category_slug}/service', 'SellerController@Service')->name('seller.business.service');
+
         // Cart
         Route::middleware(['auth_customer'])->group(function () {
             Route::get('{domain}/{category_slug}/cart', 'CartController@showCart')->name('seller.show.cart');

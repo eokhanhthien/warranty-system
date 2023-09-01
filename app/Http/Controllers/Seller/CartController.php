@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Variant;
 use App\Cart;
+use App\Order;
+use App\OrderItem;
 use App\DiscountCode;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SelectOptionsController;
-
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class CartController extends Controller
 {
@@ -26,6 +29,9 @@ class CartController extends Controller
         ->leftJoin('variants', 'carts.variant_id', '=', 'variants.id')
         ->select( 'carts.id','products.id as product_id','products.name','products.image', 'products.price','carts.quantity','variants.id as variant_id', 'variants.title_1', 'variants.title_1','variants.title_2','variants.value_1','variants.value_2','variants.price as variant_price')
         ->get();
+
+        $total_price = $this->calculateTotalPrice();
+        session(['total_cart' => $total_price]);
 
         return view('view-seller.' .$category. '/' .$request->display_slug.  '.cart',compact('business','carts','provinces', 'wards', 'districts'));
     }
@@ -151,6 +157,43 @@ class CartController extends Controller
     }
 
     public function Order(Request $request){
-        dd($request->all());
+        $order = new Order();
+        $order->customer_id = Auth::guard('customer')->user()->id;
+        $randomString = Str::random(5);
+        $order->order_code = $randomString;
+        $order->order_date = Carbon::now();
+        $order->status = 'pendding';
+        $order->is_completed = 0;
+        $order->name = $request->name;
+        $order->phone_number = $request->phone_number;
+        $order->email = $request->email;
+        $order->province = $request->province;
+        $order->district = $request->district;
+        $order->ward = $request->ward;
+        $order->note = $request->note ? $request->note : 'Không có lưu ý';
+        $order->pay_method = $request->pay_method;
+        $order->pay_method = $request->pay_method;
+        $order->discount_code = $request->discount_code;
+        $order->total_price = $request->total_price;
+        $order->save();
+
+        $carts = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+        ->leftJoin('products', 'carts.product_id', '=', 'products.id')
+        ->leftJoin('variants', 'carts.variant_id', '=', 'variants.id')
+        ->select( 'carts.id','products.id as product_id','products.name','products.image', 'products.price','carts.quantity','variants.id as variant_id', 'variants.title_1', 'variants.title_1','variants.title_2','variants.value_1','variants.value_2','variants.price as variant_price')
+        ->get();
+
+
+        foreach ($carts as $cart) {
+            $order_items = new OrderItem();
+            $order_items->customer_id = Auth::guard('customer')->user()->id;
+            $order_items->order_id = $order->id;
+            $order_items->product_id = $cart->product_id; 
+            $order_items->variant_id = $cart->variant_id; 
+            $order_items->quantity = $cart->quantity;
+            $order_items->save();
+        }
+
+        return redirect()->back()->with('success', 'Đặt hàng thành công');
     }
 }
