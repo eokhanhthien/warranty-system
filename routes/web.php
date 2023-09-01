@@ -100,6 +100,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::get('/investment-channel/deposit-rate', 'InvestmentChannelController@deposit_rate');
         Route::get('/investment-channel/conversion-tool', 'InvestmentChannelController@conversion_tool');
         
+        Route::resource('/order', 'OrderController');
         // Các Route khác cho Admin
     });
 });

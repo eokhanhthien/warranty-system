@@ -175,6 +175,7 @@ class CartController extends Controller
         $order->pay_method = $request->pay_method;
         $order->discount_code = $request->discount_code;
         $order->total_price = $request->total_price;
+        $order->business_id = Auth::guard('customer')->user()->business_id;
         $order->save();
 
         $carts = Cart::where('customer_id', Auth::guard('customer')->user()->id)

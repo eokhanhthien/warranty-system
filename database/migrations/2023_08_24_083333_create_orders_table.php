@@ -30,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->string('pay_method');
             $table->string('discount_code')->nullable();
             $table->integer('total_price');
+            $table->unsignedBigInteger('business_id')->nullable();
             $table->timestamps();
         });
     }
