@@ -85,6 +85,16 @@
                   <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhập</button>
                 </div>
               </form>
+              <div class="mb-3">
+                  <button class="btn btn-light d-grid w-100" type="submit">
+                  <a href="{{ url('auth/google') }}" class="custom-google-button">
+                    <span class="icon"><i class="fa fa-google"></i></span>
+                    Đăng nhập bằng Google
+                  </a>
+                  </button>
+                </div>
+         
+
 
               <p class="text-center">
                 <span>Bạn là người mới?</span>

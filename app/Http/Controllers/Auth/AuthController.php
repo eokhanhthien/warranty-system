@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
+use Socialite;
 
 class AuthController extends Controller
 {
@@ -75,5 +76,39 @@ class AuthController extends Controller
             $user->role = 2;
             $user->save();
             return redirect()->back()->with('success', 'Đăng ký thành công');
+        }
+
+        // Đăng nhập google
+        public function redirectToGoogle()
+        {
+            return Socialite::driver('google')->stateless()->redirect();
+        }
+        
+        public function handleGoogleCallback()
+        {
+            $getInfo = Socialite::driver('google')->stateless()->user();
+          
+            $user = User::where('email', $getInfo->email)->first();     
+            if (!$user) {
+            $new_user = new User();
+            $new_user->name = $getInfo->name;
+            $new_user->email = $getInfo->email;
+            $new_user->status = 2;
+            $new_user->verify_email_at = Carbon::now();
+            $new_user->role = 2;
+            $new_user->password = bcrypt('Abc@123456');
+            $new_user->save();
+            auth()->login($new_user);
+            return redirect()->route('admin.dashboard');
+            }else {
+                if($user->role == 1){
+                    auth()->login($user);
+                    return redirect()->route('superadmin.dashboard');
+                }else{
+                    auth()->login($user);
+                    return redirect()->route('admin.dashboard');
+                }
+            }
+
         }
 }

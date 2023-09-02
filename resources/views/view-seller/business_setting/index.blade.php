@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/business_setting/css/style.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-<body style="height: 100vh; overflow:hidden;">
+<body style="height: 100vh">
 
     <div class="main">
 

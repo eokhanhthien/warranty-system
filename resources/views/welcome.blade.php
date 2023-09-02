@@ -102,7 +102,37 @@ header.header_section {
     <section class="slider_section " id="#">
       <div id="customCarousel1" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active">
+        <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="detail-box">
+                    <h1>
+                        Các giải pháp <br>
+                        Mang đến giải pháp bán hàng và quản lý doanh nghiệp tối ưu
+                    </h1>
+                    <p>
+                    Giải Pháp Thiết Kế Website Toàn Diện, công cụ cho phép khởi tạo website doanh nghiệp, website bán hàng nhanh chóng </p>
+                    <div class="btn-box">
+                      <a href="{{route('login')}}" class="btn-1">
+                        Dùng thử miễn phí
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class=" col-lg-10 mx-auto">
+                      <div class="img-box">
+                      <img src="https://createweb.asia/files/uploads/2023/03/screen-op-2.gif" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
             <div class="container ">
               <div class="row">
                 <div class="col-md-6">
@@ -329,6 +359,15 @@ header.header_section {
                 </a>
               </h4>
             </div>
+
+              <div>
+                <button class='btn btn-primary '>
+                    <a class="text-light" href="https://longty.io.vn/artisq/hai-dang-ke-ilwv/repair-system"  target="_blank"><i class="fas fa-eye"></i> Demo</a>
+                </button>
+                <button class='btn btn-success '>
+                    <a class="text-light" href="{{route('login')}}"  target="_blank">Tạo trang web</a>
+                </button>
+            </div>
           </div>
         </div>
     
@@ -338,9 +377,17 @@ header.header_section {
             <div class="detail-box">
               <h4>
                 <a href="https://longty.io.vn/artisq/pho-xa-32nd/ecommerce" target="_blank">
-                  Thương mại điện tử
+                  Quần áo, trang sức
                 </a>
               </h4>
+            </div>
+            <div>
+                <button class='btn btn-primary '>
+                    <a class="text-light" href="https://longty.io.vn/artisq/pho-xa-32nd/ecommerce"  target="_blank"><i class="fas fa-eye"></i> Demo</a>
+                </button>
+                <button class='btn btn-success '>
+                    <a class="text-light" href="{{route('login')}}"  target="_blank">Tạo trang web</a>
+                </button>
             </div>
           </div>
         </div>
@@ -351,9 +398,17 @@ header.header_section {
             <div class="detail-box">
               <h4>
                 <a href="https://longty.io.vn/artisq/the-gioi-di-dong-evnh/repair-system" target="_blank">
-                  Thương mại điện tử
+                  Thiết bị công nghệ
                 </a>
               </h4>
+            </div>
+            <div>
+                <button class='btn btn-primary '>
+                    <a class="text-light" href="https://longty.io.vn/artisq/the-gioi-di-dong-evnh/repair-system"  target="_blank"><i class="fas fa-eye"></i> Demo</a>
+                </button>
+                <button class='btn btn-success '>
+                    <a class="text-light" href="{{route('login')}}"  target="_blank">Tạo trang web</a>
+                </button>
             </div>
           </div>
         </div>
@@ -364,9 +419,17 @@ header.header_section {
             <div class="detail-box">
               <h4>
                 <a href="http://longty.io.vn/artisq/rausachcom-bdkc/ecommerce" target="_blank">
-                  Chủ đề nông sản
+                  Nông sản
                 </a>
               </h4>
+            </div>
+            <div>
+                <button class='btn btn-primary '>
+                    <a class="text-light" href="http://longty.io.vn/artisq/rausachcom-bdkc/ecommerce"  target="_blank"><i class="fas fa-eye"></i> Demo</a>
+                </button>
+                <button class='btn btn-success '>
+                    <a class="text-light" href="{{route('login')}}"  target="_blank">Tạo trang web</a>
+                </button>
             </div>
           </div>
         </div>

@@ -21,6 +21,8 @@ Route::get('/register', 'Auth\AuthController@register')->name('register')->middl
 Route::post('/get-register', 'Auth\AuthController@getRegister')->name('post.register');
 Route::post('/auth-login', 'Auth\AuthController@authLogin')->name('auth.login');
 Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
+Route::get('/auth/google', 'Auth\AuthController@redirectToGoogle');
+Route::get('/auth/google/callback', 'Auth\AuthController@handleGoogleCallback');
 
 
 Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'superadmin']))->group(function () {

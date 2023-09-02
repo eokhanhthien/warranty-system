@@ -325,12 +325,17 @@ li.init {
     padding: auto 0 !important;
   }
   .container {
-    /* border-radius: 10px; */
+    position: fixed !important;
     margin-top: 0px !important;
     -moz-border-radius: 0px !important;
     /* -webkit-border-radius: 0px; */
     -o-border-radius: 0px !important;
     -ms-border-radius: 0px !important;
+    top: 0!important;
+    bottom: 0!important;
+    left: 0!important;
+    right: 0!important;
+    overflow-y: auto !important;
 }
  }
 

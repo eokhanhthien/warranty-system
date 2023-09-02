@@ -33,7 +33,7 @@ table.dataTable {
 }
 .dataTables_filter{
     outline: none !important;
-    margin: 10px 10px 0 0;
+    margin: 10px 10px 0 10px !important;
 }
 img.logo-img {
     width: 52px ;
@@ -114,4 +114,12 @@ button.dt-button.buttons-pdf.buttons-html5, button.dt-button.buttons-excel.butto
 }
 .dataTables_wrapper .dataTables_filter input {
     outline: none !important;
+}
+@media screen and (max-width: 768px) {
+.dataTables_wrapper  > div {
+    display: contents !important;
+}
+.dataTables_filter > label{
+    margin-left: 10px !important;
+}
 }
