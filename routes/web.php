@@ -85,6 +85,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::get('/business-display', 'BusinessInfoController@businessDisplay')->name('admin.business.display');
         Route::post('/set-business-display', 'BusinessInfoController@setBusinessDisplay')->name('admin.set.business.display');
         Route::resource('/business-service', 'BusinessServiceController');
+        Route::post('/business-color', 'BusinessInfoController@businessColor')->name('admin.business.color');
         Route::resource('/categories', 'BusinessCategoryController');
         Route::get('/getSubcategories/{category_id}', 'BusinessCategoryController@getSubcategories')->name('getSubcategories');
         Route::resource('/products', 'BusinessProductController');

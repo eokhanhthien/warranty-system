@@ -264,10 +264,10 @@
     border-color: var(--primary);
 }
 
-.page-header {
+/* .page-header {
     background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url(../img/bg.jpg) center center no-repeat;
     background-size: cover;
-}
+} */
 
 .breadcrumb-item + .breadcrumb-item::before {
     color: var(--light);
@@ -275,10 +275,10 @@
 
 
 /*** Facts ***/
-.fact {
+/* .fact {
     background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url(../img/bg.jpg) center center no-repeat;
     background-size: cover;
-}
+} */
 
 
 /*** Service ***/

@@ -36,8 +36,8 @@
                                     <h5 class="text-white text-uppercase mb-3 animated slideInDown">{{ !empty($display_information->title_banner[1]) ? $display_information->title_banner[1] : "Plumbing & Repairing Services" }}</h5>
                                     <h1 class="display-3 text-white animated slideInDown mb-4">{{ !empty($display_information->title_banner[0]) ? $display_information->title_banner[0] : "Efficient Residential Plumbing Services" }}</h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">{{ !empty($display_information->title_banner[2]) ? $display_information->title_banner[2] : "Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr." }}</p>
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Free Quote</a>
+                                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Xem sản phẩm</a>
+                                    <a href="{{ route('seller.business.service', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Dịch vụ</a>
                                 </div>
                             </div>
                         </div>
@@ -54,8 +54,8 @@
                                     <h5 class="text-white text-uppercase mb-3 animated slideInDown">Plumbing & Repairing Services</h5>
                                     <h1 class="display-3 text-white animated slideInDown mb-4">Efficient Residential Plumbing Services</h1>
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                    <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Free Quote</a>
+                                    <a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Xem sản phẩm</a>
+                                    <a href="{{ route('seller.business.service', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Dịch vụ</a>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                         <p class="fw-medium text-primary"><i class="fa fa-check text-success me-3"></i>Immediate 24/ 7 Hỗ trợ services</p>
                     @endif 
                     
-                    <div class="bg-primary d-flex align-items-center p-4 mt-5">
+                    <div class="{{ !empty($business->color) && $business->color != '' ? '' : 'bg-primary' }} d-flex align-items-center p-4 mt-5" style="{{ !empty($business->color) && $business->color != '' ? 'background-color: ' . $business->color : '' }}">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 60px; height: 60px;">
                             <i class="fa fa-phone-alt fa-2x text-primary"></i>
                         </div>
@@ -203,28 +203,28 @@
 
 
     <!-- Fact Start -->
-    <div class="container-fluid fact bg-dark my-5 py-5">
+    <div class="container-fluid fact bg-dark my-5 py-5"  style="<?php echo isset($image_about_1) ? 'background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url(https://drive.google.com/uc?export=view&id=' . $image_about_1 . ') center center no-repeat; background-size: cover;' : ''; ?>">
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
                     <i class="fa fa-check fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">1234</h2>
-                    <p class="text-white mb-0">Years Experience</p>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">10</h2>
+                    <p class="text-white mb-0">Năm kinh nghiệm</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
                     <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">1234</h2>
-                    <p class="text-white mb-0">Expert Technicians</p>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">100</h2>
+                    <p class="text-white mb-0">Kỹ thuật viên chuyên môn</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
                     <i class="fa fa-users fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">1234</h2>
-                    <p class="text-white mb-0">Satisfied Clients</p>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">1205</h2>
+                    <p class="text-white mb-0">Khách hàng hài lòng</p>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
                     <i class="fa fa-wrench fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">1234</h2>
-                    <p class="text-white mb-0">Compleate Projects</p>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">105</h2>
+                    <p class="text-white mb-0">Sửa chữa</p>
                 </div>
             </div>
         </div>
@@ -236,7 +236,7 @@
     <div class="container-fluid py-5 px-4 px-lg-0">
         <div class="row g-0">
             <div class="col-lg-3 d-none d-lg-flex">
-                <div class="d-flex align-items-center justify-content-center bg-primary w-100 h-100">
+                <div class="d-flex align-items-center justify-content-center {{ !empty($business->color) && $business->color != '' ? '' : 'bg-primary' }} w-100 h-100" style="{{ !empty($business->color) && $business->color != '' ? 'background-color: ' . $business->color : '' }}">
                     <h1 class="display-3 text-white m-0" style="transform: rotate(-90deg);">5 Years Experience</h1>
                 </div>
             </div>

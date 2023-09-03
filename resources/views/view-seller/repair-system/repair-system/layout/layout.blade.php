@@ -57,6 +57,36 @@
         </script>
     @endif
 
+ 
+  @if(!empty($business->color) && $business->color != '')
+  <style>
+    i.fa.fa-map-marker-alt.text-primary.me-2,
+    i.far.fa-envelope-open.text-primary.me-2,
+    .add_to_cart:hover,
+    .view_gallery:hover,
+    p.text-primary.fw-medium,
+    .cart,
+    .navbar-light .navbar-nav .nav-link:hover,
+    .navbar-light .navbar-nav .nav-link.active {
+      color: {{ $business->color }} !important;
+    }
+
+    .add-cart-detail,
+    .container-fluid.bg-dark.text-light.footer.pt-5.mt-5.wow.fadeIn {
+    background-color: {{ $business->color }} !important;
+    }
+    a.btn.btn-primary.py-md-3.px-md-5.me-3.animated.slideInLeft,
+    li.page-item.active span,
+    a.btn.btn-lg.btn-primary.btn-lg-square.rounded-0.back-to-top {
+    background-color: {{ $business->color }} !important;
+    border-color: {{ $business->color }} !important;
+    }
+    </style>
+  @endif
+
+
+
+
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -71,7 +101,7 @@
         <div class="row align-items-center top-bar">
             <div class="col-lg-3 col-md-12 text-center text-lg-start">
                 <a href="" class="navbar-brand m-0 p-0">
-                    <h1 class="text-primary m-0">{{$business->name}}</h1>
+                    <h1 style="{{ !empty($business->color) && $business->color != '' ? 'color: ' . $business->color : '' }}" class="{{ !empty($business->color) && $business->color != '' ? '' : 'text-primary' }} m-0">{{ $business->name }}</h1>
                 </a>
             </div>
             <div class="col-lg-9 col-md-12 text-end">
@@ -130,7 +160,7 @@
                     <!-- <a href="contact.html" class="nav-item nav-link">Liên hệ</a> -->
                 </div>
                 <div>
-                <a style=" font-weight: 600;text-transform: uppercase;" href="{{ route('seller.show.cart', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="nav-item nav-link"><i class="fas fa-shopping-cart" style="font-size: 24p;cursor: pointer;"></i> Giỏ hàng</a>
+                <a style=" font-weight: 600;text-transform: uppercase;" href="{{ route('seller.show.cart', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="nav-item nav-link cart"><i class="fas fa-shopping-cart" style="font-size: 24p;cursor: pointer;"></i> Giỏ hàng</a>
                     
                 </div>
                 @php
@@ -172,7 +202,7 @@
                 </div>
                 @endif
 
-                <div class="mt-4 mt-lg-0 me-lg-n4 py-3 px-4 bg-primary d-flex align-items-center">
+                <div class="mt-4 mt-lg-0 me-lg-n4 py-3 px-4 {{ !empty($business->color) && $business->color != '' ? '' : 'bg-primary' }} d-flex align-items-center" style="{{ !empty($business->color) && $business->color != '' ? 'background-color: ' . $business->color : '' }}">
                     <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 45px; height: 45px;">
                         <i class="fa fa-phone-alt text-primary"></i>
                     </div>

@@ -126,7 +126,7 @@
                               @endforeach
                       @endif
                   </div>
-                  <button class='btn btn-primary mt-3' onclick="addToCart()">Thêm vào giỏ hàng</button>
+                  <button class='btn btn-primary mt-3 add-cart-detail' onclick="addToCart()">Thêm vào giỏ hàng</button>
               </div>
             </div>
 

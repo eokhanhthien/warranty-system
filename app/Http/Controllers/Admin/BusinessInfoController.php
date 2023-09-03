@@ -63,7 +63,7 @@ class BusinessInfoController extends Controller
         $business = Business::findOrFail(Auth::user()->business_id);
         $display_information = json_decode($business->display_information);
         // dd($display_information->service);
-        return view('admin.setting_business.business_display', compact('display_information'));
+        return view('admin.setting_business.business_display', compact('display_information','business'));
     }
 
     public function setBusinessDisplay(Request $request){
@@ -120,6 +120,17 @@ class BusinessInfoController extends Controller
         $display_information = json_decode($business->display_information);
         // dd($display_information->service);
         return view('admin.services_business.business_services', compact('display_information'));
+    }
+
+    public function businessColor(Request $request){
+        $business = Business::findOrFail(Auth::user()->business_id);
+        $business->color = $request->color;
+        $business->save();
+        return redirect()->back()->with('success', 'Cập nhật màu chủ đề thành công');
+
+        // $display_information = json_decode($business->display_information);
+        // // dd($display_information->service);
+        // return view('admin.services_business.business_services', compact('display_information'));
     }
 
 }

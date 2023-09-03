@@ -104,9 +104,9 @@ table.dataTable tbody th, table.dataTable tbody td {
 .btn-pd {
     padding: 5px !important;
 }
-button.dt-button.buttons-pdf.buttons-html5, button.dt-button.buttons-excel.buttons-html5 {
+button.dt-button.buttons-pdf.buttons-html5, button.dt-button.buttons-excel.buttons-html5, button.dt-button.buttons-copy.buttons-html5, button.dt-button.buttons-csv.buttons-html5, button.dt-button.buttons-print   {
     padding: 2px !important;
-    margin: 8px !important;
+    margin: 8px 4px 8px 4px !important;
     font-size: 13px !important;
 }
 .dataTables_wrapper .dataTables_length select {
