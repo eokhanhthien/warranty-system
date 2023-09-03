@@ -18,8 +18,9 @@
 
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="container mt-5" >
-    <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#addCategoryModal">Thêm mã giảm giá</button>
+    <div class="text-right">
+        <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#addCategoryModal">Thêm mã giảm giá</button>
+    </div>
 
     <!-- Bảng danh mục -->
 
@@ -188,7 +189,7 @@
     </div>
 
 
-  </div>
+
     </div>
 </div>
 <script src="{{ asset('assets/js/data-table-js.js') }}"></script>

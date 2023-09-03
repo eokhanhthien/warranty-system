@@ -103,6 +103,17 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::get('/investment-channel/conversion-tool', 'InvestmentChannelController@conversion_tool');
         
         Route::resource('/order', 'OrderController');
+        Route::get('/preparing-order', 'OrderController@preparingOrder')->name('order.preparing');
+        Route::get('/pending-order', 'OrderController@pendingOrder')->name('order.pending');
+        Route::get('/delivering-order', 'OrderController@deliveringOrder')->name('order.delivering');
+        Route::get('/delivered-order', 'OrderController@deliveredOrder')->name('order.delivered');
+        Route::get('/denied-order', 'OrderController@getDeniedOrder')->name('order.denied');
+
+
+        Route::get('/confirm-order/{id}', 'OrderController@confirmOrder')->name('confirm.order');
+        Route::get('/denied-order/{id}', 'OrderController@deniedOrder')->name('denied.order');
+        Route::get('/done-preparing-order/{id}', 'OrderController@donePreparingOrder')->name('done.preparing.order');
+        Route::get('/done-delivered-order/{id}', 'OrderController@doneDeliveredOrder')->name('done.delivered.order');
         // Các Route khác cho Admin
     });
 });

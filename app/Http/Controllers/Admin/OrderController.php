@@ -18,6 +18,32 @@ class OrderController extends Controller
         return view('admin.order.index', compact('orders'));
     }
 
+    public function pendingOrder(Request $request){
+        $orders = Order::where('business_id', auth()->user()->business_id)->where('status', 'pending')->get();
+        return view('admin.order.pending', compact('orders'));
+    }
+
+    public function preparingOrder(Request $request){
+        $orders = Order::where('business_id', auth()->user()->business_id)->where('status', 'preparing')->get();
+        return view('admin.order.preparing', compact('orders'));
+    }
+
+    public function deliveringOrder(Request $request){
+        $orders = Order::where('business_id', auth()->user()->business_id)->where('status', 'delivering')->get();
+        return view('admin.order.delivering', compact('orders'));
+    }
+
+    public function deliveredOrder(Request $request){
+        $orders = Order::where('business_id', auth()->user()->business_id)->where('status', 'delivered')->get();
+        return view('admin.order.delivered', compact('orders'));
+    }
+
+    public function getDeniedOrder(Request $request){
+        $orders = Order::where('business_id', auth()->user()->business_id)->where('status', 'denied')->get();
+        return view('admin.order.denied', compact('orders'));
+    }
+
+
     public function create()
     {
         return view('admin.business.service.create');
@@ -25,72 +51,55 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // upload image
-        $uploadController = new UploadDriverColtroller();
-        $path_image = $uploadController->upload_image($request);
 
-        $business_service = new BusinessService;
-        $business_service->name = $request->name;
-        $business_service->short_description = $request->short_description;
-        $service = json_encode($request->service);
-        $business_service->service = $service;
-        $business_service->detail_description = $request->content;
-        $business_service->business_id = auth()->user()->business_id;
-        $business_service->image = $path_image;
-
-        $business_service->save();
-
-        return redirect()->route('business-service.index')->with('success', 'Tạo dịch vụ thành công.');
     }
 
     public function show(BusinessService $businessService)
     {
-        dd(123);
-        // return view('admin.business.service.show', compact('businessService'));
+
     }
 
     public function edit(BusinessService $businessService)
     {
-        $business_service = $businessService;
-        return view('admin.services_business.edit', compact('business_service'));
+
     }
 
     public function update(Request $request, BusinessService $businessService)
     {
-        $business_service = $businessService;
-        
-        if ($request->hasFile('image')) {
-            $uploadimage = new UploadDriverColtroller();
-            $path_image = $uploadimage->upload_image($request);
-            
-            // Delete old image
-            $deleteimage = new UploadDriverColtroller();
-            $deleteimage->delete_image($business_service->image);
-            
-            $business_service->image = $path_image;
-        }
-    
-        $business_service->name = $request->name;
-        $business_service->short_description = $request->short_description;
-        $service = json_encode($request->service);
-        $business_service->service = $service;
-        $business_service->detail_description = $request->content;
-    
-        $business_service->save();
-    
-        return redirect()->route('business-service.index')->with('success', 'Cập nhật dịch vụ thành công.');
+
     }
     
 
     public function destroy(BusinessService $businessService)
     {
-        $deleteimage = new UploadDriverColtroller();
-        $deleteimage->delete_image($businessService->image);
 
-        $businessService->delete();
-
-        return redirect()->route('business-service.index')->with('success', 'Xóa dịch vụ thành công..');
     }
 
 
+    public function confirmOrder(Request $request, $id){
+        $order = Order::find($id);
+        $order->status = 'preparing';
+        $order->save();
+        return redirect()->back()->with('success', 'Xác nhận thành công');
+    }
+
+    public function deniedOrder(Request $request, $id){
+        $order = Order::find($id);
+        $order->status = 'denied';
+        $order->save();
+        return redirect()->back()->with('success', 'Từ chối thành công');
+    }
+
+    public function donePreparingOrder(Request $request, $id){
+        $order = Order::find($id);
+        $order->status = 'delivering';
+        $order->save();
+        return redirect()->back()->with('success', 'Xác nhận đang giao');
+    }
+    public function doneDeliveredOrder(Request $request, $id){
+        $order = Order::find($id);
+        $order->status = 'delivered';
+        $order->save();
+        return redirect()->back()->with('success', 'Xác nhận đã giao');
+    }
 }

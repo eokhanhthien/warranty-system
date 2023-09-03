@@ -162,7 +162,7 @@ class CartController extends Controller
         $randomString = Str::random(5);
         $order->order_code = $randomString;
         $order->order_date = Carbon::now();
-        $order->status = 'pendding';
+        $order->status = 'pending';
         $order->is_completed = 0;
         $order->name = $request->name;
         $order->phone_number = $request->phone_number;

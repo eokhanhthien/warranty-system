@@ -308,6 +308,9 @@
 
             </li>
 
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Thương mại điện tử</span>
+            </li>
             <li class="{{ str_starts_with(request()->url(), url('admin/products')) || str_starts_with(request()->url(), url('admin/categories'))|| str_starts_with(request()->url(), url('admin/discounts'))  ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
               <i class='menu-icon bx bxs-component'></i>
@@ -339,7 +342,7 @@
               
             </li>
 
-            <li class="{{ str_starts_with(request()->url(), url('admin/order'))   ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('admin/order')) ||str_starts_with(request()->url(), url('admin/pending-order')) ||str_starts_with(request()->url(), url('admin/preparing-order')) ||str_starts_with(request()->url(), url('admin/delivering-order')) ||str_starts_with(request()->url(), url('admin/delivered-order')) ||str_starts_with(request()->url(), url('admin/denied-order')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
               <i class='menu-icon bx bxs-cart-alt' ></i>
                 <div data-i18n="Layouts">Đơn hàng</div>
@@ -348,11 +351,50 @@
               <ul class="menu-sub">
                 <li class="{{ str_starts_with(request()->url(), url('admin/order')) ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('order.index') }}" class="menu-link">
-                    <div data-i18n="Without menu">Đơn hàng</div>
+                    <div data-i18n="Without menu">Tất cả</div>
                   </a>
                 </li>        
               </ul>
- 
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/pending-order')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('order.pending') }}" class="menu-link">
+                    <div data-i18n="Without menu">Chờ xác nhận</div>
+                  </a>
+                </li>        
+              </ul>
+       
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/preparing-order')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('order.preparing') }}" class="menu-link">
+                    <div data-i18n="Without menu">Đang chuẩn bị</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/delivering-order')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('order.delivering') }}" class="menu-link">
+                    <div data-i18n="Without menu">Đang giao</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/delivered-order')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('order.delivered') }}" class="menu-link">
+                    <div data-i18n="Without menu">Đã giao</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/denied-order')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('order.denied') }}" class="menu-link">
+                    <div data-i18n="Without menu">Bị từ chối</div>
+                  </a>
+                </li>        
+              </ul>
             </li>
 
 
@@ -504,31 +546,23 @@
                     <li>
                       <a class="dropdown-item" href="#">
                         <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
+                        <span class="align-middle">Hồ sơ của bạn</span>
                       </a>
                     </li>
                     <li>
                       <a class="dropdown-item" href="#">
                         <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
+                        <span class="align-middle">Cài đặt</span>
                       </a>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
+                   
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
                       <a class="dropdown-item" href="{{route('logout')}}">
                         <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
+                        <span class="align-middle">Đăng xuất</span>
                       </a>
                     </li>
                   </ul>

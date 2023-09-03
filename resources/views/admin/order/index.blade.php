@@ -18,10 +18,11 @@
 
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="text-right">
+          <button class="btn btn-primary  m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Thêm</button>
+    </div>
     <div class="card">
-                <div class="text-right">
-                      <button class="btn btn-primary float-right m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Thêm</button>
-                </div>
+
                 <h5 class="card-header">Tất cả đơn hàng</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table" id="table_team">
@@ -30,7 +31,10 @@
                         <th>STT</th>
                         <th>Tên khách hàng</th>
                         <th>Mã đơn</th>
-                        <th>tình trạng</th>
+                        <th>phương thức thanh toán</th>
+                        <th>Tổng tiền</th>
+                        <th>Thanh toán</th>
+                        <th>Trạng thái</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -41,35 +45,67 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $order->name }}</td>
                         <td>{{ $order->order_code }}</td>
-                        <td>{{ $order->status }}</td>
-                        
-                       
+                        <td>{{ $order->pay_method  == 'POD' ? 'Thanh toán chuyển khoản' : 'Thanh toán khi nhận hàng'}}</td>
+                        <td class="text-success">{{ number_format($order->total_price) }} đ</td>
+                        <td>{{ $order->is_completed  == '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}}</td>
                         <td>
-                          <button class="btn btn-primary btn-pd">
-                            <a style="color: white" class="d-inline-block" href="{{route('business-service.edit',[$order->id])}}">
-                              <i class="bx bx-edit-alt me-1"></i> Sửa
-                            </a>
-                          </button> 
+                        @if( $order->status == 'pending')
+                          Chưa xác nhận                     
+                        @elseif( $order->status == 'preparing')
+                          Đang chuẩn bị hàng
+                        @elseif( $order->status == 'delivering')
+                          Đang giao
+                        @elseif( $order->status == 'delivered')
+                          Đã giao <i class="fas fa-check-circle text-success"></i>
+                        @elseif( $order->status == 'denied')
+                          Từ chối <i class="fas fa-times-circle text-danger"></i>
+                        @endif
+                        </td>
+                                       
+                        <td>
+                        @if( $order->status == 'pending')
+                        <button class="btn btn-primary btn-pd">
+                              <a style="color: white" class="d-inline-block" href="{{route('confirm.order',[$order->id])}}">
+                                <i class="fas fa-check"></i> Xác nhận
+                              </a>
+                          </button>    
+              
                           <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $order->id }}">
-                              <i class="bx bx-trash me-1"></i> Xóa
-                          </button>
+                            <i class="fas fa-times"></i> Từ chối
+                          </button>           
+                        @elseif( $order->status == 'preparing')
+                          <button class="btn btn-primary btn-pd">
+                              <a style="color: white" class="d-inline-block" href="{{route('done.preparing.order',[$order->id])}}">
+                                <i class="fas fa-check"></i> Xong
+                              </a>
+                          </button> 
+                        @elseif( $order->status == 'delivering')
+                        <button class="btn btn-primary btn-pd">
+                              <a style="color: white" class="d-inline-block" href="{{route('done.delivered.order',[$order->id])}}">
+                                <i class="fas fa-check"></i> Đã giao
+                              </a>
+                          </button> 
+                        @elseif( $order->status == 'delivered')
+                          <!-- Đã giao <i class="fas fa-check-circle text-success"></i> -->
+                        @elseif( $order->status == 'denied')
+                          <!-- Từ chối <i class="fas fa-times-circle text-danger"></i> -->
+                        @endif
+
                           <div class="modal fade" id="confirmationModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="confirmationModalLabel">Xác nhận xóa</h5>
+                                          <h5 class="modal-title" id="confirmationModalLabel">Xác nhận từ chối</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                           </button>
                                       </div>
-                                      <div class="modal-body">Bạn có chắc muốn xóa ? </div>
+                                      <div class="modal-body">Bạn có chắc muốn từ chối ? </div>
                                       <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>                                         
-                                      <form action="{{ route('business-service.destroy', ['id' => $order->id]) }}" method="POST" style="display: inline-block;">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" class="btn btn-danger">Xóa</button>                                          
-                                      </form>
+                                      <a href="{{route('denied.order',[$order->id])}}', ['id' => $order->id]) }}" style="display: inline-block;">
+                                          <button type="" class="btn btn-danger">Từ chối</button>                                          
+                                      </a>
                                       </div>
                                   </div>
                               </div>

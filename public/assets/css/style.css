@@ -123,3 +123,16 @@ button.dt-button.buttons-pdf.buttons-html5, button.dt-button.buttons-excel.butto
     margin-left: 10px !important;
 }
 }
+
+table.dataTable.no-footer {
+    border-bottom: 1px solid rgb(175 175 175 / 30%) !important;
+}
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #cfcaca !important;
+    border-radius: 5px !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.5em 0.5em !important;
+    border-radius: 5px !important;
+    background: transparent !important;
+}

@@ -18,10 +18,11 @@
 
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="container mt-5" >
+
+    <div class="text-right">
     <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#addCategoryModal">Thêm danh mục</button>
     <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#addSubCategoryModal">Thêm danh mục con</button>
-
+    </div>
     <!-- Bảng danh mục -->
 
     <div class="card mt-4">
@@ -32,6 +33,7 @@
         <tr>
           <th>STT</th>
           <th>Tên danh mục</th>
+          <th>Ngày tạo</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -41,6 +43,7 @@
             <tr>
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $category->name }}</td>
+                <td>{{ $category->created_at }}</td>
                 <td>
                 <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#editModal{{ $category->id }}">
                     <i class="bx bx-edit-alt me-1"></i> Sửa
@@ -267,7 +270,7 @@
         </div>
       </div>
     </div>
-  </div>
+
     </div>
 </div>
 <script src="{{ asset('assets/js/data-table-js.js') }}"></script>

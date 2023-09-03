@@ -18,63 +18,92 @@
 
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
-     <div class="text-right">
-          <button class="btn btn-primary  m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Thêm</button>
-    </div>
+
     <div class="card">
 
-                <h5 class="card-header">Tất cả dịch vụ</h5>
+                <h5 class="card-header">Đơn hàng chờ xác nhận</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table" id="table_team">
                     <thead>
                       <tr>
                         <th>STT</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>description</th>
+                        <th>Tên khách hàng</th>
+                        <th>Mã đơn</th>
+                        <th>phương thức thanh toán</th>
+                        <th>Tổng tiền</th>
+                        <th>Thanh toán</th>
+                        <th>Trạng thái</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
-                    @if(!empty($business_service))
+                    @if(!empty($orders))
                     <tbody class="table-border-bottom-0">
-                      @foreach($business_service as $service)
+                      @foreach($orders as $order)
                       <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ $service->name }}</td>
-                        @if(!empty($service->image))
-                        <td><img  style = "width: 120px;" class="img-fluid" src="https://drive.google.com/uc?export=view&id={{$service->image}}" alt=""></td>
-
-                        @else
-                         <td><img style = "width: 120px; height: 120px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEXFxcX////CwsLGxsb7+/vT09PJycn19fXq6urb29ve3t7w8PDOzs7n5+f5+fnt7e30nlkBAAAFHUlEQVR4nO2dC5qqMAyFMTwUBdz/bq+VYYrKKJCkOfXmXwHna5uTpA+KwnEcx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3Ecx3EcA2iO9cdIc5PUdO257y+BU39u66b4HplE3fk6VIcnqmNfl1+gksr6+iIucjl3WYukor7+re6Hoe1y1UhNO3zUd+fUFRmKpOa0Tt6dY5ubRCrOG/QFLk1WGmnt/JxzykcjdZ/jyxJDLlOV2l36AtcsJJb9boG3YcR3DuqODIE3ztYKPkDdmwRmpUToUaSaq++AvRgZMWbOpbQW8hdCAm8ZDugoikzREdCJ2okJPBx6azFLNOwoOgcxojJ98JkaTSJxMpklKrCAKhZGI0drTY/wU5lXoJYibannV9NYy4oozNEAkPHTjop+DTDxVGkIgYJNoyQQJtiIW+EMjGAjm649AjGIaqswcEFQKJ2QPlJbqytki6ZXAAZRJ52J2McaUowzAfs+uFzrYhnzaapphiPWdaJWShqxjqa6kTTQ205TVbsfMa6htL0iYOsXpJrQjHSmCkv1QGPtiHqlYcQ21Gj7fcDU8xOEUuNgSltPzexh+HqFlanCBHZ4OLhCV+gK/3OF6vWvucLv98MUOY2pwu/PS/+D2qJU7pYGbOvDFDW+bbON9p3o3oRxn0bfLgZTgSn6pSfrtr56qLHemtHPTK2319SzGvtjQ9qeb39WgS66Cm073nd0U1PzDdJCO3Gzn6TKpl9Zq7ujGWsQhlA3NwWIMwG9zM08Y/tBrR9VWeczv5CSQuuUNKIUTk23ZJ5RKfVhjnkXotfWIlgX2BSCDYbZR+QTcLhb3dKZDUY2M0d4KWItwhHRah/zsrOgKw4wycwjcgEVcgQDQo23CqSiWEJkFAfod2oE1uIFdA1OsCPqFXYNTjCfb8Ez+iX2x5sKLlVbhtqdDcar9ZevhnbZxoBUD35k23t0d304LYs1ELVbnfFaZ/REJJX9niP8Q19moZGo3m8XR/yBvOnjFfsXcI2c8ZuNo7WMP5HQh6yRGrlmFOJTnyTcT+zRlqPUBI2gTVWNUzUna1ERgecgF4GpNBQ38jGqxVLzQA1A31Rrhk6Yz9QEh/WND0GnuG9huhiTXJkxfAizTHLr6cbJKN6UCU6x/2DTRE1xEeEXi3O0ZUqBN4nJRzHhFB1JPlFTBZlI2kQ8zc3KJ1Le8DIRmFJiknuVS6RK4Ej/JtBfJErDSzOBiY4wJHX6Z1I4v1GUmdCPNirnLLeg3oJLcbX5PcpHNbRvOa1A956QmRPOUXVF+zkaUJynpkYR0bOMJH2nNej1pqyV/aKkz9jr5yj5vrXXz1F5SQLACiMapmierj2ikLyleKdlA/I/2oFxiglxx9B+mHwz0lf34IZQfhDRhlD6bhvgEAoPYooHkTczSIZTLC+cEExsoNKZiGBiY9cCfo/Y/SjIOBMQizWWTe73CMUasJx7jlD+DdKdWUKoY4PRYFtGpO0G1Lx4RaadgTtJhf4fiGqGIwKWCGuGIwKWqP+7IxYCzygjR9IAO5pC7Da9g70TBVpWRNgFBlgT8RV2WxHbKwJMv4BOaEaYaU2K16yZMN/qgV+G7IWIvwyZCxHeDQMsR8wg0DBDDXB5H2EV+hkEGmaoySHQsEJNFoGGFWrAq98JRhUMX1iMMMqLLEIpK5jCbd4vw9nSt/72lewXiN6jmdjfq8Hdknlk92ZwJnbIMMRM7JBhiFlUFoHd1UWaP1QKsPsHA5mkNB+Smn9JqV3wskatnQAAAABJRU5ErkJggg==" alt=""></td> 
-                        @endif
-                          <td>{{ $service->short_description }}</td>
-                       
+                        <td>{{ $order->name }}</td>
+                        <td>{{ $order->order_code }}</td>
+                        <td>{{ $order->pay_method  == 'POD' ? 'Thanh toán chuyển khoản' : 'Thanh toán khi nhận hàng'}}</td>
+                        <td class="text-success">{{ number_format($order->total_price) }} đ</td>
+                        <td>{{ $order->is_completed  == '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}}</td>
                         <td>
+                        @if( $order->status == 'pending')
+                          Chưa xác nhận                     
+                        @elseif( $order->status == 'preparing')
+                          Đang chuẩn bị hàng
+                        @elseif( $order->status == 'delivering')
+                          Đang giao
+                        @elseif( $order->status == 'delivered')
+                          Đã giao <i class="fas fa-check-circle text-success"></i>
+                        @elseif( $order->status == 'denied')
+                          Từ chối <i class="fas fa-times-circle text-danger"></i>
+                        @endif
+                        </td>
+                                       
+                        <td>
+                        @if( $order->status == 'pending')
+                        <button class="btn btn-primary btn-pd">
+                              <a style="color: white" class="d-inline-block" href="{{route('confirm.order',[$order->id])}}">
+                                <i class="fas fa-check"></i> Xác nhận
+                              </a>
+                          </button>    
+              
+                          <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $order->id }}">
+                            <i class="fas fa-times"></i> Từ chối
+                          </button>           
+                        @elseif( $order->status == 'preparing')
                           <button class="btn btn-primary btn-pd">
-                            <a style="color: white" class="d-inline-block" href="{{route('business-service.edit',[$service->id])}}">
-                              <i class="bx bx-edit-alt me-1"></i> Sửa
-                            </a>
+                              <a style="color: white" class="d-inline-block" href="{{route('done.preparing.order',[$order->id])}}">
+                                <i class="fas fa-check"></i> Xong
+                              </a>
                           </button> 
-                          <button type="button" class="btn btn-danger btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $service->id }}">
-                              <i class="bx bx-trash me-1"></i> Xóa
-                          </button>
-                          <div class="modal fade" id="confirmationModal{{ $service->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                        @elseif( $order->status == 'delivering')
+                        <button class="btn btn-primary btn-pd">
+                              <a style="color: white" class="d-inline-block" href="{{route('done.delivered.order',[$order->id])}}">
+                                <i class="fas fa-check"></i> Đã giao
+                              </a>
+                          </button> 
+                        @elseif( $order->status == 'delivered')
+                          <!-- Đã giao <i class="fas fa-check-circle text-success"></i> -->
+                        @elseif( $order->status == 'denied')
+                          <!-- Từ chối <i class="fas fa-times-circle text-danger"></i> -->
+                        @endif
+
+                          <div class="modal fade" id="confirmationModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="confirmationModalLabel">Xác nhận xóa</h5>
+                                          <h5 class="modal-title" id="confirmationModalLabel">Xác nhận từ chối</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                           </button>
                                       </div>
-                                      <div class="modal-body">Bạn có chắc muốn xóa ? </div>
+                                      <div class="modal-body">Bạn có chắc muốn từ chối ? </div>
                                       <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>                                         
-                                      <form action="{{ route('business-service.destroy', ['id' => $service->id]) }}" method="POST" style="display: inline-block;">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" class="btn btn-danger">Xóa</button>                                          
-                                      </form>
+                                      <a href="{{route('denied.order',[$order->id])}}', ['id' => $order->id]) }}" style="display: inline-block;">
+                                          <button type="" class="btn btn-danger">Từ chối</button>                                          
+                                      </a>
                                       </div>
                                   </div>
                               </div>
@@ -94,7 +123,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title" id="myModalLabel">Thêm dịch vụ</h4>
+                      <h4 class="modal-title" id="myModalLabel">Thêm đơn hàng</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
