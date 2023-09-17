@@ -19,7 +19,56 @@
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="text-right">
-          <button class="btn btn-primary  m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Thêm</button>
+          <button class="btn btn-primary  m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Tạo đơn hàng mới</button>
+    </div>
+
+    <h5 class="text-primary mt-2">Danh sách cần làm</h5>
+    <div class="container-fluid">
+    <div class="row mb-5 mt-3 pt-4 pb-4" style="border: 1px solid rgba(0,0,0,.125); border-radius: 0.25rem;">
+      <div class="col-lg-3" style="border-right: 1px solid #ccc;">
+        <div class="text-center">
+          <div class="text-success font-weight-bold">{{$pending}}</div>
+          <div> <a href="{{route('order.pending')}}">Chờ xác nhận</a></div>
+        </div>
+      </div>
+
+      <div class="col-lg-3" style="border-right: 1px solid #ccc;">
+        <div class="text-center">
+          <div class="text-success font-weight-bold">{{$preparing}}</div>
+          <div><a href="{{route('order.preparing')}}">Chờ lấy hàng</a></div>
+        </div>
+      </div>
+
+      <div class="col-lg-3" style="border-right: 1px solid #ccc;">
+        <div class="text-center">
+          <div class="text-success font-weight-bold">{{$delivering}}</div>
+          <div><a href="{{route('order.delivering')}}">Đang giao</a></div>
+        </div>
+      </div>
+
+      <div class="col-lg-3" >
+        <div class="text-center">
+          <div class="text-success font-weight-bold">{{$delivered}}</div>
+          <div><a href="{{route('order.delivered')}}">Đã giao</a></div>
+        </div>
+      </div>
+
+      <div class="mt-5"></div>
+      <div class="col-lg-3" style="border-right: 1px solid #ccc;">
+        <div class="text-center">
+          <div class="text-success font-weight-bold">{{$preparing}}</div>
+          <div>Trả hàng/ hoàn tiền chờ xử lý</div>
+        </div>
+      </div>
+
+      <div class="col-lg-3" style="border-right: 1px solid #ccc;">
+        <div class="text-center">
+          <div class="text-danger font-weight-bold">{{$denied}}</div>
+          <div><a href="{{route('order.denied')}}">Đơn hủy</a></div>
+        </div>
+      </div>
+      </div>
+
     </div>
     <div class="card">
 

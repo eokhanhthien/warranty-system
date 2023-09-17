@@ -110,7 +110,7 @@ header.header_section {
             <div class="container ">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="detail-box">
+                  <div class="detail-box" style="padding-top: 32px;">
                     <h1>
                         Các giải pháp <br>
                         Mang đến giải pháp bán hàng và quản lý doanh nghiệp tối ưu
@@ -140,7 +140,7 @@ header.header_section {
             <div class="container ">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="detail-box">
+                  <div class="detail-box" style="padding-top: 32px;">
                     <h1>
                         Các giải pháp <br>
                         Mang đến giải pháp bán hàng và quản lý doanh nghiệp tối ưu
@@ -170,7 +170,7 @@ header.header_section {
             <div class="container ">
               <div class="row">
                 <div class="col-md-6">
-                    <div class="detail-box">
+                    <div class="detail-box" style="padding-top: 32px;">
                         <h1>
                           Mang đến chất lượng <br>
                           Tùy chỉnh linh hoạt giao diện và hình ảnh của website
@@ -344,7 +344,7 @@ header.header_section {
     </div>
 
 
-    <div class="container mt-5" id="template">
+    <div class="container" id="template" style="padding-top: 100px;">
       <div class="heading_container heading_center">
         <h2>
           Một số giao diện mẫu

@@ -72,11 +72,48 @@
                             <i class="fas fa-times"></i> Từ chối
                           </button>           
                         @elseif( $order->status == 'preparing')
-                          <button class="btn btn-primary btn-pd">
+                          <!-- <button class="btn btn-primary btn-pd">
                               <a style="color: white" class="d-inline-block" href="{{route('done.preparing.order',[$order->id])}}">
                                 <i class="fas fa-check"></i> Xong
                               </a>
-                          </button> 
+                          </button>  -->
+                          <button class="btn btn-primary btn-pd" data-toggle="modal" data-target="#shippingMethodModal">
+                              <i class="fas fa-check"></i> Chuyển cho đơn vị vận chuyển
+                          </button>
+                         <!-- Modal -->
+                          <div class="modal fade" id="shippingMethodModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Chọn phương thức vận chuyển</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <form action="{{route('done.preparing.order',[$order->id])}}" method="POST">
+                                        @csrf
+                                      <div class="modal-body">
+                                              <div class="form-check">
+                                                  <input class="form-check-input" style="margin-top: 12px;" type="radio" name="shipping_method" id="shippingMethod1" value="local_post_office" required>
+                                                  <label class="form-check-label" for="shippingMethod1">
+                                                      Tôi sẽ tự mang đến bưu cục
+                                                  </label>
+                                              </div>
+                                              <div class="form-check">
+                                                  <input class="form-check-input" style="margin-top: 12px;" type="radio" name="shipping_method" id="shippingMethod2" value="economical_delivery" required>
+                                                  <label class="form-check-label" for="shippingMethod2">
+                                                      Đơn vị vận chuyển J&T Express
+                                                  </label>
+                                              </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                          <button type="submit" class="btn btn-primary">Lưu</button>
+                                      </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
                         @elseif( $order->status == 'delivering')
                         <button class="btn btn-primary btn-pd">
                               <a style="color: white" class="d-inline-block" href="{{route('done.delivered.order',[$order->id])}}">

@@ -508,10 +508,15 @@
                         $initial = mb_strtoupper(mb_substr($lastName, 0, 1));
                     @endphp
 
+                    @if(empty(Auth::user()->image))
                     <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;">
                         <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
                     </div>
-
+                    @else
+                    <div class="avatar avatar-online" style="  width: 40px; height: 40px; border-radius: 50%;overflow: hidden; ">
+                      <img  class="" src="https://drive.google.com/uc?export=view&id={{Auth::user()->image}}" alt="" >
+                    </div>
+                    @endif
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -527,9 +532,15 @@
                                 $initial = mb_strtoupper(mb_substr($lastName, 0, 1));
                             @endphp
 
+                            @if(empty(Auth::user()->image))
                             <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;">
                                 <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
                             </div>
+                            @else
+                            <div class="avatar avatar-online" style="  width: 40px; height: 40px; border-radius: 50%;overflow: hidden; ">
+                              <img  class="" src="https://drive.google.com/uc?export=view&id={{Auth::user()->image}}" alt="" >
+                            </div>
+                            @endif
 
                             </div>
                           </div>
@@ -544,7 +555,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="{{route('profile.index')}}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Hồ sơ của bạn</span>
                       </a>

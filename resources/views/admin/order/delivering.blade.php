@@ -29,10 +29,13 @@
                         <th>STT</th>
                         <th>Tên khách hàng</th>
                         <th>Mã đơn</th>
-                        <th>phương thức thanh toán</th>
+                        <!-- <th>PT thanh toán</th> -->
                         <th>Tổng tiền</th>
                         <th>Thanh toán</th>
                         <th>Trạng thái</th>
+                        <th>ngày gửi</th>
+                        <th>Ngày nhận</th>
+                        <th>PT vận chuyển</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -43,7 +46,7 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $order->name }}</td>
                         <td>{{ $order->order_code }}</td>
-                        <td>{{ $order->pay_method  == 'POD' ? 'Thanh toán chuyển khoản' : 'Thanh toán khi nhận hàng'}}</td>
+                        <!-- <td>{{ $order->pay_method  == 'POD' ? 'Thanh toán chuyển khoản' : 'Thanh toán khi nhận hàng'}}</td> -->
                         <td class="text-success">{{ number_format($order->total_price) }} đ</td>
                         <td>{{ $order->is_completed  == '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}}</td>
                         <td>
@@ -57,6 +60,15 @@
                           Đã giao <i class="fas fa-check-circle text-success"></i>
                         @elseif( $order->status == 'denied')
                           Từ chối <i class="fas fa-times-circle text-danger"></i>
+                        @endif
+                        </td>
+                        <td>{{ $order->sent_date }}</td>
+                        <td>{{ $order->expected_receipt_date }}</td>
+                        <td>
+                        @if( $order->shipping_method == 'local_post_office')
+                          Bưu cục                      
+                        @else
+                          Giao hàng tiết kiệm 
                         @endif
                         </td>
                                        

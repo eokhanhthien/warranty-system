@@ -9,13 +9,19 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UploadDriverColtroller;
 use App\Order;
 use App\OrderItem;
-
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
     public function index(Request $request){
         $orders = Order::where('business_id', auth()->user()->business_id)->get();
-        return view('admin.order.index', compact('orders'));
+        $pending = Order::where('business_id', auth()->user()->business_id)->where('status', 'pending')->count();
+        $preparing = Order::where('business_id', auth()->user()->business_id)->where('status', 'preparing')->count();
+        $delivering = Order::where('business_id', auth()->user()->business_id)->where('status', 'delivering')->count();
+        $delivered = Order::where('business_id', auth()->user()->business_id)->where('status', 'delivered')->count();
+        $denied = Order::where('business_id', auth()->user()->business_id)->where('status', 'denied')->count();
+
+        return view('admin.order.index', compact('orders','pending','preparing','delivering','delivered','denied'));
     }
 
     public function pendingOrder(Request $request){
@@ -93,6 +99,10 @@ class OrderController extends Controller
     public function donePreparingOrder(Request $request, $id){
         $order = Order::find($id);
         $order->status = 'delivering';
+        $order->shipping_method = $request->shipping_method;
+        $currentDate = Carbon::now();
+        $order->sent_date = $currentDate;
+        $order->expected_receipt_date = $currentDate->copy()->addDays(4);
         $order->save();
         return redirect()->back()->with('success', 'Xác nhận đang giao');
     }

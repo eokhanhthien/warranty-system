@@ -113,8 +113,11 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
 
         Route::get('/confirm-order/{id}', 'OrderController@confirmOrder')->name('confirm.order');
         Route::get('/denied-order/{id}', 'OrderController@deniedOrder')->name('denied.order');
-        Route::get('/done-preparing-order/{id}', 'OrderController@donePreparingOrder')->name('done.preparing.order');
+        Route::post('/done-preparing-order/{id}', 'OrderController@donePreparingOrder')->name('done.preparing.order');
         Route::get('/done-delivered-order/{id}', 'OrderController@doneDeliveredOrder')->name('done.delivered.order');
+
+        Route::resource('/profile', 'ProfileController');
+
         // Các Route khác cho Admin
     });
 });
