@@ -98,6 +98,7 @@ class AuthController extends Controller
             $new_user->role = 2;
             $new_user->password = bcrypt('Abc@123456');
             $new_user->save();
+            
             auth()->login($new_user);
             return redirect()->route('admin.dashboard');
             }else {

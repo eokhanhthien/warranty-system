@@ -42,11 +42,6 @@
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
                             <input class="form-control" type="text" id="email" name="email" value="{{$profile->email}}" placeholder="john.doe@example.com">
-                            @if(!empty($profile->verify_email_at))
-                               <div> <p class="badge bg-label-primary me-1">Đã xác thực</p></div>
-                            @else
-                               <div> <p class="badge bg-label-primary me-1">Chưa xác thực</p></div>
-                            @endif
                           </div>
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="phoneNumber">Số điện thoại</label>
@@ -96,20 +91,23 @@
 
                         
                           <div class="mb-3 col-md-6">
-                          <label for="firstName" class="form-label">Liên kết tài khoản Google và xác thực</label>
+                          <label for="firstName" class="form-label">Liên kết tài khoản Google và xác thực                             
+                            @if(!empty($profile->verify_email_at))
+                               <div> <p class="badge bg-label-primary me-1">Đã xác thực</p></div>
+                            @else
+                               <div> <p class="badge bg-label-primary me-1">Chưa xác thực</p></div>
+                            @endif</label>
                           <div class="d-flex mb-3">
                             <div class="flex-shrink-0">
                               <img src="../assets/img/icons/brands/google.png" alt="google" class="me-3" height="30">
                             </div>
                             <div class="flex-grow-1 row">
-                              <div class="col-9 mb-sm-0 mb-2">
+                              <div class="col-8 mb-sm-0 mb-2">
                                 <h6 class="mb-0">Google</h6>
                                 <small class="text-muted">Xác thực với tài khoản google</small>
                               </div>
-                              <div class="col-3 text-end">
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input float-end" type="checkbox" role="switch">
-                                </div>
+                              <div class="col-4 text-end">
+                                <div class="btn btn-warning">Xác thực</div>
                               </div>
                             </div>
                           </div>

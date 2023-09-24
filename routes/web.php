@@ -24,6 +24,11 @@ Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 Route::get('/auth/google', 'Auth\AuthController@redirectToGoogle');
 Route::get('/auth/google/callback', 'Auth\AuthController@handleGoogleCallback');
 
+// Gửi mail
+Route::get('/sendbasicemail','MailController@basic_email');
+Route::get('/sendhtmlemail','MailController@html_email');
+Route::get('/sendattachmentemail','MailController@attachment_email');
+
 
 Route::prefix('superadmin')->namespace('superadmin')->middleware((['auth', 'superadmin']))->group(function () {
     // Dashboard
