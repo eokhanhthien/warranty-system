@@ -106,9 +106,11 @@
                                 <h6 class="mb-0">Google</h6>
                                 <small class="text-muted">Xác thực với tài khoản google</small>
                               </div>
-                              <div class="col-4 text-end">
-                                <div class="btn btn-warning">Xác thực</div>
-                              </div>
+                              @if(empty(Auth::user()->verify_email_at) && Auth::user()->verify_email_at == '')
+                                <div class="col-4 text-end">
+                                  <div class="btn btn-warning" data-toggle="modal" data-target="#myModal">Xác thực</div>
+                                </div>
+                              @endif
                             </div>
                           </div>
                           </div>
@@ -125,4 +127,64 @@
             </div>
         </div>
         
+        <!-- Modal -->
+        @if(empty(Auth::user()->verify_email_at) && Auth::user()->verify_email_at == '')
+        <form action="{{ route('confirm.verify.email')}}" method="POST" >
+        @csrf
+        <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+              <h4 class="modal-title text-start" id="myModalLabel">Xác thực tài khoản Google</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                    <div class="mb-3 col-md-9">
+                      <input class="form-control" type="text" id="verify" name="verify_code"  autofocus="" placeholder="Nhập mã xác thực" required>
+                    </div>         
+                    <div class="mb-3 col-md-3">
+                      <div class="btn btn-warning" id="sendCodeButton">Gửi mã</div>
+                    </div>           
+                </div>  
+                
+                <div id="res-ajax"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Xác thực</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+        @endif
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#sendCodeButton").click(function() {
+    // Thực hiện yêu cầu AJAX khi nút "Gửi mã" được nhấn
+    $.ajax({
+      url: "{{ route('verify.email', ['email' => auth()->user()->email]) }}", // Điều hướng bạn muốn gửi yêu cầu đến
+      type: "GET", // Phương thức yêu cầu (GET, POST, PUT, DELETE, v.v.)
+      success: function(response) {
+        console.log(response);
+        // Xử lý kết quả trả về từ máy chủ ở đây
+        console.log("Yêu cầu AJAX thành công!");
+        // Ví dụ: Hiển thị kết quả trong modal
+        $("#res-ajax").html(response);
+        // $("#myModal").modal("show");
+      },
+      error: function(xhr, status, error) {
+        // Xử lý lỗi ở đây (nếu có)
+        console.error("Lỗi trong quá trình yêu cầu AJAX: " + error);
+      }
+    });
+  });
+});
+</script>
+
 @endsection

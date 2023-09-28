@@ -25,7 +25,8 @@ Route::get('/auth/google', 'Auth\AuthController@redirectToGoogle');
 Route::get('/auth/google/callback', 'Auth\AuthController@handleGoogleCallback');
 
 // Gửi mail
-Route::get('/sendbasicemail','MailController@basic_email');
+Route::get('/sendverifyemail/{email}','MailController@verify_email')->name('verify.email');
+Route::post('/sendverifyemail','MailController@confirm_verify_email')->name('confirm.verify.email');
 Route::get('/sendhtmlemail','MailController@html_email');
 Route::get('/sendattachmentemail','MailController@attachment_email');
 
