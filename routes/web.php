@@ -95,6 +95,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::resource('/categories', 'BusinessCategoryController');
         Route::get('/getSubcategories/{category_id}', 'BusinessCategoryController@getSubcategories')->name('getSubcategories');
         Route::resource('/products', 'BusinessProductController');
+        Route::resource('/warehouse', 'WareHouseController');
+        Route::resource('/supplier', 'SupplierController');
         Route::get('/discounts', 'BusinessProductController@getDiscount')->name('product.discounts');
         Route::post('/create-discounts', 'BusinessProductController@createDiscount')->name('product.discounts.create');
         Route::put('/update-discounts/{id}', 'BusinessProductController@updateDiscount')->name('product.discounts.update');

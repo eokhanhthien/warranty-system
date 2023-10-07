@@ -136,3 +136,28 @@ table.dataTable.no-footer {
     border-radius: 5px !important;
     background: transparent !important;
 }
+#res-ajax {
+    color: green;
+}
+
+.spinner-3 {
+    width: 24px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #25b09b;
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: s3 1s infinite linear;
+    margin: 5px;
+  }
+  @keyframes s3 {to{transform: rotate(1turn)}}
+
+.tag-hidden{
+    display: none !important;
+}

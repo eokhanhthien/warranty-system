@@ -397,6 +397,30 @@
               </ul>
             </li>
 
+            <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) || str_starts_with(request()->url(), url('admin/supplier'))|| str_starts_with(request()->url(), url('admin/discounts'))  ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+              <i class='menu-icon bx bxs-component'></i>
+                <div data-i18n="Layouts">Kho</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('warehouse.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Nhập kho</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/supplier')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('supplier.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Nhà cung cấp</div>
+                  </a>
+                </li>        
+              </ul>
+
+              
+            </li>
 
             <!-- Kênh đầu tư -->
             <li class="menu-header small text-uppercase">

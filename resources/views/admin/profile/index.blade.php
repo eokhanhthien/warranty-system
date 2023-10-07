@@ -87,9 +87,7 @@
                                     'selectedWard' => !empty($decodedAddress->ward) ? $decodedAddress->ward : null
                                 ])
                             </div>
-
-
-                        
+                       
                           <div class="mb-3 col-md-6">
                           <label for="firstName" class="form-label">Liên kết tài khoản Google và xác thực                             
                             @if(!empty($profile->verify_email_at))
@@ -113,8 +111,7 @@
                               @endif
                             </div>
                           </div>
-                          </div>
-                          
+                          </div>                         
                         </div>
                         <div class="mt-2">
                           <button type="submit" class="btn btn-primary me-2">Cập nhật</button>
@@ -123,7 +120,6 @@
                     </div>
                     <!-- /Account -->
                   </div>
-
             </div>
         </div>
         
@@ -146,7 +142,8 @@
                       <input class="form-control" type="text" id="verify" name="verify_code"  autofocus="" placeholder="Nhập mã xác thực" required>
                     </div>         
                     <div class="mb-3 col-md-3">
-                      <div class="btn btn-warning" id="sendCodeButton">Gửi mã</div>
+                      <div class="btn btn-warning submit-load" id="sendCodeButton">Gửi mã</div>                          
+                      <div class="spinner-3 tag-hidden"></div>
                     </div>           
                 </div>  
                 
@@ -167,22 +164,25 @@
 $(document).ready(function() {
   $("#sendCodeButton").click(function() {
     // Thực hiện yêu cầu AJAX khi nút "Gửi mã" được nhấn
-    $.ajax({
-      url: "{{ route('verify.email', ['email' => auth()->user()->email]) }}", // Điều hướng bạn muốn gửi yêu cầu đến
-      type: "GET", // Phương thức yêu cầu (GET, POST, PUT, DELETE, v.v.)
-      success: function(response) {
-        console.log(response);
-        // Xử lý kết quả trả về từ máy chủ ở đây
-        console.log("Yêu cầu AJAX thành công!");
-        // Ví dụ: Hiển thị kết quả trong modal
-        $("#res-ajax").html(response);
-        // $("#myModal").modal("show");
-      },
-      error: function(xhr, status, error) {
-        // Xử lý lỗi ở đây (nếu có)
-        console.error("Lỗi trong quá trình yêu cầu AJAX: " + error);
-      }
-    });
+    // $.ajax({
+    //   url: "{{ route('verify.email', ['email' => auth()->user()->email]) }}", // Điều hướng bạn muốn gửi yêu cầu đến
+    //   type: "GET", // Phương thức yêu cầu (GET, POST, PUT, DELETE, v.v.)
+    //   success: function(response) {
+    //     console.log(response);
+    //     // Xử lý kết quả trả về từ máy chủ ở đây
+    //     console.log("Yêu cầu AJAX thành công!");
+    //     // Ví dụ: Hiển thị kết quả trong modal
+    //     $("#res-ajax").html(response);
+    //     // $("#myModal").modal("show");
+    //   },
+    //   error: function(xhr, status, error) {
+    //     // Xử lý lỗi ở đây (nếu có)
+    //     console.error("Lỗi trong quá trình yêu cầu AJAX: " + error);
+    //   }
+    // });
+    $(".submit-load").addClass("tag-hidden");
+    $(".spinner-3").removeClass("tag-hidden");
+    
   });
 });
 </script>

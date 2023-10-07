@@ -18,9 +18,9 @@
 
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="text-right">
+    <!-- <div class="text-right">
           <button class="btn btn-primary  m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Tạo đơn hàng mới</button>
-    </div>
+    </div> -->
 
     <h5 class="text-primary mt-2">Danh sách cần làm</h5>
     <div class="container-fluid">
