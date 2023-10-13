@@ -34,6 +34,17 @@ class WareHouseController extends Controller
         return view('admin.warehouse.index',compact('products','categories','sub_categories','product_types','suppliers'));
     }
 
+    public function getListWareHouse(){
+        $receipts =  Receipt::where('business_id', auth()->user()->business_id)->get();
+        return view('admin.warehouse.list_receipt',compact('receipts'));
+    }
+
+    public function getDetailReceipt($id){
+        $receipt =  Receipt::find($id)->first();
+        $receipt_items =  ReceiptItem::where('receipt_id',$id)->get();
+        return view('admin.warehouse.detail_receipt',compact('receipt_items','receipt'));
+    }
+
     public function create()
     {
         return view('admin.business.service.create');

@@ -197,4 +197,17 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Đặt hàng thành công');
     }
+
+    public function getOrder(Request $request, $domain, $category){
+        $business = $request->business;
+        $orders = Order::where('business_id', $business->id)->orderBy('created_at', 'desc')->get();
+        return view('view-seller.' .$category. '/' .$request->display_slug.  '.order',compact('business','orders'));
+    }
+
+    public function getOrderDetail(Request $request, $domain, $category,$id){
+        $business = $request->business;
+        $order = Order::find($id);
+        $items = OrderItem::where('order_id',$id )->get();
+        return view('view-seller.' .$category. '/' .$request->display_slug.  '.order_detail',compact('business','order','items'));
+    }
 }

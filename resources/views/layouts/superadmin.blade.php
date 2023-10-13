@@ -397,14 +397,14 @@
               </ul>
             </li>
 
-            <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) || str_starts_with(request()->url(), url('admin/supplier'))|| str_starts_with(request()->url(), url('admin/discounts'))  ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) || str_starts_with(request()->url(), url('admin/supplier'))|| str_starts_with(request()->url(), url('admin/warehouse-list'))  ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
               <i class='menu-icon bx bxs-component'></i>
                 <div data-i18n="Layouts">Kho</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) ? 'menu-item active' : 'menu-item' }}">
+                <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) && url()->current() == url('admin/warehouse') ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('warehouse.index') }}" class="menu-link">
                     <div data-i18n="Without menu">Nhập kho</div>
                   </a>
@@ -419,7 +419,34 @@
                 </li>        
               </ul>
 
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/warehouse-list')) && url()->current() == url('admin/warehouse-list') ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('warehouse.list') }}" class="menu-link">
+                    <div data-i18n="Without menu">Danh sách nhập hàng</div>
+                  </a>
+                </li>        
+              </ul>
               
+            </li>
+
+            <!-- Cổng thanh toán -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Cổng thanh toán</span>
+            </li>
+
+            <li class="{{ str_starts_with(request()->url(), url('admin/admin-gateway/')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+                <i class='menu-icon bx bx-credit-card' ></i>
+                <div data-i18n="Layouts">Cổng thanh toán</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/admin-gateway/')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('admin-gateway.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Chuyển khoản</div>
+                  </a>
+                </li>        
+              </ul>
             </li>
 
             <!-- Kênh đầu tư -->

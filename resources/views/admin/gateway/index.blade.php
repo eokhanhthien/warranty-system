@@ -14,7 +14,7 @@
 @endif
 <div class="content-wrapper">
 <div class="container-xxl flex-grow-1 container-p-y">
-<form action="{{ route('gateway.store') }}" method="POST" id="form-gateway" enctype="multipart/form-data">
+<form action="{{ route('admin-gateway.store') }}" method="POST" id="form-gateway" enctype="multipart/form-data">
    @csrf
     <div class="row">
         <div class="form-group col-lg-6">

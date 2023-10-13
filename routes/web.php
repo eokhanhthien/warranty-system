@@ -97,6 +97,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::resource('/products', 'BusinessProductController');
         Route::resource('/warehouse', 'WareHouseController');
         Route::resource('/supplier', 'SupplierController');
+        Route::get('/warehouse-list', 'WareHouseController@getListWareHouse')->name('warehouse.list');
+        Route::get('/receipt-detail/{id}', 'WareHouseController@getDetailReceipt')->name('receipt.detail');
         Route::get('/discounts', 'BusinessProductController@getDiscount')->name('product.discounts');
         Route::post('/create-discounts', 'BusinessProductController@createDiscount')->name('product.discounts.create');
         Route::put('/update-discounts/{id}', 'BusinessProductController@updateDiscount')->name('product.discounts.update');
@@ -125,6 +127,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::get('/done-delivered-order/{id}', 'OrderController@doneDeliveredOrder')->name('done.delivered.order');
 
         Route::resource('/profile', 'ProfileController');
+
+        Route::resource('/admin-gateway', 'GatewayController');
 
         // Các Route khác cho Admin
     });
@@ -157,6 +161,8 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
             Route::get('{domain}/{category_slug}/cart', 'CartController@showCart')->name('seller.show.cart');
             Route::delete('{domain}/{category_slug}/delete-cart/{id}', 'CartController@deletefromCart')->name('seller.delete.cart');
             Route::post('{domain}/{category_slug}/order', 'CartController@Order')->name('seller.order');
+            Route::get('{domain}/{category_slug}/order', 'CartController@getOrder')->name('seller.get.order');
+            Route::get('{domain}/{category_slug}/order-detail/{id}', 'CartController@getOrderDetail')->name('seller.get.detail.order');
 
         });
 
