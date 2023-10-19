@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SelectOptionsController;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\TransferGateway;
 
 class CartController extends Controller
 {
@@ -208,6 +209,7 @@ class CartController extends Controller
         $business = $request->business;
         $order = Order::find($id);
         $items = OrderItem::where('order_id',$id )->get();
-        return view('view-seller.' .$category. '/' .$request->display_slug.  '.order_detail',compact('business','order','items'));
+        $gateway =  TransferGateway::where('business_id', Auth::user()->business_id)->first();
+        return view('view-seller.' .$category. '/' .$request->display_slug.  '.order_detail',compact('business','order','items','gateway'));
     }
 }

@@ -186,10 +186,10 @@
                 <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;margin-right: 20px;">
                         <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
                 </div>
-                <div class="dropdown-content">
-                    <a href="">{{Auth::guard('customer')->user()->full_name}}</a>
-                    <a href="{{route('seller.order', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đơn hàng</a>
-                    <a href="{{route('seller.logout', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng xuất</a>
+                <div class="dropdown-content" style="font-size: 14px;">
+                    <a  style="padding: 2px 16px;" href="">{{Auth::guard('customer')->user()->full_name}}</a>
+                    <a  style="padding: 2px 16px;" href="{{route('seller.order', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đơn hàng</a>
+                    <a  style="padding: 2px 16px;" href="{{route('seller.logout', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng xuất</a>
                 </div>
                 </div>
                 @else

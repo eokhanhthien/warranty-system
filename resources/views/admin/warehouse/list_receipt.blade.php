@@ -45,7 +45,7 @@
                         <td>{{ $product->note}}</td>    
                         <td> 
                           <a href="{{route('receipt.detail',['id' => $product->id])}}">
-                            <button class="btn btn-primary">Xem chi tiết</button>
+                            <button class="btn btn-primary btn-pd">Xem chi tiết</button>
                           </a>         
                         </td>
                        

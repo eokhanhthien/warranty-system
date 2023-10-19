@@ -11,7 +11,19 @@
             <div class="d-flex justify-content-between align-items-center mb-5">
               <div>
                 <h5 class="mb-2">Đơn hàng <span class="text-primary font-weight-bold">#{{$order->order_code}}</span></h5>
-                <p class="mb-2">Trạng thái <span class="text-primary font-weight-bold">: {{$order->status}}</span></p>
+                <p class="mb-2">Trạng thái <span class="text-primary font-weight-bold">: 
+                @if( $order->status == 'pending')
+                    Chưa xác nhận                     
+                @elseif( $order->status == 'preparing')
+                    Đang chuẩn bị hàng
+                @elseif( $order->status == 'delivering')
+                    Đang giao <i class="fa fa-truck text-success" aria-hidden="true"></i>
+                @elseif( $order->status == 'delivered')
+                    Đã giao <i class="fas fa-check-circle text-success"></i>
+                @elseif( $order->status == 'denied')
+                    Từ chối <i class="fas fa-times-circle text-danger"></i>
+                @endif
+                </span></p>
               </div>
               <div class="text-end">
                 <p class="mb-0">Ngày đặt <span>{{$order->created_at}}</span></p>
@@ -64,13 +76,8 @@
          <div class="col-sm-6">
            
             <div class="list list-row block">
-                @php
-                    $total = 0;
-                @endphp
                 @foreach($items as $item)
-                @php
-                    $total += \App\Product::where('id', $item->product_id)->value('price');
-                @endphp
+              
                <div class="list-item" data-id="19">
                   <div><a href="#" data-abc="true"><img  class="" src="https://drive.google.com/uc?export=view&id={{ \App\Product::where('id', $item->product_id)->value('image') }}" alt="" style ="width: 100px"></a></div>
                   <div class="flex">
@@ -84,8 +91,17 @@
          </div>
          
          <div class="mt-4">
-            <strong>Tổng tiền: {{number_format($total)}} đ</strong>
-
+            
+            <p>Mã giảm giá: {{$order->discount_code?$order->discount_code:"#No_discount"}}</p>
+            <p>Phương thức thanh toán: {{ $order->pay_method  == 'POD' ? 'Thanh toán chuyển khoản' : 'Thanh toán khi nhận hàng'}}</p>
+            <p>Trạng thái thanh toán: <strong>{{ $order->is_completed  == '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}}</strong></p>
+            <strong class="text-success">Tổng tiền: {{number_format($order->total_price)}} đ</strong>
+            @if($order->is_completed  == '0')
+            <p class="text-danger mt-3">Vui lòng quét mã QR để thanh toán</p>
+                <div id="qrImage" style="display: flex; justify-content: start;">
+                    <img style="width: 20%;" class="qr-image" src="https://img.vietqr.io/image/{{$gateway->bank_id}}-{{$gateway->account_no}}-{{$gateway->template}}.png?amount={{$order->total_price}}&addInfo={{$order->order_code}}&accountName={{$gateway->account_name}}" alt="">
+                </div>
+            @endif
          </div>
       </div>
 

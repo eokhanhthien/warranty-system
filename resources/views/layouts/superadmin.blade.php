@@ -449,6 +449,26 @@
               </ul>
             </li>
 
+            <!-- CRM -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">CRM</span>
+            </li>
+
+            <li class="{{ str_starts_with(request()->url(), url('admin/crm')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+                <i class=' menu-icon bx bxs-user-account' ></i>
+                <div data-i18n="Layouts">Khách hàng</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/crm')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('crm.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Danh sách khách hàng</div>
+                  </a>
+                </li>        
+              </ul>
+            </li>
+
             <!-- Kênh đầu tư -->
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Kênh đầu tư</span>

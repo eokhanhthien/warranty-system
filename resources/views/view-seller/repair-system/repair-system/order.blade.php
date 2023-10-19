@@ -21,6 +21,19 @@
                                     <h6 class="mb-0">Mã đơn: {{$order->order_code}}</h6>
                                     <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                         <div><i class="fa fa-calendar-o"></i><span class="ml-2">{{$order->created_at}}</span></div>
+                                        <p class="mb-2">Trạng thái <span class="text-primary font-weight-bold">: 
+                                        @if( $order->status == 'pending')
+                                            Chưa xác nhận <i class="fa fa-clock-o text-success" aria-hidden="true"></i>                    
+                                        @elseif( $order->status == 'preparing')
+                                            Đang chuẩn bị hàng <i class="fa fa-clock-o text-success" aria-hidden="true"></i>
+                                        @elseif( $order->status == 'delivering')
+                                            Đang giao <i class="fa fa-truck text-success" aria-hidden="true"></i>
+                                        @elseif( $order->status == 'delivered')
+                                            Đã giao <i class="fas fa-check-circle text-success"></i>
+                                        @elseif( $order->status == 'denied')
+                                            Từ chối <i class="fas fa-times-circle text-danger"></i>
+                                        @endif
+                                        </span></p>
                                         <!-- <div class="ml-3"><i class="fa fa-clock-o"></i><span class="ml-2">6h</span></div> -->
                                     </div>
                                 </div>
