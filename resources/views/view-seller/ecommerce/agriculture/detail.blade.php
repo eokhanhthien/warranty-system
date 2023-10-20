@@ -20,6 +20,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      max-height: 400px;
     }
 
 
@@ -56,12 +57,6 @@
       opacity: 1;
     }
 
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
     .content-detail img{
       width: 100% !important;
       object-fit: contain;

@@ -118,14 +118,14 @@
                         <div class="row">
                         @if(!empty($variant))
                             @foreach ($variant as $index => $variantItem)
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">Biến thể: {{$index + 1 }} </h5>
-                                            <p class="card-text">{{ $variantItem->title_1 }} <span>{{ $variantItem->value_1 }}</span></p>
-                                            <p class="card-text">{{ $variantItem->title_2 }} <span>{{ $variantItem->value_2 }}</span></p>
-                                            <p class="card-text">Giá: {{ $variantItem->price }}</p>
-                                            <p class="card-text">Kho: {{ $variantItem->stock }}</p>
+                                            <p class="card-text m-0">{{ $variantItem->title_1 }} <span>{{ $variantItem->value_1 }}</span></p>
+                                            <p class="card-text m-0">{{ $variantItem->title_2 }} <span>{{ $variantItem->value_2 }}</span></p>
+                                            <p class="card-text m-0">Giá: {{ $variantItem->price }}</p>
+                                            <p class="card-text m-0">Kho: {{ $variantItem->stock }}</p>
                                         </div>
                                     </div>
                                 </div>

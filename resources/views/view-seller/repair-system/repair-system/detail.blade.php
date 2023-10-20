@@ -20,6 +20,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      max-height: 400px;
     }
 
 
@@ -56,12 +57,6 @@
       opacity: 1;
     }
 
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
     .content-detail img{
       width: 100% !important;
       object-fit: contain;
@@ -111,15 +106,15 @@
                   <div class="row">
                       @if(!empty($variant))
                               @foreach ($variant as $index => $variantItem)
-                                  <div class="col-6 col-sm-6 col-6 mt-2">
+                              <div class="col-3 col-sm-3 col-3 mt-2">
                                       <div class="card" onclick="handleCardClick(this)">
                                           <div class="card-body">
                                               <input type="checkbox" name="variant_checkbox" value="{{ $variantItem->id }}">
-                                              <h5 class="card-title">Option: {{$index + 1 }} </h5>
-                                              <div class="">{{ $variantItem->title_1 }}: <span>{{ $variantItem->value_1 }}</span></div>
-                                              <div class="">{{ $variantItem->title_2 }}: <span>{{ $variantItem->value_2 }}</span></div>
-                                              <div class="text-primary">Giá: {{ $variantItem->price }} VNĐ</div>
-                                              <div class="">Số lượng trong kho: {{ $variantItem->stock }}</div>
+                                              <strong class="card-title">Option: {{$index + 1 }} </strong>
+                                              <p class="m-0">{{ $variantItem->title_1 }}: <span>{{ $variantItem->value_1 }}</span></p>
+                                              <p class="m-0">{{ $variantItem->title_2 }}: <span>{{ $variantItem->value_2 }}</span></p>
+                                              <p class="text-primary m-0">Giá: {{ $variantItem->price }} VNĐ</p>
+                                              <p class="m-0">Số lượng: {{ $variantItem->stock }}</p>
                                           </div>
                                       </div>
                                 </div>

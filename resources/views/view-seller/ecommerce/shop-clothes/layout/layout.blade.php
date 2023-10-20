@@ -30,11 +30,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <!-- Bao gồm tệp tin CSS của Toastr -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bao gồm tệp tin JavaScript của Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     
     <body>
-    
+    @if(session('success'))
+        <script>
+            toastr.success('{!! html_entity_decode(session('success')) !!}');
+        </script>
+    @endif
+
+    @if(session('error'))
+        <script>
+            toastr.error('{!! html_entity_decode(session('error')) !!}');
+        </script>
+    @endif
    
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
@@ -52,11 +66,10 @@
                         <ul class="nav">
                         <li class="scroll-to-section"><a href="{{ route('seller.business', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3))) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3)) ? ' active' : '' }}">Trang chủ</a></li>
                         <li class="scroll-to-section"><a href="{{ route('seller.business.all.product', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/all-product')) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/all-product') ? ' active' : '' }}">Sản phẩm</a></li>
+                        <!-- <li class="scroll-to-section"><a href="{{ route('seller.business.service', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/service')) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/service') ? 'active' : '' }}">Dịch vụ</a></li> -->
+                        <li class="scroll-to-section"><a href="{{ route('seller.show.cart', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)]) }}" class="{{ str_starts_with(request()->url(), url('artisq/' . request()->segment(2) . '/' . request()->segment(3) . '/cart')) && url()->current() == url('artisq/' . request()->segment(2) . '/' . request()->segment(3). '/cart') ? 'active' : '' }}">Giỏ hàng</a></li>
 
-                            <!-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li> -->
-                            <!-- <li class="scroll-to-section"><a href="#men">Men's</a></li> -->
-                            <li class="scroll-to-section"><a href="#women">Women's</a></li>
-                            <li class="scroll-to-section"><a href="#kids">Kid's</a></li>
+                           
                             <li class="submenu">
                                 <a href="javascript:;">Pages</a>
                                 <ul>
@@ -101,6 +114,7 @@
                       </div>
                                 <ul>
                                     <li><a href="">{{Auth::guard('customer')->user()->full_name}}</a></li>
+                                    <li> <a href="{{route('seller.order', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đơn hàng</a></li>
                                     <li> <a href="{{route('seller.logout', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng xuất</a></li>
                                     
                                 </ul>

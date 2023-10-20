@@ -85,8 +85,6 @@
   @endif
 
 
-
-
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -186,7 +184,7 @@
                 <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;margin-right: 20px;">
                         <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
                 </div>
-                <div class="dropdown-content" style="font-size: 14px;">
+                <div class="dropdown-content" style="font-size: 14px;border-radius: 4px">
                     <a  style="padding: 2px 16px;" href="">{{Auth::guard('customer')->user()->full_name}}</a>
                     <a  style="padding: 2px 16px;" href="{{route('seller.order', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đơn hàng</a>
                     <a  style="padding: 2px 16px;" href="{{route('seller.logout', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng xuất</a>

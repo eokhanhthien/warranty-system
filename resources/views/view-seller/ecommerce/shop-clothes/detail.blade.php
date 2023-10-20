@@ -20,6 +20,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      max-height: 400px;
     }
 
 
@@ -56,12 +57,6 @@
       opacity: 1;
     }
 
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
     .content-detail img{
       width: 100% !important;
       object-fit: contain;
@@ -69,9 +64,9 @@
   </style>
 
 <div class="container-xxl py-5" style="margin-top: 100px;">
-        <div class="container">     
+<div class="container">     
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                 <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
                   <div class="swiper-wrapper">
                   @php
@@ -103,11 +98,31 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                   <h3>{{$product->name}}</h3>
-                  <h3 class="text-primary">{{ number_format($product->price)}} đ</h3>
-                  <button class='btn btn-primary'>Thêm vào giỏ hàng</button>
-                </div>
+                  <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                  <h3 class="text-primary">{{ number_format($product->price)}} đ @if(!empty($variant)) <span> (Option mặc định)</span> @endif</h3>
+                  <div class="row">
+                      @if(!empty($variant))
+                              @foreach ($variant as $index => $variantItem)
+                                  <div class="col-3 col-sm-3 col-3 mt-2">
+                                      <div class="card" onclick="handleCardClick(this)">
+                                          <div class="card-body">
+                                              <input type="checkbox" name="variant_checkbox" value="{{ $variantItem->id }}">
+                                              <strong class="card-title">Option: {{$index + 1 }} </strong>
+                                              <p class="m-0">{{ $variantItem->title_1 }}: <span>{{ $variantItem->value_1 }}</span></p>
+                                              <p class="m-0">{{ $variantItem->title_2 }}: <span>{{ $variantItem->value_2 }}</span></p>
+                                              <p class="text-primary m-0">Giá: {{ $variantItem->price }} VNĐ</p>
+                                              <p class="m-0">Số lượng: {{ $variantItem->stock }}</p>
+                                          </div>
+                                      </div>
+                                </div>
+                              @endforeach
+                      @endif
+                  </div>
+                  <button class='btn btn-primary mt-3 add-cart-detail' onclick="addToCart()">Thêm vào giỏ hàng</button>
+              </div>
             </div>
 
             <div class="row content-detail">
@@ -137,4 +152,55 @@
       },
     });
   </script>
+  <script>
+function handleCardClick(card) {
+    var checkboxes = document.querySelectorAll('input[name="variant_checkbox"]');
+    var cardCheckbox = card.querySelector('input[name="variant_checkbox"]');
+    
+    // Nếu checkbox trong card được click đã được chọn trước đó
+    if (cardCheckbox.checked) {
+        // Bỏ chọn checkbox
+        cardCheckbox.checked = false;
+    } else {
+        // Bỏ chọn tất cả các checkbox trước đó
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+        
+        // Chọn checkbox trong card được click
+        cardCheckbox.checked = true;
+    }
+}
+
+
+    function addToCart() {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        var selectedVariant = document.querySelector('input[name="variant_checkbox"]:checked');
+        var product_id = document.querySelector('input[name="product_id"]').value;
+        if (selectedVariant) {
+          var variantId = selectedVariant.value;
+        }
+        $.ajax({
+                url: "{{ route('cart.add')}}",
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                data: {
+                  product_id: product_id,
+                  variant_id: variantId,
+                  quantity : 1
+                },
+                success: function(response) {
+                  if(response.success == 1){
+                    toastr.success(response.message);
+                  }else{
+                    toastr.error(response.message);
+                  }
+                }
+            });
+        // console.log(variantId,product_id);
+    }
+</script>
 @endsection
