@@ -138,7 +138,20 @@
 
                 <h5 class="mt-4">Vui lòng chọn địa chỉ giao hàng<span class="text-danger">*</span></h5>
                 <div>
-                  @include('select-options.address', ['provinces' => $provinces, 'wards' => $wards, 'districts' => $districts])
+                @if(!empty(Auth::guard('customer')->user()->address))
+                    @php
+                        $decodedAddress = json_decode(Auth::guard('customer')->user()->address);
+                    @endphp
+                @endif
+                
+                @include('select-options.address', [
+                    'provinces' => $provinces,
+                    'wards' => $wards,
+                    'districts' => $districts,
+                    'selectedProvince' => !empty($decodedAddress->province) ? $decodedAddress->province : null,
+                    'selectedDistrict' => !empty($decodedAddress->district) ? $decodedAddress->district : null,
+                    'selectedWard' => !empty($decodedAddress->ward) ? $decodedAddress->ward : null
+                ])
 
                   <textarea class="w-100 mt-3 form-control" style="height: 100px" placeholder="Nhập chi tiết địa chỉ" name="note"></textarea>
 

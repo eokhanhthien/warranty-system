@@ -157,13 +157,15 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::get('{domain}/{category_slug}/detail-product/{id}', 'SellerController@detail')->name('seller.business.detail.product');
         Route::get('{domain}/{category_slug}/service', 'SellerController@Service')->name('seller.business.service');
 
-        // Cart
+        // check đăng nhập
         Route::middleware(['auth_customer'])->group(function () {
             Route::get('{domain}/{category_slug}/cart', 'CartController@showCart')->name('seller.show.cart');
             Route::delete('{domain}/{category_slug}/delete-cart/{id}', 'CartController@deletefromCart')->name('seller.delete.cart');
             Route::post('{domain}/{category_slug}/order', 'CartController@Order')->name('seller.order');
             Route::get('{domain}/{category_slug}/order', 'CartController@getOrder')->name('seller.get.order');
             Route::get('{domain}/{category_slug}/order-detail/{id}', 'CartController@getOrderDetail')->name('seller.get.detail.order');
+            Route::get('{domain}/{category_slug}/profile', 'SellerController@getProfile')->name('seller.profile');
+            Route::post('{domain}/{category_slug}/post-profile', 'SellerController@postProfile')->name('seller.post.profile');
 
         });
 

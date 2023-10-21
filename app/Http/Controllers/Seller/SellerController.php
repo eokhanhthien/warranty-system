@@ -11,7 +11,9 @@ use App\ProductDetail;
 use App\ProductCategory;
 use App\ProductSubcategory;
 use App\Variant;
-
+use App\Customer;
+use App\Http\Controllers\SelectOptionsController;
+use Illuminate\Support\Facades\Auth;
 
 class SellerController extends Controller
 {
@@ -107,5 +109,48 @@ public function Service(Request $request, $domain, $category ){
     return view('view-seller.' .$category. '/' .$request->display_slug.  '.service', compact('business','service_business'));
 }
 
+public function getProfile(Request $request, $domain, $category )  {
+    $business = $request->business;
+    $service_business = BusinessService::where('business_id', $business->id)->get();
+    // Thêm address
+    $selectOptionsController = new SelectOptionsController();
+    $selectOptions = $selectOptionsController->getAddressOptions();
+    $provinces = $selectOptions->getData()['provinces'];
+    $wards = $selectOptions->getData()['wards'];
+    $districts = $selectOptions->getData()['districts'];
+    return view('view-seller.' .$category. '/' .$request->display_slug.  '.profile', compact('business','service_business','provinces','wards','districts'));
+}
+
+public function postProfile(Request $request, $domain, $category){
+    $data = $request->all();
+    
+    $user = Customer::findOrFail(Auth::guard('customer')->user()->id);
+    
+    $addressArray = [
+        'province' => $data['province'],
+        'district' => $data['district'],
+        'ward' => $data['ward']
+    ];
+    
+    $addressJson = json_encode($addressArray);
+
+    // Update user data
+    $user->full_name = $data['full_name'];
+    // if(!empty($data['password'])){
+    //     $user->password = bcrypt($data['password']);
+    // }else{
+    //     $user->password = $user->password;
+    // }
+    $user->phone_number = $data['phone_number'];
+    // $user->status = 1;
+    // $user->gender = $data['gender'];
+    $user->birth_date = $data['birth_date'];
+    $user->address = $addressJson;
+
+    $user->save();
+
+    // Redirect or return a response
+    return redirect()->back()->with('success', 'Cập nhật thông tin thành công');
+}
 
 }

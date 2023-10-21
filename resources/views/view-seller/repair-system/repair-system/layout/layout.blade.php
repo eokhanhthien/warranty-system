@@ -184,8 +184,9 @@
                 <div class="avatar avatar-online" style="background-color: #f8f9fa; text-align: center; display: inline-block; width: 40px; height: 40px; border-radius: 50%; line-height: 40px; font-weight: bold;margin-right: 20px;">
                         <span style="display: inline-block; vertical-align: middle;">{{ $initial }}</span>
                 </div>
-                <div class="dropdown-content" style="font-size: 14px;border-radius: 4px">
+                <div class="dropdown-content" style="font-size: 14px;border-radius: 4px; padding: 10px 4px;">
                     <a  style="padding: 2px 16px;" href="">{{Auth::guard('customer')->user()->full_name}}</a>
+                    <a  style="padding: 2px 16px;" href="{{route('seller.profile', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Thông tin cá nhân</a>
                     <a  style="padding: 2px 16px;" href="{{route('seller.order', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đơn hàng</a>
                     <a  style="padding: 2px 16px;" href="{{route('seller.logout', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3)])}}">Đăng xuất</a>
                 </div>
