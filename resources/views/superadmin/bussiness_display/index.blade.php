@@ -152,7 +152,7 @@
         setupFormValidation(formId, validateUrl);
 
         var id_table = '#table_businesses';
-        searchDataTable(id_table,true, true, 10);
+        searchDataTable(id_table,true, true, 20);
     });
 </script>
 @endsection

@@ -693,7 +693,7 @@ a:link{
         setupFormValidation(formId, validateUrl);
 
         var id_table = '#table_team';
-        searchDataTable(id_table,true, true, 10);
+        searchDataTable(id_table,true, true, 20);
 
     });
 

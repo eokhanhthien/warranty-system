@@ -5,8 +5,8 @@ function searchDataTable (id , searching = true , paging = null , pageLength = n
         paging: paging, // Hiển thị phân trang
         pageLength: pageLength, // Số lượng mục trên mỗi trang
 
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 100, "All"]],
-        "pageLength": 10,
+        "lengthMenu": [[5, 10, 15 , -1], [5, 10, 15, 100, "All"]],
+        "pageLength": 20,
 
         dom: 'Blfrtip',
         // buttons: [

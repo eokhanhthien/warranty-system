@@ -153,7 +153,7 @@
     $(document).ready(function() {
 
         var id_table = '#table_package';
-        searchDataTable(id_table,true, true, 10);
+        searchDataTable(id_table,true, true, 20);
 
     });
 </script>
