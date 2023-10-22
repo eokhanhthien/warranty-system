@@ -40,31 +40,31 @@
           </div>
           <div class="card-body">
             <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-              <div class="step  {{ $order->status == 'pending'||$order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered' ? 'completed' : '' }}">
+              <div class="step  {{ $order->status == 'return'|| $order->status == 'pending'||$order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered' ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-cart"></i></div>
                 </div>
                 <h4 class="step-title">Đơn hàng đã đặt</h4>
               </div>
-              <div class="step {{ $order->status != 'pending'|| $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+              <div class="step {{ $order->status == 'return'|| $order->status != 'pending'|| $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-config"></i></div>
                 </div>
                 <h4 class="step-title">Đơn hàng đã xác nhận</h4>
               </div>
-              <div class="step  {{ $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+              <div class="step  {{ $order->status == 'return'|| $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-medal"></i></div>
                 </div>
                 <h4 class="step-title">Đang chuẩn bị</h4>
               </div>
-              <div class="step {{ $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+              <div class="step {{ $order->status == 'return'|| $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-car"></i></div>
                 </div>
                 <h4 class="step-title">Đang giao</h4>
               </div>
-              <div class="step {{$order->status == 'delivered'  ? 'completed' : '' }}">
+              <div class="step {{$order->status == 'return'|| $order->status == 'delivered'  ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-home"></i></div>
                 </div>

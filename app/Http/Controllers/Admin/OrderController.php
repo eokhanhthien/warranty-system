@@ -20,8 +20,9 @@ class OrderController extends Controller
         $delivering = Order::where('business_id', auth()->user()->business_id)->where('status', 'delivering')->count();
         $delivered = Order::where('business_id', auth()->user()->business_id)->where('status', 'delivered')->count();
         $denied = Order::where('business_id', auth()->user()->business_id)->where('status', 'denied')->count();
+        $cancel = Order::where('business_id', auth()->user()->business_id)->where('status', 'cancel')->count();
 
-        return view('admin.order.index', compact('orders','pending','preparing','delivering','delivered','denied'));
+        return view('admin.order.index', compact('orders','pending','preparing','delivering','delivered','denied','cancel'));
     }
 
     public function pendingOrder(Request $request){
@@ -49,6 +50,10 @@ class OrderController extends Controller
         return view('admin.order.denied', compact('orders'));
     }
 
+    public function getReturnOrder(Request $request){
+        $orders = Order::where('business_id', auth()->user()->business_id)->where('status', 'return')->get();
+        return view('admin.order.return', compact('orders'));
+    }
 
     public function create()
     {
@@ -110,6 +115,8 @@ class OrderController extends Controller
         $order = Order::find($id);
         $order->status = 'delivered';
         $order->is_completed = 1;
+        $currentDate = Carbon::now();
+        $order->sent_date = $currentDate;
         $order->save();
         return redirect()->back()->with('success', 'Xác nhận đã giao');
     }
@@ -127,5 +134,19 @@ class OrderController extends Controller
         // $gateway =  TransferGateway::where('business_id', Auth::user()->business_id)->first();
         return view('admin.order.detail', compact('order','items'));
 
+    }
+
+    public function cancelOrder(Request $request, $id){
+        $order = Order::find($id);
+        $order->status = 'cancel';
+        $order->save();
+        return redirect()->back()->with('success', 'Hủy đơn thành công');
+    }
+
+    public function returnOrder(Request $request, $id){
+        $order = Order::find($id);
+        $order->status = 'return';
+        $order->save();
+        return redirect()->back()->with('success', 'Gửi yêu cầu thành công');
     }
 }

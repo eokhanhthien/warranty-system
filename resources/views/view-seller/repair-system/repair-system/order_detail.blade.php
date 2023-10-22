@@ -5,6 +5,7 @@
     <div class="container">
    
     <div class="container padding-bottom-3x mb-1 p-0">
+        @if( $order->status != 'cancel'|| $order->status == 'return')   
         <div class="card mb-3 ">
           <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Đơn hàng - </span><span class="text-medium">{{$order->order_code}}</span></div>
           <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
@@ -20,6 +21,10 @@
                     Đã giao <i class="fas fa-check-circle text-success"></i>
                 @elseif( $order->status == 'denied')
                     Từ chối <i class="fas fa-times-circle text-danger"></i>
+                @elseif( $order->status == 'cancel')  
+                    Đã hủy 
+                @elseif( $order->status == 'return')  
+                    Yêu cầu hoàn trả
                 @endif
             </div>
             <div class="w-100 text-center py-1 px-2"><span class="text-medium">Ngày đặt:</span> {{$order->created_at}}</div>
@@ -27,31 +32,31 @@
           </div>
           <div class="card-body">
             <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-              <div class="step  {{ $order->status == 'pending'||$order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered' ? 'completed' : '' }}">
+              <div class="step  {{$order->status == 'return'|| $order->status == 'pending'||$order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered' ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-cart"></i></div>
                 </div>
                 <h4 class="step-title">Đơn hàng đã đặt</h4>
               </div>
-              <div class="step {{ $order->status != 'pending'|| $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+              <div class="step {{ $order->status == 'return'|| $order->status != 'pending'|| $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-config"></i></div>
                 </div>
                 <h4 class="step-title">Đơn hàng đã xác nhận</h4>
               </div>
-              <div class="step  {{ $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+              <div class="step  {{ $order->status == 'return'|| $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-medal"></i></div>
                 </div>
                 <h4 class="step-title">Đang chuẩn bị</h4>
               </div>
-              <div class="step {{ $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+              <div class="step {{ $order->status == 'return'|| $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-car"></i></div>
                 </div>
                 <h4 class="step-title">Đang giao</h4>
               </div>
-              <div class="step {{$order->status == 'delivered'  ? 'completed' : '' }}">
+              <div class="step {{$order->status == 'return'|| $order->status == 'delivered'  ? 'completed' : '' }}">
                 <div class="step-icon-wrap">
                   <div class="step-icon"><i class="pe-7s-home"></i></div>
                 </div>
@@ -60,7 +65,9 @@
             </div>
           </div>
         </div>
-     
+        @else
+        <h5 class="text-danger">Đơn hàng đã bị hủy</h5>   
+        @endif
       </div>
 
 
@@ -103,7 +110,39 @@
          </div>
       </div>
 
+        @if( $order->status != 'delivered' && $order->status != 'cancel' && $order->status != 'return')
+        <button class="btn btn-danger mt-5">
+            <a style="color: white" class="d-inline-block" href="{{route('cancel.order',[$order->id])}}">
+                Hủy đơn hàng
+            </a>
+        </button>
+        @endif
 
+        @if( $order->is_completed == 1 && $order->status != 'return')
+        @php
+            $sentDate = \Carbon\Carbon::parse($order->sent_date);
+            $sevenDaysFromSentDate = $sentDate->copy()->addDays(7);
+            $currentDate = \Carbon\Carbon::now();
+        @endphp
+
+        @if($currentDate->lt($sevenDaysFromSentDate))
+            <button class="btn btn-warning mt-5">
+                <a style="color: white" class="d-inline-block" href="{{route('return.order',[$order->id])}}">
+                    Hoàn trả
+                </a>
+            </button>
+            <p>(Bạn có thể hoàn trả trong vòng 7 ngày)</p>
+            <h5>Điều kiện trả hàng</h5>
+            <p>a. Người mua đã thanh toán nhưng (i) không nhận được sản phẩm, hoặc (ii) không nhận được toàn bộ các sản phẩm đã đặt, hoặc (iii) nhận được sản phẩm là hàng giả, hàng nhái;</p>
+            <p>b. Sản phẩm bị lỗi hoặc bị hư hại trong quá trình vận chuyển;</p>
+            <p>c. Người bán giao sai sản phẩm cho Người mua (ví dụ: sai kích cỡ, sai màu sắc, v.vv...);</p>
+            <p>d. Sản phẩm Người mua nhận được khác biệt một cách rõ rệt so với thông tin mà Người bán cung cấp trong mục mô tả sản phẩm;</p>
+            <p>e. Sản phẩm hết hạn sử dụng;</p>
+
+        @endif
+        @elseif( $order->status == 'return')
+            <h5 class="mt-5 text-primary">Yêu cầu hoàn trả của bạn đang được xem xét</h5>
+        @endif
     </div>
   </div>
 

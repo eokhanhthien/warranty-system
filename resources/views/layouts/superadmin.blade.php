@@ -395,6 +395,15 @@
                   </a>
                 </li>        
               </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/return')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('order.return') }}" class="menu-link">
+                    <div data-i18n="Without menu">Trả hàng/ hoàn tiền</div>
+                  </a>
+                </li>        
+              </ul>
+
             </li>
 
             <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) || str_starts_with(request()->url(), url('admin/supplier'))|| str_starts_with(request()->url(), url('admin/warehouse-list'))  ? 'menu-item open' : 'menu-item' }}">

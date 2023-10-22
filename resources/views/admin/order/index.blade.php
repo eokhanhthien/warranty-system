@@ -57,16 +57,24 @@
       <div class="col-lg-3" style="border-right: 1px solid #ccc;">
         <div class="text-center">
           <div class="text-success font-weight-bold">{{$preparing}}</div>
-          <div>Trả hàng/ hoàn tiền chờ xử lý</div>
+          <div><a href="{{route('order.return')}}">Trả hàng/ hoàn tiền chờ xử lý</a></div>
+        </div>
+      </div>
+
+      <div class="col-lg-3" style="border-right: 1px solid #ccc;">
+        <div class="text-center">
+          <div class="text-danger font-weight-bold">{{$cancel}}</div>
+          <div><a href="{{route('order.denied')}}">Đơn hủy</a></div>
         </div>
       </div>
 
       <div class="col-lg-3" style="border-right: 1px solid #ccc;">
         <div class="text-center">
           <div class="text-danger font-weight-bold">{{$denied}}</div>
-          <div><a href="{{route('order.denied')}}">Đơn hủy</a></div>
+          <div><a href="{{route('order.denied')}}">Đơn từ chối</a></div>
         </div>
       </div>
+
       </div>
 
     </div>
@@ -108,21 +116,27 @@
                           Đã giao <i class="fas fa-check-circle text-success"></i>
                         @elseif( $order->status == 'denied')
                           Từ chối <i class="fas fa-times-circle text-danger"></i>
+                        @elseif( $order->status == 'cancel')  
+                          Đã hủy 
+                        @elseif( $order->status == 'return')  
+                          Hoàn trả
                         @endif
                         </td>
                                        
                         <td>
-                        <button class="btn btn-primary btn-pd">
-                            <a style="color: white" class="d-inline-block" href="{{route('admin.detail.order',[$order->id])}}">
-                               Chi tiết
-                            </a>
-                        </button>
-                        @if( $order->is_completed == 0)
-                        <button class="btn btn-primary btn-pd">
-                            <a style="color: white" class="d-inline-block" href="{{route('done.pay.order',[$order->id])}}">
-                              <i class="fas fa-check"></i> Đã thanh toán
-                            </a>
-                        </button>
+                        @if($order->status != 'cancel' && $order->status != 'denied')
+                          <button class="btn btn-primary btn-pd">
+                              <a style="color: white" class="d-inline-block" href="{{route('admin.detail.order',[$order->id])}}">
+                                Chi tiết
+                              </a>
+                          </button>
+                          @if( $order->is_completed == 0)
+                          <button class="btn btn-primary btn-pd">
+                              <a style="color: white" class="d-inline-block" href="{{route('done.pay.order',[$order->id])}}">
+                                <i class="fas fa-check"></i> Đã thanh toán
+                              </a>
+                          </button>
+                          @endif
                         @endif
                         @if( $order->status == 'pending')
                         <button class="btn btn-primary btn-pd">

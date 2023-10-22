@@ -60,6 +60,8 @@
                           Đã giao <i class="fas fa-check-circle text-success"></i>
                         @elseif( $order->status == 'denied')
                           Từ chối <i class="fas fa-times-circle text-danger"></i>
+                        @elseif( $order->status == 'cancel')  
+                          Đã hủy 
                         @endif
                         </td>
                         <td>{{ $order->sent_date }}</td>

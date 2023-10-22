@@ -16,7 +16,8 @@
                     @foreach($orders as $order)
                     <a  href="{{ route('seller.get.detail.order', ['domain' => request()->segment(2), 'category_slug' => request()->segment(3),'id' =>  $order->id]) }}">
                         <li class="d-flex justify-content-between">
-                            <div class="d-flex flex-row align-items-center"><i class="fa fa-check-circle checkicon"></i>
+                            <div class="d-flex flex-row align-items-center">
+                                <!-- <i class="fa fa-check-circle checkicon"></i> -->
                                 <div class="ml-2">
                                     <h6 class="mb-0">Mã đơn: {{$order->order_code}}</h6>
                                     <div class="d-flex flex-row mt-1 text-black-50 date-time">
@@ -32,6 +33,10 @@
                                             Đã giao <i class="fas fa-check-circle text-success"></i>
                                         @elseif( $order->status == 'denied')
                                             Từ chối <i class="fas fa-times-circle text-danger"></i>
+                                        @elseif( $order->status == 'cancel')  
+                                            Đã hủy 
+                                        @elseif( $order->status == 'return')  
+                                            Yêu cầu hoàn trả
                                         @endif
                                         </span></p>
                                         <!-- <div class="ml-3"><i class="fa fa-clock-o"></i><span class="ml-2">6h</span></div> -->

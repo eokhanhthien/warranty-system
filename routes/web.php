@@ -119,14 +119,17 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::get('/delivering-order', 'OrderController@deliveringOrder')->name('order.delivering');
         Route::get('/delivered-order', 'OrderController@deliveredOrder')->name('order.delivered');
         Route::get('/denied-order', 'OrderController@getDeniedOrder')->name('order.denied');
+        Route::get('/return-order', 'OrderController@getReturnOrder')->name('order.return');
 
 
         Route::get('/confirm-order/{id}', 'OrderController@confirmOrder')->name('confirm.order');
         Route::get('/denied-order/{id}', 'OrderController@deniedOrder')->name('denied.order');
-        Route::post('/done-preparing-order/{id}', 'OrderController@donePreparingOrder')->name('done.preparing.order');
+        Route::get('/done-preparing-order/{id}', 'OrderController@donePreparingOrder')->name('done.preparing.order');
         Route::get('/done-delivered-order/{id}', 'OrderController@doneDeliveredOrder')->name('done.delivered.order');
+        Route::get('/cancel-order/{id}', 'OrderController@cancelOrder')->name('cancel.order');
         Route::get('/detail-order/{id}', 'OrderController@detailOrder')->name('admin.detail.order');
         Route::get('/done-pay-order/{id}', 'OrderController@donePay')->name('done.pay.order');
+        Route::get('/return-order/{id}', 'OrderController@returnOrder')->name('return.order');
 
         Route::resource('/profile', 'ProfileController');
 
