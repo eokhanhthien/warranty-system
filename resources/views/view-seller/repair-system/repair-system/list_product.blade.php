@@ -4,7 +4,7 @@
         <div class="make3D">
             
                 <div class="shadow"></div>
-                <div class="img-siza" style ="max-height: 243px;overflow: hidden;" >
+                <div class="img-siza" style ="max-height: 200px;overflow: hidden;" >
                     <img  class="" src="https://drive.google.com/uc?export=view&id={{$product->image}}" alt="" style ="width: 100%">
                 </div>
                 <div class="image_overlay"></div>

@@ -1,10 +1,23 @@
-@extends('view-seller.repair-system.repair-system.layout.layout')
+@extends('layouts.superadmin')
 @section('content')
+
+@if(session('success'))
+    <script>
+        toastr.success('{!! html_entity_decode(session('success')) !!}');
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        toastr.error('{!! html_entity_decode(session('error')) !!}');
+    </script>
+@endif
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-<div class="container-xxl py-5" style="margin-top: 70px;">
-    <div class="container">
+<div class="container-xxl" style="margin-top: 70px;">
+
    
-    <div class="container padding-bottom-3x mb-1 p-0">
+    <div class=" padding-bottom-3x mb-1 p-0">
         <div class="card mb-3 ">
           <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Đơn hàng - </span><span class="text-medium">{{$order->order_code}}</span></div>
           <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
@@ -104,7 +117,7 @@
       </div>
 
 
-    </div>
+
   </div>
 
 
@@ -667,4 +680,24 @@ a:link{
     background-color: #f5f5f5 !important;
 }
 </style>
+
+<!-- Gọi hàm validate để xử lý form -->
+<script src="{{ asset('assets/js/validateForm.js') }}"></script>
+<!-- Gọi hàm thêm search table -->
+<script src="{{ asset('assets/js/data-table-js.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        var formId = '#form-admin-service';
+        var validateUrl = '/validate-admin-service';
+
+        setupFormValidation(formId, validateUrl);
+
+        var id_table = '#table_team';
+        searchDataTable(id_table,true, true, 10);
+
+    });
+
+
+</script>
+
 @endsection

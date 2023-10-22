@@ -59,7 +59,7 @@
                         </button>
            
 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal{{ $subscription->id }}">
+                        <button type="button" class="btn btn-primary btn-pd" data-toggle="modal" data-target="#confirmationModal{{ $subscription->id }}">
                             <i class="bx bx-edit-alt me-1"></i> Sửa
                           </button>
 

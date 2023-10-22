@@ -109,7 +109,23 @@ class OrderController extends Controller
     public function doneDeliveredOrder(Request $request, $id){
         $order = Order::find($id);
         $order->status = 'delivered';
+        $order->is_completed = 1;
         $order->save();
         return redirect()->back()->with('success', 'Xác nhận đã giao');
+    }
+
+    public function donePay(Request $request, $id){
+        $order = Order::find($id);
+        $order->is_completed = 1;
+        $order->save();
+        return redirect()->back()->with('success', 'Thành công');
+    }
+
+    public function detailOrder(Request $request, $id){
+        $order = Order::find($id);
+        $items = OrderItem::where('order_id',$id )->get();
+        // $gateway =  TransferGateway::where('business_id', Auth::user()->business_id)->first();
+        return view('admin.order.detail', compact('order','items'));
+
     }
 }

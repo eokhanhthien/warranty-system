@@ -1,18 +1,16 @@
 @extends('view-seller.ecommerce.shop-clothes.layout.layout')
 @section('content')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
 <div class="container-xxl py-5" style="margin-top: 70px;">
     <div class="container">
    
-
-        <div class="card card-stepper text-black" style="border-radius: 16px;">
-
-          <div class="card-body p-5">
-
-            <div class="d-flex justify-content-between align-items-center mb-5">
-              <div>
-                <h5 class="mb-2">Đơn hàng <span class="text-primary font-weight-bold">#{{$order->order_code}}</span></h5>
-                <p class="mb-2">Trạng thái <span class="text-primary font-weight-bold">: 
-                @if( $order->status == 'pending')
+    <div class="container padding-bottom-3x mb-1 p-0">
+        <div class="card mb-3 ">
+          <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Đơn hàng - </span><span class="text-medium">{{$order->order_code}}</span></div>
+          <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
+            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Phương thức thanh toán:</span> {{ $order->pay_method  == 'POD' ? 'Thanh toán chuyển khoản' : 'Thanh toán khi nhận hàng'}}</div>
+            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Trạng thái:</span> 
+            @if( $order->status == 'pending')
                     Chưa xác nhận                     
                 @elseif( $order->status == 'preparing')
                     Đang chuẩn bị hàng
@@ -23,52 +21,52 @@
                 @elseif( $order->status == 'denied')
                     Từ chối <i class="fas fa-times-circle text-danger"></i>
                 @endif
-                </span></p>
+            </div>
+            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Ngày đặt:</span> {{$order->created_at}}</div>
+            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Ngày nhận dự kiến:</span> {{$order->expected_receipt_date}}</div>
+          </div>
+          <div class="card-body">
+            <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+              <div class="step  {{ $order->status == 'pending'||$order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered' ? 'completed' : '' }}">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-cart"></i></div>
+                </div>
+                <h4 class="step-title">Đơn hàng đã đặt</h4>
               </div>
-              <div class="text-end">
-                <p class="mb-0">Ngày đặt <span>{{$order->created_at}}</span></p>
-                <!-- <p class="mb-0">USPS <span class="font-weight-bold">234094567242423422898</span></p> -->
+              <div class="step {{ $order->status != 'pending'|| $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-config"></i></div>
+                </div>
+                <h4 class="step-title">Đơn hàng đã xác nhận</h4>
+              </div>
+              <div class="step  {{ $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-medal"></i></div>
+                </div>
+                <h4 class="step-title">Đang chuẩn bị</h4>
+              </div>
+              <div class="step {{ $order->status == 'delivering' ||$order->status == 'delivered'  ? 'completed' : '' }}">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-car"></i></div>
+                </div>
+                <h4 class="step-title">Đang giao</h4>
+              </div>
+              <div class="step">
+                <div class="step-icon-wrap">
+                  <div class="step-icon"><i class="pe-7s-home"></i></div>
+                </div>
+                <h4 class="step-title">Đã giao</h4>
               </div>
             </div>
-
-            <ul id="progressbar-2" class="d-flex justify-content-between mx-0 mt-0 mb-5 px-0 pt-0 pb-2">
-              <li class="step0 {{ $order->status == 'pending'||$order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered' ? 'active' : '' }} text-center" id="step1"></li>
-              <li class="step0 {{ $order->status == 'preparing'  || $order->status == 'delivering' ||$order->status == 'delivered'  ? 'active' : '' }}  text-center" id="step2"></li>
-              <li class="step0 {{ $order->status == 'delivering' ||$order->status == 'delivered'  ? 'active' : '' }}  text-center" id="step3"></li>
-              <li class="step0 {{ $order->status == 'delivered' ? 'active' : '' }} text-muted text-end" id="step4"></li>
-            </ul>
-
-            <div class="d-flex justify-content-between">
-              <div class="d-lg-flex align-items-center">
-                <i class="fas fa-clipboard-list fa-3x me-lg-4 mb-3 mb-lg-0"></i>
-                <div>
-                  <p class="fw-bold mb-1">Đơn hàng</p>
-                  <p class="fw-bold mb-0">Đang xử lý</p>
-                </div>
-              </div>
-              <div class="d-lg-flex align-items-center">
-                <i class="fas fa-box-open fa-3x me-lg-4 mb-3 mb-lg-0"></i>
-                <div>
-                  <p class="fw-bold mb-1">Đơn hàng</p>
-                  <p class="fw-bold mb-0">Đang vận chuyển</p>
-                </div>
-              </div>
-              <div class="d-lg-flex align-items-center">
-                <i class="fas fa-shipping-fast fa-3x me-lg-4 mb-3 mb-lg-0"></i>
-                <div>
-                  <p class="fw-bold mb-1">Đơn hàng</p>
-                  <p class="fw-bold mb-0">Đang giao</p>
-                </div>
-              </div>
-              <div class="d-lg-flex align-items-center">
-                <i class="fas fa-home fa-3x me-lg-4 mb-3 mb-lg-0"></i>
-                <div>
-                  <p class="fw-bold mb-1">Đơn hàng</p>
-                  <p class="fw-bold mb-0">Đã giao</p>
-                </div>
-              </div>
- 
+          </div>
+        </div>
+     
       </div>
+
+
+        <div class="card card-stepper text-black" style="border-radius: 16px;">
+
+          <div class="card-body p-5">
 
       <div class="row mt-5">
       <h5>Danh sách sản phẩm</h5>
@@ -96,7 +94,7 @@
             <p>Phương thức thanh toán: {{ $order->pay_method  == 'POD' ? 'Thanh toán chuyển khoản' : 'Thanh toán khi nhận hàng'}}</p>
             <p>Trạng thái thanh toán: <strong>{{ $order->is_completed  == '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}}</strong></p>
             <strong class="text-success">Tổng tiền: {{number_format($order->total_price)}} đ</strong>
-            @if($order->is_completed  == '0' && !empty($bank_id))
+            @if($order->is_completed  == '0'&& !empty($gateway))
             <p class="text-danger mt-3">Vui lòng quét mã QR để thanh toán</p>
                 <div id="qrImage" style="display: flex; justify-content: start;">
                     <img style="width: 20%;" class="qr-image" src="https://img.vietqr.io/image/{{$gateway->bank_id}}-{{$gateway->account_no}}-{{$gateway->template}}.png?amount={{$order->total_price}}&addInfo={{$order->order_code}}&accountName={{$gateway->account_name}}" alt="">
@@ -558,6 +556,115 @@ a:not([href]):not([tabindex]):focus {
 a:link{
 
    text-decoration: none;
+}
+
+.steps .step {
+    display: block;
+    width: 100%;
+    margin-bottom: 35px;
+    text-align: center
+}
+
+.steps .step .step-icon-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 80px;
+    text-align: center
+}
+
+.steps .step .step-icon-wrap::before,
+.steps .step .step-icon-wrap::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    height: 3px;
+    margin-top: -1px;
+    background-color: #e1e7ec;
+    content: '';
+    z-index: 1
+}
+
+.steps .step .step-icon-wrap::before {
+    left: 0
+}
+
+.steps .step .step-icon-wrap::after {
+    right: 0
+}
+
+.steps .step .step-icon {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #e1e7ec;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #374250;
+    font-size: 38px;
+    line-height: 81px;
+    z-index: 5
+}
+
+.steps .step .step-title {
+    margin-top: 16px;
+    margin-bottom: 0;
+    color: #606975;
+    font-size: 14px;
+    font-weight: 500
+}
+
+.steps .step:first-child .step-icon-wrap::before {
+    display: none
+}
+
+.steps .step:last-child .step-icon-wrap::after {
+    display: none
+}
+
+.steps .step.completed .step-icon-wrap::before,
+.steps .step.completed .step-icon-wrap::after {
+    background-color: #0da9ef
+}
+
+.steps .step.completed .step-icon {
+    border-color: #0da9ef;
+    background-color: #0da9ef;
+    color: #fff
+}
+
+@media (max-width: 576px) {
+    .flex-sm-nowrap .step .step-icon-wrap::before,
+    .flex-sm-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 768px) {
+    .flex-md-nowrap .step .step-icon-wrap::before,
+    .flex-md-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 991px) {
+    .flex-lg-nowrap .step .step-icon-wrap::before,
+    .flex-lg-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 1200px) {
+    .flex-xl-nowrap .step .step-icon-wrap::before,
+    .flex-xl-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+.bg-faded, .bg-secondary {
+    background-color: #f5f5f5 !important;
 }
 </style>
 @endsection

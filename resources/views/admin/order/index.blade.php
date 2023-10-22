@@ -112,6 +112,18 @@
                         </td>
                                        
                         <td>
+                        <button class="btn btn-primary btn-pd">
+                            <a style="color: white" class="d-inline-block" href="{{route('admin.detail.order',[$order->id])}}">
+                               Chi tiết
+                            </a>
+                        </button>
+                        @if( $order->is_completed == 0)
+                        <button class="btn btn-primary btn-pd">
+                            <a style="color: white" class="d-inline-block" href="{{route('done.pay.order',[$order->id])}}">
+                              <i class="fas fa-check"></i> Đã thanh toán
+                            </a>
+                        </button>
+                        @endif
                         @if( $order->status == 'pending')
                         <button class="btn btn-primary btn-pd">
                               <a style="color: white" class="d-inline-block" href="{{route('confirm.order',[$order->id])}}">
@@ -133,7 +145,7 @@
                               <a style="color: white" class="d-inline-block" href="{{route('done.delivered.order',[$order->id])}}">
                                 <i class="fas fa-check"></i> Đã giao
                               </a>
-                          </button> 
+                        </button> 
                         @elseif( $order->status == 'delivered')
                           <!-- Đã giao <i class="fas fa-check-circle text-success"></i> -->
                         @elseif( $order->status == 'denied')

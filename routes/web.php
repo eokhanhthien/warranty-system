@@ -125,6 +125,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::get('/denied-order/{id}', 'OrderController@deniedOrder')->name('denied.order');
         Route::post('/done-preparing-order/{id}', 'OrderController@donePreparingOrder')->name('done.preparing.order');
         Route::get('/done-delivered-order/{id}', 'OrderController@doneDeliveredOrder')->name('done.delivered.order');
+        Route::get('/detail-order/{id}', 'OrderController@detailOrder')->name('admin.detail.order');
+        Route::get('/done-pay-order/{id}', 'OrderController@donePay')->name('done.pay.order');
 
         Route::resource('/profile', 'ProfileController');
 
