@@ -21,8 +21,9 @@ class OrderController extends Controller
         $delivered = Order::where('business_id', auth()->user()->business_id)->where('status', 'delivered')->count();
         $denied = Order::where('business_id', auth()->user()->business_id)->where('status', 'denied')->count();
         $cancel = Order::where('business_id', auth()->user()->business_id)->where('status', 'cancel')->count();
+        $return = Order::where('business_id', auth()->user()->business_id)->where('status', 'return')->count();
 
-        return view('admin.order.index', compact('orders','pending','preparing','delivering','delivered','denied','cancel'));
+        return view('admin.order.index', compact('orders','pending','preparing','delivering','delivered','denied','cancel','return'));
     }
 
     public function pendingOrder(Request $request){
@@ -54,7 +55,10 @@ class OrderController extends Controller
         $orders = Order::where('business_id', auth()->user()->business_id)->where('status', 'return')->get();
         return view('admin.order.return', compact('orders'));
     }
-
+    public function getCancelOrder(Request $request){
+        $orders = Order::where('business_id', auth()->user()->business_id)->where('status', 'cancel')->get();
+        return view('admin.order.cancel', compact('orders'));
+    }
     public function create()
     {
         return view('admin.business.service.create');

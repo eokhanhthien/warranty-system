@@ -16,8 +16,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
 <div class="container-xxl" style="margin-top: 70px;">
 
+    <button class="btn btn-primary btn-pd mb-2">
+        <a target="_blank" style="color: white" class="d-inline-block" href="{{route('order.invoice',['id' =>  $order->id])}}">
+            In hóa đơn
+        </a>
+    </button>
    
     <div class=" padding-bottom-3x mb-1 p-0">
+    @if(  $order->status == 'return')   
         <div class="card mb-3 ">
           <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Đơn hàng - </span><span class="text-medium">{{$order->order_code}}</span></div>
           <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
@@ -73,7 +79,7 @@
             </div>
           </div>
         </div>
-     
+     @endif
       </div>
 
 

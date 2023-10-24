@@ -243,7 +243,8 @@ body {
 	position:absolute;    
 	top:10px;
 	left:10px;	
-	overflow:hidden;
+	overflow:hidden;    
+	padding: 30px;
     transform-style: preserve-3d;
 	-webkit-transition:  100ms ease-out; 
        -moz-transition:  100ms ease-out; 

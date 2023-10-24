@@ -114,12 +114,15 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::get('/investment-channel/conversion-tool', 'InvestmentChannelController@conversion_tool');
         
         Route::resource('/order', 'OrderController');
+        Route::get('/order-invoice/{id}', 'PDFInvoiceController@orderInvoice')->name('order.invoice');
+
         Route::get('/preparing-order', 'OrderController@preparingOrder')->name('order.preparing');
         Route::get('/pending-order', 'OrderController@pendingOrder')->name('order.pending');
         Route::get('/delivering-order', 'OrderController@deliveringOrder')->name('order.delivering');
         Route::get('/delivered-order', 'OrderController@deliveredOrder')->name('order.delivered');
         Route::get('/denied-order', 'OrderController@getDeniedOrder')->name('order.denied');
         Route::get('/return-order', 'OrderController@getReturnOrder')->name('order.return');
+        Route::get('/cancel-order', 'OrderController@getCancelOrder')->name('order.cancel');
 
 
         Route::get('/confirm-order/{id}', 'OrderController@confirmOrder')->name('confirm.order');
