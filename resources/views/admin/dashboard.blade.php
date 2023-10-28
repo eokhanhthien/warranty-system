@@ -266,12 +266,12 @@
               </div>
               <div class="row">
                 <!-- Order Statistics -->
-                <!-- <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                <div class="col-md-8 col-lg-8 col-xl-8 order-0 mb-4">
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
                       <div class="card-title mb-0">
-                        <h5 class="m-0 me-2">Thống kê đơn hàng</h5>
-                        <small class="text-muted">42.82k Total Sales</small>
+                        <h5 class="m-0 me-2">Sản phẩm bán chạy</h5>
+                        <!-- <small class="text-muted">{{$countOrderItem}} sản phẩm được bán ra</small> -->
                       </div>
                       <div class="dropdown">
                         <button
@@ -294,12 +294,13 @@
                     <div class="card-body">
                       <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex flex-column align-items-center gap-1">
-                          <h2 class="mb-2">8,258</h2>
-                          <span>Total Orders</span>
+                          <h2 class="mb-2">{{$countOrderItem}} </h2>
+                          <span>Sản phẩm được bán ra</span>
                         </div>
                         <div id="orderStatisticsChart"></div>
                       </div>
                       <ul class="p-0 m-0">
+                        @foreach($topSellingItems as $item)
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 me-3">
                             <span class="avatar-initial rounded bg-label-primary"
@@ -308,62 +309,21 @@
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <h6 class="mb-0">Electronic</h6>
-                              <small class="text-muted">Mobile, Earbuds, TV</small>
+                              <h6 class="mb-0">{{ \App\Product::where('id', $item->product_id)->value('name') }}</h6>
+                              <!-- <small class="text-muted">Mobile, Earbuds, TV</small> -->
                             </div>
                             <div class="user-progress">
-                              <small class="fw-semibold">82.5k</small>
+                              <small class="fw-semibold">{{$item->total_quantity}} sản phẩm được bán</small>
                             </div>
                           </div>
                         </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Fashion</h6>
-                              <small class="text-muted">T-shirt, Jeans, Shoes</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">23.8k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Decor</h6>
-                              <small class="text-muted">Fine Art, Dining</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">849k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-secondary"
-                              ><i class="bx bx-football"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Sports</h6>
-                              <small class="text-muted">Football, Cricket Kit</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">99</small>
-                            </div>
-                          </div>
-                        </li>
+                       @endforeach
+                    
+                      
                       </ul>
                     </div>
                   </div>
-                </div> -->
+                </div>
                 <!--/ Order Statistics -->
 
                 <!-- Expense Overview -->

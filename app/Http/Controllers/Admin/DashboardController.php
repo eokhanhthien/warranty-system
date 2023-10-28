@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\BusinessService;
 use App\Order;
+use App\OrderItem;
 use App\Customer;
 use Illuminate\Support\Facades\DB;
 
@@ -37,7 +38,17 @@ class DashboardController extends Controller
         $countService =  BusinessService::where('business_id', auth()->user()->business_id)->count();
         $countOrders = Order::where('business_id', auth()->user()->business_id)->count();
         $countCustomers = Customer::where('business_id', auth()->user()->business_id)->count();
+        $countOrderItem = OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
+        ->where('orders.business_id', Auth::user()->business_id)
+        ->count();
         $totalPrice = Order::where('business_id', auth()->user()->business_id)->where('is_completed', 1)->sum('total_price');
+        $topSellingItems = OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
+        ->where('orders.business_id', Auth::user()->business_id)
+        ->where('orders.is_completed', 1)
+        ->select('order_items.product_id', DB::raw('SUM(order_items.quantity) as total_quantity'))
+        ->groupBy('order_items.product_id')
+        ->orderBy('total_quantity', 'desc')
+        ->get();
 
         // Lấy năm hiện tại
         $currentYear = date('Y');
@@ -73,7 +84,7 @@ class DashboardController extends Controller
         $priceData = $data;
         // dd($priceData);
 
-        return view('admin.dashboard', compact('domain','countProducts','countService','countOrders','totalPrice','countCustomers','priceData'));
+        return view('admin.dashboard', compact('domain','countProducts','countService','countOrders','totalPrice','countCustomers','priceData','countOrderItem','topSellingItems'));
     }
 
 }
