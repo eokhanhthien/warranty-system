@@ -138,6 +138,7 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
 
         Route::resource('/admin-gateway', 'GatewayController');
         Route::resource('/crm', 'CrmController');
+        Route::resource('/hrm', 'HrmController');
 
         // Các Route khác cho Admin
     });
@@ -201,6 +202,7 @@ Route::get('/get-wards/{districtId}', 'SelectOptionsController@getWards');
 // Validate form data
 Route::post('/validate-business', 'validateData@validateDatabusiness')->name('validate-business');
 Route::post('/validate-team', 'validateData@validateDatateam')->name('validate-team');
+Route::put('/validate-team', 'validateData@validateDatateam')->name('validate-team');
 Route::post('/validate-business-categories', 'validateData@validateDatabusinessCategory')->name('validate.business.categories');
 Route::post('/validate-business-display', 'validateData@validateDatabusinessDisplay')->name('validate.business.display');
 Route::post('/validate-business-setting', 'validateData@validateDatabusinessSetting')->name('validate.business.setting');

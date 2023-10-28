@@ -47,11 +47,11 @@
                   <div class="row">
                     <div class="col-lg-6 col-md-12 col-6 mb-4">
                       <div class="card">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
                               <img
-                                src="../assets/img/icons/unicons/chart-success.png"
+                                src="https://png.pngtree.com/png-clipart/20220404/original/pngtree-3d-box-design-png-image_7503265.png"
                                 alt="chart success"
                                 class="rounded"
                               />
@@ -68,24 +68,24 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Chi tiết</a>
+                                <!-- <a class="dropdown-item" href="javascript:void(0);">Delete</a> -->
                               </div>
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">Lợi nhuận</span>
-                          <h3 class="card-title mb-2">$12,628</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
+                          <span class="fw-semibold d-block mb-1">Sản phẩm</span>
+                          <h3 class="card-title mb-2">{{$countProducts}}</h3>
+                          <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small> -->
                         </div>
                       </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-6 mb-4">
                       <div class="card">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
                               <img
-                                src="../assets/img/icons/unicons/wallet-info.png"
+                                src="https://png.pngtree.com/png-clipart/20220124/original/pngtree-order-icon-element-design-png-image_7184311.png"
                                 alt="Credit Card"
                                 class="rounded"
                               />
@@ -102,14 +102,14 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Chi tiết</a>
+                                <!-- <a class="dropdown-item" href="javascript:void(0);">Delete</a> -->
                               </div>
                             </div>
                           </div>
-                          <span>Bán hàng</span>
-                          <h3 class="card-title text-nowrap mb-1">$4,679</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
+                          <span>Đơn hàng</span>
+                          <h3 class="card-title text-nowrap mb-1">{{$countOrders}}</h3>
+                          <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small> -->
                         </div>
                       </div>
                     </div>
@@ -119,11 +119,15 @@
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                     <div class="row row-bordered g-0">
-                      <div class="col-md-8">
+                      <div class="col-md-12">
                         <h5 class="card-header m-0 me-2 pb-3">Tổng doanh thu</h5>
                         <div id="totalRevenueChart" class="px-2"></div>
+                        @foreach ($priceData as $index => $yearData)
+                            <div id="yearElement{{ $index }}" data="{{ json_encode($yearData) }}"></div>
+                        @endforeach
+
                       </div>
-                      <div class="col-md-4">
+                      <!-- <div class="col-md-4">
                         <div class="card-body">
                           <div class="text-center">
                             <div class="dropdown">
@@ -168,7 +172,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -177,10 +181,10 @@
                   <div class="row">
                     <div class="col-6 mb-4">
                       <div class="card">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                              <img src="https://png.pngtree.com/png-clipart/20220909/original/pngtree-3d-dollar-gold-coins-money-png-image_8523592.png" alt="Credit Card" class="rounded" />
                             </div>
                             <div class="dropdown">
                               <button
@@ -194,23 +198,23 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Chi tiết</a>
+                                <!-- <a class="dropdown-item" href="javascript:void(0);">Delete</a> -->
                               </div>
                             </div>
                           </div>
-                          <span class="d-block mb-1">Thanh toán</span>
-                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
-                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                          <span class="fw-semibold d-block mb-1">Tổng thu nhập</span>
+                          <h3 class="card-title  mb-2">{{number_format($totalPrice)}}đ</h3>
+                          <!-- <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> {{$totalPrice}}</small> -->
                         </div>
                       </div>
                     </div>
                     <div class="col-6 mb-4">
                       <div class="card">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                              <img src="https://png.pngtree.com/png-clipart/20221006/original/pngtree-customer-feedback-png-image_8661266.png" alt="Credit Card" class="rounded" />
                             </div>
                             <div class="dropdown">
                               <button
@@ -224,14 +228,13 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Chi tiết</a>
                               </div>
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">Giao dịch</span>
-                          <h3 class="card-title mb-2">$14,857</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                          <span class="fw-semibold d-block mb-1">Khách hàng</span>
+                          <h3 class="card-title mb-2">{{$countCustomers}}</h3>
+                          <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small> -->
                         </div>
                       </div>
                     </div>
@@ -247,10 +250,10 @@
                                 <span class="badge bg-label-warning rounded-pill">Year 2021</span>
                               </div>
                               <div class="mt-sm-auto">
-                                <small class="text-success text-nowrap fw-semibold"
+                                <!-- <small class="text-success text-nowrap fw-semibold"
                                   ><i class="bx bx-chevron-up"></i> 68.2%</small
-                                >
-                                <h3 class="mb-0">$84,686k</h3>
+                                > -->
+                                <h3 class="mb-0">{{number_format($totalPrice)}}đ</h3>
                               </div>
                             </div>
                             <div id="profileReportChart"></div>
@@ -263,7 +266,7 @@
               </div>
               <div class="row">
                 <!-- Order Statistics -->
-                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                <!-- <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
                       <div class="card-title mb-0">
@@ -360,11 +363,11 @@
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Order Statistics -->
 
                 <!-- Expense Overview -->
-                <div class="col-md-6 col-lg-4 order-1 mb-4">
+                <!-- <div class="col-md-6 col-lg-4 order-1 mb-4">
                   <div class="card h-100">
                     <div class="card-header">
                       <ul class="nav nav-pills" role="tablist">
@@ -421,11 +424,11 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Expense Overview -->
 
                 <!-- Transactions -->
-                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                <!-- <div class="col-md-6 col-lg-4 order-2 mb-4">
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="card-title m-0 me-2">Transactions</h5>
@@ -542,7 +545,7 @@
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Transactions -->
               </div>
             </div>

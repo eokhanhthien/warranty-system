@@ -478,6 +478,26 @@
               </ul>
             </li>
 
+            <!-- HRM -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">HRM</span>
+            </li>
+
+            <li class="{{ str_starts_with(request()->url(), url('admin/hrm')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+              <i class='menu-icon bx bxs-user-plus'></i>
+                <div data-i18n="Layouts">Nhân viên</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/hrm')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('hrm.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Danh sách nhân viên</div>
+                  </a>
+                </li>        
+              </ul>
+            </li>
+
             <!-- Kênh đầu tư -->
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Kênh đầu tư</span>

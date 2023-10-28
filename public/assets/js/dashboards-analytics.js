@@ -14,18 +14,23 @@
 
   // Total Revenue Report Chart - Bar Chart
   // --------------------------------------------------------------------
-  const totalRevenueChartEl = document.querySelector('#totalRevenueChart'),
-    totalRevenueChartOptions = {
-      series: [
-        {
-          name: '2021',
-          data: [18, 7, 15, 29, 18, 12, 9]
-        },
-        {
-          name: '2020',
-          data: [-13, -18, -9, -14, -5, -17, -15]
-        }
-      ],
+  const totalRevenueChartEl = document.querySelector('#totalRevenueChart');
+  var seriesData = [];
+
+  for (var i = 0; i < 5; i++) {
+      var element = document.getElementById('yearElement' + i);
+      var data = JSON.parse(element.getAttribute('data'));
+      var dataArray = Object.values(data.data);
+  
+      seriesData.push({
+          name: data.name,
+          data: dataArray
+      });
+  }
+  console.log(seriesData);
+  var totalRevenueChartOptions = {
+      series: seriesData,
+
       chart: {
         height: 300,
         stacked: true,
@@ -78,7 +83,7 @@
         }
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
         labels: {
           style: {
             fontSize: '13px',
