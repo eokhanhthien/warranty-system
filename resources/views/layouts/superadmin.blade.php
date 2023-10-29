@@ -550,6 +550,27 @@
               </ul>
             </li>
 
+            
+            <!-- Thống kê -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Thống kê</span>
+            </li>
+
+            <li class="{{ str_starts_with(request()->url(), url('admin/statistical')) ? 'menu-item open' : 'menu-item' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle" >
+                <i class='menu-icon bx bx-line-chart'></i>
+                <div data-i18n="Layouts">Thống kê chi tiết</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/statistical')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('statistical') }}" class="menu-link">
+                    <div data-i18n="Without menu">Biểu đồ</div>
+                  </a>
+                </li>        
+              </ul>
+            </li>
+
             @endif
 
           </ul>
