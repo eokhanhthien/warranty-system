@@ -139,7 +139,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::resource('/admin-gateway', 'GatewayController');
         Route::resource('/crm', 'CrmController');
         Route::resource('/hrm', 'HrmController');
-        Route::get('/statistical', 'StatisticalController@statisticalOrder')->name('statistical');
+        Route::get('/statistical', 'StatisticalController@statisticalChart')->name('statistical');
+        Route::get('/statistical-revenue', 'StatisticalController@statisticalRevenue')->name('statistical.revenue');
 
         // Các Route khác cho Admin
     });

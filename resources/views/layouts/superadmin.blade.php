@@ -556,7 +556,7 @@
               <span class="menu-header-text">Thống kê</span>
             </li>
 
-            <li class="{{ str_starts_with(request()->url(), url('admin/statistical')) ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('admin/statistical')) || str_starts_with(request()->url(), url('admin/statistical-revenue')) ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
                 <i class='menu-icon bx bx-line-chart'></i>
                 <div data-i18n="Layouts">Thống kê chi tiết</div>
@@ -564,11 +564,20 @@
 
               <ul class="menu-sub">
                 <li class="{{ str_starts_with(request()->url(), url('admin/statistical')) ? 'menu-item active' : 'menu-item' }}">
-                  <a href="{{ route('statistical') }}" class="menu-link">
-                    <div data-i18n="Without menu">Biểu đồ</div>
+                  <a href="{{ route('statistical') }}?start_date=&end_date=&order=true&staff=true&customer=true&product=true" class="menu-link">
+                    <div data-i18n="Without menu">Biểu đồ chung</div>
                   </a>
                 </li>        
               </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/statistical-revenue')) ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('statistical.revenue') }}" class="menu-link">
+                    <div data-i18n="Without menu">Doanh thu</div>
+                  </a>
+                </li>        
+              </ul>
+
             </li>
 
             @endif

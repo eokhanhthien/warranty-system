@@ -16,26 +16,7 @@
     <div class="tab-filter">
             <button id="filterButton">Lọc theo &#9658;</button>      
             <input type="text" id="datePicker" name="selected_dates" class="form-control" placeholder="Thời gian"/>
-            <div class="form-group mt-3">
-                <div class="row">
-                    <div class="col-6">  
-                        <input type="checkbox" id="order" name="order" value="Bike">
-                        <label for="order"> Đơn hàng</label><br>
-                    </div>
-                    <div class="col-6">  
-                        <input type="checkbox" id="staff" name="staff" value="Bike">
-                        <label for="staff"> Nhân viên</label><br>
-                    </div>
-                    <div class="col-6">  
-                        <input type="checkbox" id="customer" name="customer" value="Bike">
-                        <label for="customer"> Khách hàng</label><br>
-                    </div>
-                    <div class="col-6">  
-                        <input type="checkbox" id="product" name="product" value="Bike">
-                        <label for="product"> Sản phẩm</label><br>
-                    </div>
-                </div>
-            </div>
+       
             <button id="bnt-datePicker" class="btn btn-primary mt-2">Lọc</button>
             <button id="bnt-date-default" class="btn btn-danger mt-2">Xóa lọc</button>
     </div>
@@ -100,36 +81,16 @@ $(document).ready(function () {
             start_date = end_date = dateParts[0];
         }
 
-        // Lấy giá trị của các checkbox
-        const orderChecked = document.getElementById('order').checked;
-        const staffChecked = document.getElementById('staff').checked;
-        const customerChecked = document.getElementById('customer').checked;
-        const productChecked = document.getElementById('product').checked;
 
         // Sử dụng các giá trị đã lấy để xây dựng URL mới
-        let newURL = "{{ route('statistical')}}?start_date=" + start_date + "&end_date=" + end_date;
-        if (orderChecked) {
-            newURL += "&order=true";
-        }
-        if (staffChecked) {
-            newURL += "&staff=true";
-        }
-        if (customerChecked) {
-            newURL += "&customer=true";
-        }
-        if (productChecked) {
-            newURL += "&product=true";
-        }
+        let newURL = "{{ route('statistical.revenue')}}?start_date=" + start_date + "&end_date=" + end_date;
 
         window.location.href = newURL;
     });
 
-    $('#bnt-date-default').on('click', function () {
-        const newURL = "{{ route('statistical')}}";
-         window.location.href = newURL;
-    });
-
+    // Rest của mã JavaScript của bạn
 });
+
 
 </script>
 
@@ -158,29 +119,13 @@ flatpickr('#datePicker', {
     filterButton.addEventListener('click', function() {
         tabFilter.classList.toggle('active'); // Toggle class "active" for tab-filter
     });
+
+    $('#bnt-date-default').on('click', function () {
+        const newURL = "{{ route('statistical.revenue')}}";
+         window.location.href = newURL;
+    });
 </script>
 
-<script>
-$(document).ready(function () {
-    // Lấy giá trị của các tham số trong URL
-    const urlParams = new URLSearchParams(window.location.search);
 
-    // Kiểm tra tham số 'order' trong URL và đặt checkbox 'Đơn hàng'
-    if (urlParams.has('order') && urlParams.get('order') === 'true') {
-        document.getElementById('order').checked = true;
-    }
-    if (urlParams.has('staff') && urlParams.get('staff') === 'true') {
-        document.getElementById('staff').checked = true;
-    }
-    if (urlParams.has('customer') && urlParams.get('customer') === 'true') {
-        document.getElementById('customer').checked = true;
-    }
-    if (urlParams.has('product') && urlParams.get('product') === 'true') {
-        document.getElementById('product').checked = true;
-    }
-    
-    // Tương tự, kiểm tra và đặt các checkbox khác tại đây
-});
-</script>
 
 @endsection
