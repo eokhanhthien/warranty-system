@@ -129,6 +129,8 @@ Route::prefix('admin')->namespace('Admin')->middleware((['auth', 'admin' ,'Check
         Route::resource('/warehouse', 'WareHouseController');
         Route::resource('/supplier', 'SupplierController');
         Route::get('/warehouse-list', 'WareHouseController@getListWareHouse')->name('warehouse.list');
+        Route::get('/export-inventory-list', 'WareHouseController@getListExport')->name('export.inventory.list');
+        Route::post('/export-inventory-store', 'WareHouseController@exportInventory')->name('export.inventory');
         Route::get('/receipt-detail/{id}', 'WareHouseController@getDetailReceipt')->name('receipt.detail');
         Route::get('/discounts', 'BusinessProductController@getDiscount')->name('product.discounts');
         Route::post('/create-discounts', 'BusinessProductController@createDiscount')->name('product.discounts.create');

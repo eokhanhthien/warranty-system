@@ -411,7 +411,7 @@
 
             </li>
 
-            <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) || str_starts_with(request()->url(), url('admin/supplier'))|| str_starts_with(request()->url(), url('admin/warehouse-list'))  ? 'menu-item open' : 'menu-item' }}">
+            <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) || str_starts_with(request()->url(), url('admin/supplier'))|| str_starts_with(request()->url(), url('admin/warehouse-list')) || str_starts_with(request()->url(), url('admin/export-inventory-list'))  ? 'menu-item open' : 'menu-item' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle" >
               <i class='menu-icon bx bxs-component'></i>
                 <div data-i18n="Layouts">Kho</div>
@@ -438,6 +438,14 @@
                 <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) && url()->current() == url('admin/warehouse') ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('warehouse.index') }}" class="menu-link">
                     <div data-i18n="Without menu">Tồn kho</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/export-inventory-list')) && url()->current() == url('admin/export-inventory-list') ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('export.inventory.list') }}" class="menu-link">
+                    <div data-i18n="Without menu">Xuất trả NCC</div>
                   </a>
                 </li>        
               </ul>

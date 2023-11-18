@@ -17,7 +17,7 @@ use App\DiscountCode;
 use App\Supplier;
 use App\Receipt;
 use App\ReceiptItem;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UploadDriverColtroller;
 
@@ -40,8 +40,18 @@ class WareHouseController extends Controller
         $sub_categories = ProductSubcategory::where('business_id', Auth::user()->business_id)->get();
         $product_types = ProductType::get();
         $suppliers =  Supplier::where('business_id', auth()->user()->business_id)->get();
-        $receipts =  Receipt::where('business_id', auth()->user()->business_id)->get();
+        $receipts =  Receipt::where('business_id', auth()->user()->business_id)->where('type',1)->get();
         return view('admin.warehouse.list_receipt',compact('receipts','products','categories','sub_categories','product_types','suppliers'));
+    }
+
+    public function getListExport(){
+        $products =  Product::where('business_id', auth()->user()->business_id)->get();
+        $categories = ProductCategory::where('business_id', Auth::user()->business_id)->get();
+        $sub_categories = ProductSubcategory::where('business_id', Auth::user()->business_id)->get();
+        $product_types = ProductType::get();
+        $suppliers =  Supplier::where('business_id', auth()->user()->business_id)->get();
+        $receipts =  Receipt::where('business_id', auth()->user()->business_id)->where('type',2)->get();
+        return view('admin.warehouse.list_export_receipt',compact('receipts','products','categories','sub_categories','product_types','suppliers'));
     }
 
     public function getDetailReceipt($id){
@@ -57,10 +67,12 @@ class WareHouseController extends Controller
 
     public function store(Request $request)
     {
+        DB::beginTransaction();
         $receipt = new Receipt();
         $receipt->supplier_id = $request->supplier_id;
         $receipt->purchase_date = $request->purchase_date;
         $receipt->status = $request->status;
+        $receipt->type = 1;
         $receipt->note = $request->note;
         $receipt->business_id = Auth::user()->business_id;
         $receipt->save();
@@ -81,8 +93,48 @@ class WareHouseController extends Controller
             }
             $product->save();
         }
+        DB::commit();
         return redirect()->back()->with('success', 'Tạo phiếu thành công.');
     }
+
+    public function exportInventory(Request $request)
+    {
+        DB::beginTransaction();
+        $receipt = new Receipt();
+        $receipt->supplier_id = $request->supplier_id;
+        $receipt->purchase_date = $request->purchase_date;
+        $receipt->status = "Đã xuất";
+        $receipt->type = 2;
+        $receipt->note = $request->note;
+        $receipt->business_id = Auth::user()->business_id;
+        $receipt->save();
+
+        // cập nhật số lượng sản phẩm
+        $products =  Product::where('business_id', auth()->user()->business_id)->get();
+
+        foreach($products as $index => $product){
+            foreach($request->selected_product_ids as $id){
+                if($product->id == $id){
+                    // Kiểm tra số lượng tồn kho trước khi xuất
+                    if ($product->stock < $request->quantity[$index]) {
+                        return redirect()->back()->with('error', 'Số lượng tồn kho không đủ để xuất.');
+                    }
+
+                    // Trừ số lượng tồn kho khi xuất kho
+                    $product->stock -= $request->quantity[$index];
+                    $receipt_item = new ReceiptItem();
+                    $receipt_item->receipt_id = $receipt->id;
+                    $receipt_item->product_id = $product->id;
+                    $receipt_item->quantity = $request->quantity[$index];
+                    $receipt_item->save();
+                }
+            }
+            $product->save();
+        }
+        DB::commit();
+        return redirect()->back()->with('success', 'Xuất kho thành công.');
+    }
+
 
     public function show(BusinessService $businessService)
     {
