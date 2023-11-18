@@ -20,6 +20,10 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    public function staffIndex(){
+        return view('staff.auth.login');
+    }
+
     public function register(){
         return view('auth.register');
     }
@@ -112,4 +116,34 @@ class AuthController extends Controller
             }
 
         }
+
+        public function authStaffLogin(Request $request){
+            $credentials = $request->only('email', 'password');
+            try {              
+                if (Auth::guard('staff')->attempt($credentials)) {
+                   // Kiểm tra xem đã đăng nhập chưa 
+                    if (Auth::guard('staff')->check()) {
+
+                        // Cập nhật last_login cho staff
+                        Auth::guard('staff')->user()->update(['last_login' => Carbon::now()]);
+                    
+                        // Kiểm tra role
+                        if (Auth::guard('staff')) {
+                            return redirect()->route('staff.dashboard');   
+                        } 
+                    }
+                } else {
+                    return redirect()->back()->with('error', 'Sai thông tin đăng nhập');
+                }
+            } catch (ValidationException $e) {
+                return redirect()->back()->withErrors(['message' => 'Email hoặc mật khẩu không chính xác'])->withInput();
+            }
+            }
+        
+            public function logoutStaff() 
+            {
+            Auth::guard('staff')->logout();
+
+            return redirect()->route('staff.login');
+            }
 }

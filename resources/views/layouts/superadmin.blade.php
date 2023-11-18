@@ -66,6 +66,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
   <body>
+    {{-- <style>
+      .modal{
+          backdrop-filter: blur(1px) !important; 
+      }
+    </style> --}}
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar" id="top-page">
       <div class="layout-container">
@@ -412,13 +417,6 @@
                 <div data-i18n="Layouts">Kho</div>
               </a>
 
-              <ul class="menu-sub">
-                <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) && url()->current() == url('admin/warehouse') ? 'menu-item active' : 'menu-item' }}">
-                  <a href="{{ route('warehouse.index') }}" class="menu-link">
-                    <div data-i18n="Without menu">Nhập kho</div>
-                  </a>
-                </li>        
-              </ul>
 
               <ul class="menu-sub">
                 <li class="{{ str_starts_with(request()->url(), url('admin/supplier')) ? 'menu-item active' : 'menu-item' }}">
@@ -432,6 +430,14 @@
                 <li class="{{ str_starts_with(request()->url(), url('admin/warehouse-list')) && url()->current() == url('admin/warehouse-list') ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('warehouse.list') }}" class="menu-link">
                     <div data-i18n="Without menu">Danh sách nhập hàng</div>
+                  </a>
+                </li>        
+              </ul>
+
+              <ul class="menu-sub">
+                <li class="{{ str_starts_with(request()->url(), url('admin/warehouse')) && url()->current() == url('admin/warehouse') ? 'menu-item active' : 'menu-item' }}">
+                  <a href="{{ route('warehouse.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Tồn kho</div>
                   </a>
                 </li>        
               </ul>
@@ -563,7 +569,7 @@
               </a>
 
               <ul class="menu-sub">
-                <li class="{{ str_starts_with(request()->url(), url('admin/statistical')) ? 'menu-item active' : 'menu-item' }}">
+                <li class="{{ str_starts_with(request()->url(), url('admin/statistical')) && url()->current() == url('admin/statistical') ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('statistical') }}?start_date=&end_date=&order=true&staff=true&customer=true&product=true" class="menu-link">
                     <div data-i18n="Without menu">Biểu đồ chung</div>
                   </a>
@@ -571,7 +577,7 @@
               </ul>
 
               <ul class="menu-sub">
-                <li class="{{ str_starts_with(request()->url(), url('admin/statistical-revenue')) ? 'menu-item active' : 'menu-item' }}">
+                <li class="{{ str_starts_with(request()->url(), url('admin/statistical-revenue')) && url()->current() == url('admin/statistical-revenue') ? 'menu-item active' : 'menu-item' }}">
                   <a href="{{ route('statistical.revenue') }}" class="menu-link">
                     <div data-i18n="Without menu">Doanh thu</div>
                   </a>

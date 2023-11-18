@@ -12,6 +12,7 @@ use App\ProductCategory;
 use App\ProductSubcategory;
 use App\Variant;
 use App\Customer;
+use App\ProductType;
 use App\Http\Controllers\SelectOptionsController;
 use Illuminate\Support\Facades\Auth;
 
@@ -98,8 +99,11 @@ public function detail(Request $request, $domain, $category , $id){
     $product =  Product::find($id);
     $product_detail =  ProductDetail::where('product_id', $id)->first();
     $variant = Variant::where('product_id' , $product->id)->get();
-
-    return view('view-seller.' .$category. '/' .$request->display_slug.  '.detail', compact('business','product','product_detail','variant'));
+    $product_attribute = json_decode($product_detail->attributes, true);
+    $product_type = ProductType::find($product->attribute_id); 
+    $attributes = !empty($product_type) ? json_decode($product_type->attributes, true) : '';
+    // dd($attributes);
+    return view('view-seller.' .$category. '/' .$request->display_slug.  '.detail', compact('business','product','product_detail','variant','product_attribute','attributes'));
 }
 
 public function Service(Request $request, $domain, $category ){

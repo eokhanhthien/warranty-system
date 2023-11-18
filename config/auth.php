@@ -50,6 +50,10 @@ return [
             'driver' => 'session',
             'provider' => 'customers',
         ],
+        'staff' => [
+            'driver' => 'session',
+            'provider' => 'staffs'
+          ],
     ],
 
     /*
@@ -79,6 +83,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Customer::class, // Thay bằng model của khách hàng
         ],
+        'staffs' => [
+            'driver' => 'eloquent',
+            'model' => App\Staff::class
+          ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

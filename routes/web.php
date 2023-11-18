@@ -24,6 +24,37 @@ Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 Route::get('/auth/google', 'Auth\AuthController@redirectToGoogle');
 Route::get('/auth/google/callback', 'Auth\AuthController@handleGoogleCallback');
 
+// Login cho nhân viên
+Route::get('/login-staff', 'Auth\AuthController@staffIndex')->name('staff.login')->middleware('guest:staff');
+Route::post('/auth-staff-login', 'Auth\AuthController@authStaffLogin')->name('auth.staff.login');
+Route::get('/logout-staff', 'Auth\AuthController@logoutStaff')->name('staff.logout');
+
+Route::prefix('staff')->namespace('staff')->group(function () {
+    Route::resource('staff-hrm', 'HrmController');
+
+    Route::resource('staff-order', 'OrderController');
+    Route::get('/staff/order-invoice/{id}', 'PDFInvoiceController@orderInvoice')->name('staff.order.invoice');
+
+    Route::get('/staff/preparing-order', 'OrderController@preparingOrder')->name('staff.order.preparing');
+    Route::get('/staff/pending-order', 'OrderController@pendingOrder')->name('staff.order.pending');
+    Route::get('/staff/delivering-order', 'OrderController@deliveringOrder')->name('staff.order.delivering');
+    Route::get('/staff/delivered-order', 'OrderController@deliveredOrder')->name('staff.order.delivered');
+    Route::get('/staff/denied-order', 'OrderController@getDeniedOrder')->name('staff.order.denied');
+    Route::get('/staff/return-order', 'OrderController@getReturnOrder')->name('staff.order.return');
+    Route::get('/staff/cancel-order', 'OrderController@getCancelOrder')->name('staff.order.cancel');
+
+
+    Route::get('/staff/confirm-order/{id}', 'OrderController@confirmOrder')->name('staff.confirm.order');
+    Route::get('/staff/denied-order/{id}', 'OrderController@deniedOrder')->name('staff.denied.order');
+    Route::get('/staff/done-preparing-order/{id}', 'OrderController@donePreparingOrder')->name('staff.done.preparing.order');
+    Route::get('/staff/done-delivered-order/{id}', 'OrderController@doneDeliveredOrder')->name('staff.done.delivered.order');
+    Route::get('/staff/cancel-order/{id}', 'OrderController@cancelOrder')->name('staff.cancel.order');
+    Route::get('/staff/detail-order/{id}', 'OrderController@detailOrder')->name('staff.detail.order');
+    Route::get('/staff/done-pay-order/{id}', 'OrderController@donePay')->name('staff.done.pay.order');
+    Route::get('/staff/return-order/{id}', 'OrderController@returnOrder')->name('staff.return.order');
+});
+
+
 // Gửi mail
 Route::get('/sendverifyemail/{email}','MailController@verify_email')->name('verify.email');
 Route::post('/sendverifyemail','MailController@confirm_verify_email')->name('confirm.verify.email');
@@ -158,6 +189,7 @@ Route::post('/business-setting-add', 'BusinessSettingController@businessSettingA
 //     // Các Route khác cho User
 // });
 
+Route::get('staff/dashboard', function () { return view('staff.dashboard'); })->name('staff.dashboard')->middleware('no_auth_staff');; 
 
 // Route dành cho khách hàng sỡ hữu doanh nghiệp
 // Trang chủ website

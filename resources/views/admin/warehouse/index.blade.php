@@ -18,9 +18,7 @@
 
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="text-right">
-          <button class="btn btn-primary m-3" data-toggle="modal" data-target="#myModal"><i class='bx bx-plus'></i> Tạo phiếu nhập</button>
-    </div>
+
     <div class="card">
 
                 <h5 class="card-header">Tất cả sản phẩm</h5>
@@ -71,91 +69,7 @@
                   </table>
                 </div>
 
-            <!-- Modal -->
-            <form action="{{ route('warehouse.store') }}" method="POST" id="" enctype="multipart/form-data">
-              @csrf
-              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog modal-xl" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 class="modal-title" id="myModalLabel">Tạo phiếu nhập kho</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body"> 
-                    <div class="nav-align-top mb-4"> 
-                        <div class="tab-pane fade active show" id="navs-justified-home" role="tabpanel">
-                          <div class="form-group">
-                          <label for="products"><h6 class="card-title text-primary">Nhà cung cấp </h6></label>
-                          <select class="form-control" id="" name="supplier_id" required>
-                              <option value="">Chọn danh nhà cung cấp</option>
-                              @foreach($suppliers as $supplier)
-                                  <option value="{{$supplier->id}}"  >{{$supplier->name}}</option>
-                              @endforeach
-                          </select>
-                          </div>
 
-                          <div class="form-group">
-                          <label for="products"><h6 class="card-title text-primary">Ngày mua </h6></label>
-                            <input class="form-control" type="date" name="purchase_date" required>
-                          </div>
-
-                          <div class="form-group">
-                          <label for="products"><h6 class="card-title text-primary">Trạng thái nhập hàng </h6></label>
-                          <select class="form-control" id="" name="status" required>
-                              <option value="">Chọn trạng thái</option>
-                               <option value="received"  >Đã nhận</option>
-                               <option value="processing"  >Đang xử lý</option>
-                               <option value="ordered"  >Đã đặt hàng</option>      
-                          </select>
-                          </div>
-
-
-                            <div class="form-group">
-                                <label for="products"><h6 class="card-title text-primary">Thêm sản phẩm </h6></label>
-                                    <select id="products" class="form-control">
-                                        <option value="">Chọn sản phẩm</option>
-                                        <!-- Dùng Blade để hiển thị các tùy chọn cho categories -->
-                                        @foreach ($products as $product)
-                                            <option value="{{ $product->id }}">
-                                                {{ $product->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            <!-- Danh sách sản phẩm đã chọn -->
-                            <div id="selectedProducts">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Tên</th>
-                                        <th>Giá</th>
-                                        <th>Ảnh</th>
-                                        <th>Số lượng</th>
-                                        <th>Xóa</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Các sản phẩm đã chọn sẽ được hiển thị ở đây -->
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="form-group mt-3">
-                            <label for="stock"><h6 class="card-title text-primary" >Ghi chú </h6> </label> 
-                            <textarea class="form-control" placeholder="Nhập ghi chú" name="note" required></textarea>
-                        </div> 
-
-                        </div> 
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                      <button type="submit" class="btn btn-primary" id="submit-btn">Lưu</button>
-                    </div>
-                    </div>
-                  </div>
-                </div> 
-              </div>
-            </form>
     </div>
   </div>
 </div>

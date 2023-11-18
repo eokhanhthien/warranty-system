@@ -93,7 +93,14 @@
                   </a>
                   </button>
                 </div>
-         
+                <div class="mb-3">
+                  <button class="btn btn-light d-grid w-100" type="submit">
+                  <a href="{{ route('staff.login') }}" class="custom-google-button">
+                    <span class="icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    Đăng nhập cho nhân viên
+                  </a>
+                  </button>
+                </div>
 
 
               <p class="text-center">
@@ -102,6 +109,7 @@
                   <span>Tạo tài khoản</span>
                 </a>
               </p>
+              
             </div>
           </div>
           <!-- /Register -->

@@ -19,7 +19,7 @@
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       max-height: 400px;
     }
 
@@ -61,12 +61,43 @@
       width: 100% !important;
       object-fit: contain;
     }
+    .table {
+      display: flex;
+      flex-direction: column;
+      width: 100%; /* Điều chỉnh độ rộng theo nhu cầu */
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .column {
+      flex: 1;
+  
+      text-align: center;
+      line-height: 40px; /* Căn giữa văn bản theo chiều dọc */
+    }
+
+    .white {
+      text-align: left;
+      background-color: #fff; /* Màu trắng */
+    }
+
+    .gray {
+      text-align: left;
+      background-color: #f3f3f3; /* Màu xám */
+    }
+    .sticky-content{
+      position: sticky;
+      top: 140px;
+    }
   </style>
 
 <div class="container-xxl py-5">
         <div class="container">     
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                 <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
                   <div class="swiper-wrapper">
                   @php
@@ -91,22 +122,22 @@
                     @if(!empty($decodedImages))
                       @foreach($decodedImages as $image)
                         <div class="swiper-slide">
-                          <img class="" src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="" style="width: 100%">
+                          <img class="" src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="" style="width: 100%,">
                         </div>
                       @endforeach
                     @endif
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-8">
-                  <h3>{{$product->name}}</h3>
+                <div class="col-lg-6">
+                  <h4>{{$product->name}}</h4>
                   <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                  <h3 class="text-primary">{{ number_format($product->price)}} đ @if(!empty($variant)) <span> (Option mặc định)</span> @endif</h3>
-                  <div class="row">
+                  <h5 class="text-primary">{{ number_format($product->price)}} đ @if(!empty($variant)) <span> (Option mặc định)</span> @endif</h5>
+                  <div class="row" style="font-size: 14px;">
                       @if(!empty($variant))
                               @foreach ($variant as $index => $variantItem)
-                              <div class="col-3 col-sm-3 col-3 mt-2">
+                              <div class="col-sm-3 col-6 mt-2">
                                       <div class="card" onclick="handleCardClick(this)">
                                           <div class="card-body">
                                               <input type="checkbox" name="variant_checkbox" value="{{ $variantItem->id }}">
@@ -125,10 +156,32 @@
               </div>
             </div>
 
-            <div class="row content-detail">
-            @if(isset($product_detail->content))
-                {!! $product_detail->content !!}
-            @endif
+            <div class="row content-detail ">
+              <div class="col col-md-8 col-12">
+                @if(isset($product_detail->content))
+                    {!! $product_detail->content !!}
+                @endif
+              </div>
+              <div class="col col-md-4 col-12">
+              <div class="table text-left sticky-content">
+      
+                  @if (!empty($product_attribute) && count($product_attribute) > 0)
+                      @foreach(array_keys($product_attribute) as $index => $key)
+                          <div class="row">
+                              <div class="column {{ $index % 2 == 0 ? 'gray' : 'white' }}">
+                              @foreach ($attributes as $attribute)
+                                  @if ($attribute['req_name'] === $key)
+                                      {{ $attribute['title'] }}
+                                  @endif
+                              @endforeach
+                              </div>
+                              <div class="column {{ $index % 2 == 0 ? 'gray' : 'white' }}">{{ $product_attribute[$key] }}</div>
+                          </div>
+                      @endforeach
+                  @endif
+              </div>
+            </div>
+
             </div>
         </div>
 </div>

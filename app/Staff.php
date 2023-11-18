@@ -8,6 +8,11 @@ class Staff extends Model implements Authenticatable
 {
     protected $table = 'staffs';
 
+    protected $fillable = [
+        'name', 
+        'email',
+        'last_login', 
+      ];
     public function getAuthIdentifierName() {
         return 'id'; // Tên cột để xác định định danh người dùng
     }
