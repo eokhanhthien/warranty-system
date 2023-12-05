@@ -201,6 +201,7 @@ Route::prefix('artisq')->namespace('Seller')->group(function () {
         Route::get('{domain}/{category_slug}/all-product', 'SellerController@all_product')->name('seller.business.all.product');
         Route::get('{domain}/{category_slug}/detail-product/{id}', 'SellerController@detail')->name('seller.business.detail.product');
         Route::get('{domain}/{category_slug}/service', 'SellerController@Service')->name('seller.business.service');
+        Route::get('{domain}/{category_slug}/request-repair', 'SellerController@requestRepair')->name('seller.business.request.repair');
 
         // check đăng nhập
         Route::middleware(['auth_customer'])->group(function () {

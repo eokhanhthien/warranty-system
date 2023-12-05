@@ -26,7 +26,7 @@
                     <div id="sidebar">
                     <div class="filter-options">
                         <label for="sort_by">Sắp xếp theo:</label>
-                        <select class="custom-select" id="sort_by" name="sort_by" style="padding: 2px; outline: none;">
+                        <select class="custom-select form-control" id="sort_by" name="sort_by" style="padding: 2px; outline: none;">
                             <option value="date_desc">Mới nhất</option>
                             <option value="date_asc">Cũ nhất</option>
                             <option value="price_asc">Giá tăng dần</option>

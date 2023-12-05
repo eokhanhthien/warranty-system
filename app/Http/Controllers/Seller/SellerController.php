@@ -157,4 +157,10 @@ public function postProfile(Request $request, $domain, $category){
     return redirect()->back()->with('success', 'Cập nhật thông tin thành công');
 }
 
+public function requestRepair(Request $request, $domain, $category){
+    $business = $request->business;
+    $business_service =  BusinessService::where('business_id', $business->id)->get();
+
+    return view('view-seller.' .$category. '/' .$request->display_slug.  '.request_repair',compact('business','business_service'));
+}
 }

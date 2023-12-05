@@ -30,7 +30,7 @@
                       <tr>
                         <th>ID</th>
                         <th>Nhà cung cấp</th>
-                        <th>Ngày mua</th>
+                        <th>Ngày xuất</th>
                         <th>Trạng thái</th>
                         <th>Ghi chú</th>
                         <th>Action</th>
@@ -88,7 +88,7 @@
                               </div>
     
                               <div class="form-group">
-                              <label for="products"><h6 class="card-title text-primary">Ngày mua </h6></label>
+                              <label for="products"><h6 class="card-title text-primary">Ngày xuất </h6></label>
                                 <input class="form-control" type="date" name="purchase_date" required>
                               </div>
     

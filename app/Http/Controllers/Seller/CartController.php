@@ -209,7 +209,7 @@ class CartController extends Controller
         $business = $request->business;
         $order = Order::find($id);
         $items = OrderItem::where('order_id',$id )->get();
-        $gateway =  TransferGateway::where('business_id', Auth::user()->business_id)->first();
+        $gateway =  TransferGateway::where('business_id', $business->id)->first();
         return view('view-seller.' .$category. '/' .$request->display_slug.  '.order_detail',compact('business','order','items','gateway'));
     }
 }

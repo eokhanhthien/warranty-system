@@ -24,7 +24,7 @@
                                             @endif
                                         @endforeach
                                     @endif
-                                    <a href="" class="btn bg-white text-primary w-100 mt-2">Xem chi tiết<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
+                                    <a href="tel:{{$business->phone_number}}" class="btn bg-white text-primary w-100 mt-2">Liên hệ ngay<i class="fa fa-arrow-right text-secondary ms-2"></i></a>
                                 </div>
                                 </div>
                         @endforeach
